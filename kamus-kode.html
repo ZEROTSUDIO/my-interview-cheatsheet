@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamus Kode — Glosarium Istilah Coding Interview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#161B26;
+    --surface:#1E2532;
+    --surface-2:#242C3B;
+    --border:#313A4D;
+    --text:#E7E9F0;
+    --text-dim:#98A0B3;
+    --amber:#E3A857;
+    --mint:#6FC9B0;
+    --violet:#93A6E8;
+    --rose:#D98CA0;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'Plus Jakarta Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none !important; transition:none !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--amber); color:#161B26;}
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(22,27,38,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+    padding:16px 24px;
+  }
+  .topbar-inner{
+    max-width:1040px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    margin-right:auto;
+  }
+  .brand-mark{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.02em;
+  }
+  .brand-mark span{color:var(--amber);}
+  .brand-sub{
+    font-size:0.78rem;
+    color:var(--text-dim);
+  }
+  .search-wrap{
+    position:relative;
+    width:260px;
+    max-width:100%;
+  }
+  .search-wrap input{
+    width:100%;
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:0.9rem;
+    padding:9px 12px 9px 34px;
+    border-radius:8px;
+    outline:none;
+  }
+  .search-wrap input:focus{
+    border-color:var(--amber);
+    box-shadow:0 0 0 3px rgba(227,168,87,0.15);
+  }
+  .search-wrap svg{
+    position:absolute;
+    left:11px;
+    top:50%;
+    transform:translateY(-50%);
+    width:15px;
+    height:15px;
+    color:var(--text-dim);
+    pointer-events:none;
+  }
+  .search-count{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+
+  /* ---------- Category nav ---------- */
+  .catnav{
+    position:sticky;
+    top:65px;
+    z-index:19;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:10px 24px;
+    overflow-x:auto;
+  }
+  .catnav-inner{
+    max-width:1040px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+  }
+  .pill{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    padding:6px 12px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:border-color 0.15s, color 0.15s;
+  }
+  .pill:hover{color:var(--text); border-color:var(--text-dim);}
+  .pill:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+  .pill-dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:1040px;
+    margin:0 auto;
+    padding:40px 24px 8px;
+  }
+  .hero h1{
+    font-family:var(--mono);
+    font-size:1.5rem;
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .hero p{
+    color:var(--text-dim);
+    max-width:640px;
+    margin:0;
+    font-size:0.95rem;
+  }
+
+  /* ---------- Sections ---------- */
+  main{max-width:1040px; margin:0 auto; padding:8px 24px 80px;}
+  section.category{margin-top:48px; scroll-margin-top:120px;}
+  .cat-heading{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .cat-heading h2{
+    font-family:var(--mono);
+    font-size:1.05rem;
+    margin:0;
+    font-weight:600;
+  }
+  .cat-heading .count{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--text-dim);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+    gap:14px;
+  }
+
+  /* ---------- Term card ---------- */
+  .term-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent, var(--amber));
+    border-radius:10px;
+    padding:16px 18px;
+  }
+  .term-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .term-en{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:1.02rem;
+  }
+  .term-tag{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    color:var(--accent, var(--amber));
+    border:1px solid var(--accent, var(--amber));
+    border-radius:5px;
+    padding:2px 6px;
+    white-space:nowrap;
+    opacity:0.9;
+  }
+  .term-id{
+    font-weight:600;
+    color:var(--mint);
+    font-size:0.92rem;
+    margin-bottom:8px;
+  }
+  .term-card[data-cat="frasa"] .term-id{color:var(--rose);}
+  .term-card[data-cat="struktur"] .term-id{color:var(--mint);}
+  .term-card[data-cat="algoritma"] .term-id{color:var(--violet);}
+  .term-card[data-cat="umum"] .term-id{color:var(--amber);}
+
+  .term-desc{
+    font-size:0.87rem;
+    color:var(--text);
+    opacity:0.9;
+    margin-bottom:12px;
+  }
+
+  .example{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:7px;
+    padding:10px 12px;
+  }
+  .example-label{
+    font-family:var(--mono);
+    font-size:0.65rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin-bottom:6px;
+  }
+  .example-context{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--text);
+    margin-bottom:5px;
+    word-break:break-word;
+  }
+  .example-explain{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--mint);
+    font-style:italic;
+    word-break:break-word;
+  }
+  .term-card[data-cat="frasa"] .example-explain{color:var(--rose);}
+
+  .empty-state{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-dim);
+    font-family:var(--mono);
+    font-size:0.9rem;
+  }
+
+  footer{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 24px 60px;
+    color:var(--text-dim);
+    font-size:0.82rem;
+  }
+
+  @media (max-width:600px){
+    .topbar-inner{gap:12px;}
+    .search-wrap{width:100%;}
+    .search-count{display:none;}
+    .hero h1{font-size:1.25rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">kamus<span>_</span>kode</div>
+      <div class="brand-sub">glosarium EN–ID buat live coding interview</div>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="cari istilah... misal: greedy" autocomplete="off">
+    </div>
+    <div class="search-count" id="searchCount"></div>
+  </div>
+  <nav class="catnav" aria-label="Kategori">
+    <div class="catnav-inner" id="catNav"></div>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Kamus buat kepala yang gampang blank pas baca soal bahasa Inggris</h1>
+  <p>Tiap istilah dikasih penjelasan detail plus contoh konkret — biar pas ketemu kata ini lagi di soal, kamu udah nggak perlu translate dulu di kepala, tinggal jalan.</p>
+</div>
+
+<main id="mainContent"></main>
+
+<div class="empty-state" id="emptyState">tidak ada istilah yang cocok dengan pencarian itu.</div>
+
+<footer>dibuat buat latihan — cetak, bookmark, atau buka pas ngerjain soal LeetCode.</footer>
+
+<script>
+const DATA = [
+  {
+    id:'umum', title:'Instruksi Umum di Soal', accent:'var(--amber)',
+    terms:[
+      {en:'Given', tag:'pembuka soal', id:'Diberikan', desc:'Kata pembuka paling sering muncul di soal. Semua yang disebut setelah kata ini adalah fakta atau input yang sudah pasti benar dan wajib kamu pakai apa adanya, bukan sesuatu yang perlu dipertanyakan atau dibuktikan.', ex_context:'Given an array of integers nums, return the two indices...', ex_explain:'Diberikan array bilangan bulat nums, kembalikan dua indeksnya...'},
+      {en:'Return', tag:'kata kerja', id:'Mengembalikan (nilai)', desc:'Nilai yang harus keluar dari fungsimu lewat statement return, bukan lewat print atau console.log. Ini nilai yang dicek sistem untuk menentukan jawabanmu benar atau salah.', ex_context:'return the sum of the two numbers', ex_explain:'kembalikan (sebagai output fungsi) hasil penjumlahan dua angka itu'},
+      {en:'Input / Output', tag:'istilah', id:'Masukan / Keluaran', desc:'Input adalah data yang diterima fungsi lewat parameter. Output adalah data yang dihasilkan atau dikembalikan. Selalu cek tipe data dan bentuk keduanya sebelum mulai menulis kode.', ex_context:'Input: nums = [2,7,11,15], target = 9. Output: [0,1]', ex_explain:'array nums dan angka target itu masukan; array [0,1] itu keluaran yang diharapkan'},
+      {en:'Implement / Write a function', tag:'instruksi', id:'Buat / tulis sebuah fungsi', desc:'Perintah langsung untuk mulai coding. Biasanya kamu sudah dikasih nama fungsi dan parameternya (disebut signature) — jangan diubah namanya, karena sistem penilaian mengecek nama itu persis.', ex_context:'Implement a function twoSum(nums, target)', ex_explain:'buat fungsi bernama twoSum yang menerima nums dan target, jangan diganti jadi nama lain'},
+      {en:'Determine whether / Check if', tag:'instruksi', id:'Tentukan apakah / Cek apakah', desc:'Tandanya jawaban akhir yang diminta berupa boolean, yaitu true atau false, bukan angka atau array. Sering bikin orang salah fokus mencari "nilai"-nya padahal yang diminta cuma jawaban ya atau tidak.', ex_context:'Determine whether the string is a palindrome', ex_explain:'tentukan apakah string itu palindrom — jawabannya cuma true atau false'},
+      {en:'You may assume / Assume that', tag:'batasan', id:'Kamu boleh anggap', desc:'Kalimat yang membebaskan kamu dari mengecek kondisi tertentu. Kalau soal menyebut ini, jangan buang waktu menulis validasi untuk kondisi yang sudah dijamin itu.', ex_context:'You may assume that each input has exactly one solution', ex_explain:'kamu boleh anggap selalu ada satu jawaban — tidak perlu menangani kasus "tidak ada solusi"'},
+      {en:'Constraints', tag:'batasan', id:'Batasan', desc:'Bagian paling penting yang sering terlewat karena grogi. Isinya ukuran maksimum input dan rentang nilai — ini yang memberitahu kamu seberapa efisien solusi yang dibutuhkan.', ex_context:'1 <= nums.length <= 10^5', ex_explain:'array bisa sampai 100.000 elemen, jadi solusi dengan dua loop bersarang kemungkinan besar akan terlalu lambat'},
+      {en:'Edge case', tag:'istilah', id:'Kasus khusus/ekstrem', desc:'Input yang tampak "aneh" tapi tetap valid: array kosong, satu elemen saja, semua elemen sama, angka negatif, atau nol. Interviewer sering sengaja menunggu kamu menyebut ini sendiri sebelum mulai coding.', ex_context:'what if the array is empty?', ex_explain:'bagaimana kalau array-nya kosong? — ini pertanyaan edge case yang wajib kamu pikirkan sendiri'},
+      {en:'In-place', tag:'teknik', id:'Diubah langsung di tempat', desc:'Memodifikasi data asli tanpa membuat struktur data baru yang memakan memori tambahan. Biasanya diminta secara eksplisit di soal array atau sorting.', ex_context:'reverse the array in-place', ex_explain:'balik urutan array itu langsung di array yang sama, jangan bikin array baru untuk menampung hasilnya'},
+      {en:'Mutate', tag:'kata kerja', id:'Mengubah isi (data asli)', desc:'Mirip dengan in-place — mengubah isi variabel atau objek aslinya secara langsung, bukan membuat salinan baru. Penting dibedakan dari "kembalikan array baru".', ex_context:'the function should mutate the input array', ex_explain:'fungsi ini harus langsung mengubah isi array input-nya, bukan membuat array baru lalu di-return'},
+      {en:'Traverse / Iterate', tag:'kata kerja', id:'Menjelajah / Mengulang', desc:'Melewati setiap elemen satu per satu, biasanya menggunakan loop (for/while) atau rekursi. "Traverse the tree" berarti kunjungi tiap node yang ada di pohon itu.', ex_context:'traverse the linked list until you reach the end', ex_explain:'jelajahi setiap node di linked list satu per satu sampai ketemu node terakhir'},
+      {en:'Recursive / Base case', tag:'konsep', id:'Rekursif / Kondisi dasar', desc:'Recursive berarti fungsi memanggil dirinya sendiri untuk menyelesaikan versi lebih kecil dari masalah yang sama. Base case adalah kondisi berhenti — tanpa ini, rekursi akan berjalan tanpa henti dan program crash.', ex_context:'if (n === 0) return 1; // base case', ex_explain:'kalau n sudah 0, langsung berhenti dan kembalikan 1 — ini yang mencegah fungsi memanggil dirinya sendiri selamanya'},
+      {en:'Optimal / Optimize', tag:'kata sifat', id:'Paling efisien / Mengoptimalkan', desc:'Solusi tercepat atau paling hemat memori yang memungkinkan untuk masalah itu. Kalau diminta "can you optimize this", artinya solusi kamu sekarang masih bisa dibuat lebih cepat.', ex_context:'can you find a more optimal solution?', ex_explain:'bisa tidak mencari solusi yang lebih efisien dari yang tadi?'},
+      {en:'Brute force', tag:'teknik', id:'Cara paling sederhana', desc:'Solusi paling mudah dipikirkan tapi biasanya paling lambat, karena mengecek semua kemungkinan satu per satu. Wajar dijadikan langkah pertama saat interview sebagai jawaban aman sebelum dioptimasi.', ex_context:'start with a brute force solution first', ex_explain:'mulai dulu pakai cara paling sederhana, nanti dioptimasi belakangan'},
+      {en:'Time Limit Exceeded (TLE)', tag:'istilah', id:'Waktu eksekusi melebihi batas', desc:'Muncul kalau solusi kamu sebenarnya benar tapi terlalu lambat untuk input yang besar. Ini sinyal untuk memikirkan ulang kompleksitas waktu, bukan logikanya.', ex_context:'your solution got TLE on large inputs', ex_explain:'solusinya benar tapi kelamaan jalannya kalau input-nya besar — algoritmanya perlu dioptimasi'},
+      {en:'Duplicate / Distinct / Unique', tag:'kata sifat', id:'Kembar / Berbeda semua', desc:'Duplicate berarti ada nilai yang sama muncul lebih dari sekali. Distinct atau unique adalah kebalikannya — semua nilai berbeda, tidak ada yang kembar.', ex_context:'return only the distinct values', ex_explain:'kembalikan hanya nilai-nilai yang unik, buang yang kembar atau duplikat'},
+      {en:'Sorted (Ascending/Descending)', tag:'kata sifat', id:'Terurut (Menaik/Menurun)', desc:'Kalau soal bilang input sudah sorted, itu petunjuk besar untuk memakai teknik tertentu, misalnya binary search atau two pointers, yang hanya bisa jalan kalau datanya sudah terurut.', ex_context:'given a sorted array in ascending order', ex_explain:'array-nya sudah terurut dari kecil ke besar — ini isyarat untuk memakai binary search'},
+      {en:'Contiguous vs Subsequence', tag:'konsep', id:'Berurutan tanpa jeda vs Boleh loncat', desc:'Contiguous (substring/subarray) berarti bagian yang harus menempel berurutan, tidak boleh ada yang dilompati. Subsequence berarti urutannya tetap sama tapi boleh ada elemen yang dilewati.', ex_context:'[1,3,5] is a subsequence of [1,2,3,4,5] but not a substring', ex_explain:'[1,3,5] itu subsequence karena urutannya sama walau loncat-loncat, tapi bukan substring karena tidak menempel berurutan'},
+      {en:'Out of bounds', tag:'istilah', id:'Melewati batas indeks', desc:'Error klasik saat mengakses indeks array yang tidak ada, misalnya arr[10] padahal array-nya cuma punya 5 elemen. Selalu cek batas indeks sebelum atau sesudah loop, terutama saat menggeser i+1 atau i-1.', ex_context:'accessing arr[i+1] when i is the last index', ex_explain:'mengakses arr[i+1] saat i sudah di elemen terakhir — ini bisa memicu error out of bounds'},
+    ]
+  },
+  {
+    id:'struktur', title:'Struktur Data', accent:'var(--mint)',
+    terms:[
+      {en:'Array', tag:'struktur data', id:'Larik / Array', desc:'Kumpulan data sejenis yang disimpan berurutan di memori, diakses lewat indeks yang selalu mulai dari 0. Struktur paling dasar dan paling sering dipakai di soal interview.', ex_context:'const arr = [10, 20, 30]; arr[0]', ex_explain:'arr[0] mengambil elemen pertama, yaitu 10 — indeks array selalu mulai dari 0, bukan 1'},
+      {en:'Linked list', tag:'struktur data', id:'List berantai', desc:'Kumpulan node yang masing-masing menyimpan data dan pointer ke node berikutnya. Berbeda dari array, elemennya tidak menempel di memori sehingga tidak bisa langsung diakses lewat indeks — harus ditelusuri satu per satu dari awal.', ex_context:'node.next.next.value', ex_explain:'untuk sampai ke elemen ketiga harus lewat .next dua kali — tidak ada cara lompat langsung seperti array[2]'},
+      {en:'Stack', tag:'struktur data', id:'Tumpukan', desc:'Data masuk dan keluar dari ujung yang sama, disebut LIFO (Last In, First Out). Bayangkan tumpukan piring — yang terakhir ditaruh adalah yang pertama diambil.', ex_context:'stack.push(1); stack.push(2); stack.pop()', ex_explain:'pop() mengambil 2 duluan karena itu yang terakhir masuk, bukan 1'},
+      {en:'Queue', tag:'struktur data', id:'Antrean', desc:'Kebalikan dari stack — data masuk dari satu ujung dan keluar dari ujung lain, disebut FIFO (First In, First Out), seperti antre di kasir. Sering dipakai untuk BFS.', ex_context:'queue.enqueue(1); queue.enqueue(2); queue.dequeue()', ex_explain:'dequeue() mengambil 1 duluan karena itu yang pertama masuk, sesuai urutan antre'},
+      {en:'Hash map / Dictionary', tag:'struktur data', id:'Peta hash / Kamus', desc:'Menyimpan data sebagai pasangan key-value, dan pencarian berdasarkan key itu sangat cepat, rata-rata O(1). Struktur ini yang paling sering mengubah solusi brute force menjadi optimal.', ex_context:'const map = {}; map[nums[i]] = i;', ex_explain:'menyimpan tiap angka sebagai key dan indeksnya sebagai value, supaya nanti bisa dicari lagi dengan cepat tanpa loop ulang'},
+      {en:'Tree / Binary tree', tag:'struktur data', id:'Pohon / Pohon biner', desc:'Struktur data berbentuk hierarki dari node-node, dengan satu node "akar" di atas yang bercabang ke bawah. Binary tree berarti tiap node maksimal punya dua anak, yaitu kiri dan kanan.', ex_context:'node.left, node.right', ex_explain:'setiap node di binary tree punya paling banyak dua anak, diakses lewat .left dan .right'},
+      {en:'Graph', tag:'struktur data', id:'Graf', desc:'Kumpulan node (disebut vertex) yang saling terhubung lewat garis (disebut edge). Berbeda dari tree, graph boleh punya siklus dan satu node bisa terhubung ke banyak node lain tanpa aturan hierarki.', ex_context:"graph = {A: ['B','C'], B: ['A','D']}", ex_explain:'node A terhubung ke B dan C, sedangkan node B terhubung balik ke A dan juga ke D'},
+      {en:'Node', tag:'istilah', id:'Simpul', desc:'Satu unit data dalam struktur seperti linked list, tree, atau graph. Biasanya berisi sebuah value ditambah referensi ke node lain, misalnya next, left/right, atau neighbors.', ex_context:'{ value: 5, next: null }', ex_explain:'ini satu node dengan nilai 5, dan next: null artinya dia node terakhir di list'},
+      {en:'Root / Leaf', tag:'istilah', id:'Akar / Daun', desc:'Root adalah node paling atas di sebuah tree, titik awal semua penjelajahan biasanya dimulai. Leaf adalah node paling bawah yang tidak punya anak sama sekali.', ex_context:'if (!node.left && !node.right) // leaf', ex_explain:'kalau node tidak punya anak kiri maupun kanan, berarti dia leaf, ujung dari pohon itu'},
+      {en:'Parent / Child', tag:'istilah', id:'Induk / Anak', desc:'Hubungan antar-node yang bertetangga langsung di dalam tree. Node yang di atas disebut parent, node di bawahnya disebut child.', ex_context:'childNode.parent', ex_explain:'lewat childNode.parent kamu bisa naik kembali ke node induknya'},
+      {en:'Pointer / Reference', tag:'konsep', id:'Penunjuk / Referensi', desc:'Variabel yang menyimpan alamat menuju data lain, bukan menyimpan datanya secara langsung. Ini konsep di balik bagaimana linked list dan tree saling terhubung satu sama lain.', ex_context:'let a = node; let b = a;', ex_explain:'b bukan salinan baru — b dan a menunjuk ke object node yang persis sama di memori'},
+      {en:'Set', tag:'struktur data', id:'Himpunan', desc:'Mirip array tapi tidak boleh ada nilai kembar karena duplikat otomatis dibuang, dan mengecek "apakah nilai ini ada" berjalan cepat. Sering dipakai untuk soal yang meminta cek duplicate atau unique.', ex_context:'new Set([1,2,2,3]) menghasilkan {1,2,3}', ex_explain:'angka 2 yang kembar otomatis dibuang, sisa satu saja di dalam Set'},
+    ]
+  },
+  {
+    id:'algoritma', title:'Algoritma & Kompleksitas', accent:'var(--violet)',
+    terms:[
+      {en:'Time complexity', tag:'konsep', id:'Kompleksitas waktu', desc:'Ukuran seberapa lambat algoritma kamu ketika inputnya makin besar, ditulis dengan notasi Big O. Ini yang bikin interviewer bertanya "berapa Big O-nya" setelah kamu selesai coding.', ex_context:'for i in nums: for j in nums: ...', ex_explain:'dua loop bersarang seperti ini biasanya O(n²) — makin besar n, makin lambat secara kuadratik'},
+      {en:'Space complexity', tag:'konsep', id:'Kompleksitas ruang (memori)', desc:'Ukuran seberapa banyak memori tambahan yang dipakai algoritma kamu, di luar memori untuk input aslinya. Membuat array atau hash map baru berarti menambah space complexity.', ex_context:'const seen = new Set();', ex_explain:'membuat Set baru ini menambah space complexity menjadi O(n), karena bisa menyimpan sampai n elemen'},
+      {en:'Big O notation', tag:'konsep', id:'Notasi Big O', desc:'Cara menulis seberapa efisien algoritma secara matematis, fokus ke pola pertumbuhan saat input membesar, bukan kecepatan pasti dalam detik. Urutan dari cepat ke lambat: O(1), O(log n), O(n), O(n log n), lalu O(n²).', ex_context:'O(n) — one loop through the array', ex_explain:'satu loop yang melewati tiap elemen sekali itu O(n) — waktunya naik linear sesuai jumlah data'},
+      {en:'Two pointers', tag:'teknik', id:'Dua penunjuk', desc:'Teknik memakai dua variabel indeks yang bergerak di array atau string, biasanya dari kiri dan kanan, untuk menghindari loop bersarang. Sering muncul di soal array yang datanya sudah terurut.', ex_context:'let left = 0, right = arr.length - 1;', ex_explain:'left mulai dari depan, right dari belakang — keduanya bergerak saling mendekat sampai bertemu di tengah'},
+      {en:'Sliding window', tag:'teknik', id:'Jendela geser', desc:'Teknik untuk soal subarray atau substring — membuat "jendela" rentang indeks yang bergeser sepanjang data, diperbesar atau diperkecil sesuai kondisi, supaya tidak perlu mengecek ulang dari nol setiap kali.', ex_context:'window [i...j], geser j lalu geser i kalau kondisi terpenuhi', ex_explain:'jendelanya melebar dengan menggerakkan j, lalu menyempit dengan menggerakkan i — tidak perlu looping ulang dari awal tiap kali cek'},
+      {en:'Binary search', tag:'teknik', id:'Pencarian biner', desc:'Cara mencari elemen di data yang sudah terurut dengan cara terus-menerus membagi dua area pencarian. Jauh lebih cepat, yaitu O(log n), dibanding mencari satu per satu yang O(n).', ex_context:'mid = Math.floor((left + right) / 2)', ex_explain:'tiap langkah, area yang dicek dibagi setengah — makanya jauh lebih cepat daripada mencari satu-satu dari depan'},
+      {en:'DFS (Depth-first search)', tag:'algoritma', id:'Penelusuran mendalam duluan', desc:'Menelusuri graph atau tree dengan cara masuk sedalam mungkin di satu cabang dulu, sebelum kembali dan mencoba cabang lain. Biasanya diimplementasikan dengan rekursi atau stack.', ex_context:'dfs(node.left); dfs(node.right);', ex_explain:'masuk terus ke cabang kiri sampai mentok, baru kembali dan mencoba cabang lain — itu cara kerja DFS'},
+      {en:'BFS (Breadth-first search)', tag:'algoritma', id:'Penelusuran melebar duluan', desc:'Menelusuri graph atau tree level demi level — semua node di kedalaman yang sama dicek dulu sebelum lanjut ke level berikutnya. Biasanya memakai queue, dan cocok untuk mencari jarak atau langkah terpendek.', ex_context:'queue = [root]; while (queue.length) { ... }', ex_explain:'memakai queue supaya node yang lebih dekat ke root selalu diproses duluan, level demi level'},
+      {en:'Dynamic Programming (DP)', tag:'teknik', id:'Pemrograman dinamis', desc:'Teknik menyelesaikan masalah besar dengan memecahnya menjadi submasalah lebih kecil, sambil menyimpan hasil submasalah itu supaya tidak dihitung ulang. Biasanya muncul di soal bertema "maximum/minimum ways" atau mirip pola Fibonacci.', ex_context:'dp[i] = dp[i-1] + dp[i-2]', ex_explain:'hasil dp[i] dibangun dari hasil yang sudah dihitung sebelumnya, tidak dihitung dari nol setiap kali'},
+      {en:'Greedy algorithm', tag:'teknik', id:'Algoritma rakus/serakah', desc:'Strategi mengambil pilihan yang paling menguntungkan saat itu juga di setiap langkah, tanpa mikir jauh ke depan, dengan harapan hasil akhirnya tetap optimal. Tidak selalu benar untuk semua soal, jadi penting menjelaskan kenapa greedy aman dipakai.', ex_context:'always pick the largest coin first', ex_explain:'tiap langkah selalu ambil koin bernilai terbesar dulu — pilihan paling menguntungkan saat itu, tanpa mikir kombinasi lain'},
+      {en:'Backtracking', tag:'teknik', id:'Runut-balik', desc:'Mencoba satu pilihan, lanjut sampai mentok atau ketahuan salah, lalu mundur (undo) dan mencoba pilihan lain. Sering dipakai untuk soal yang meminta semua kemungkinan kombinasi atau permutasi.', ex_context:'path.push(x); backtrack(); path.pop();', ex_explain:'path.pop() di akhir itu langkah mundurnya — mengembalikan state sebelum mencoba pilihan lain'},
+      {en:'Divide and conquer', tag:'teknik', id:'Bagi dan taklukkan', desc:'Memecah masalah menjadi beberapa submasalah yang lebih kecil, biasanya dibagi dua, menyelesaikan tiap submasalah secara terpisah biasanya secara rekursif, lalu menggabungkan hasilnya. Merge sort dan binary search adalah contoh klasiknya.', ex_context:'mergeSort(kiri) + mergeSort(kanan) lalu digabung', ex_explain:'array dibagi dua, masing-masing diurutkan sendiri secara rekursif, baru digabung menjadi satu hasil akhir'},
+      {en:'Memoization', tag:'teknik', id:'Menyimpan hasil perhitungan', desc:'Menyimpan hasil dari perhitungan yang sudah pernah dilakukan, biasanya di object atau map, supaya kalau dibutuhkan lagi tinggal diambil, tidak dihitung ulang. Ini "mesin" di balik banyak solusi dynamic programming.', ex_context:'if (memo[n]) return memo[n]; memo[n] = result;', ex_explain:'sebelum menghitung ulang, dicek dulu di memo — kalau sudah pernah dihitung, tinggal pakai hasil yang lama'},
+    ]
+  },
+  {
+    id:'frasa', title:'Frasa Klarifikasi Saat Interview', accent:'var(--rose)',
+    terms:[
+      {en:'Can you clarify what the expected output is for this example?', tag:'frasa', id:'Bisa dijelaskan lagi output yang diharapkan untuk contoh ini?', desc:'Pakai ini begitu ada contoh di soal yang formatnya belum kamu mengerti. Interviewer justru senang ditanya begini, karena itu tandanya kamu teliti membaca soal, bukan tanda kamu tidak paham.'},
+      {en:'Are there any constraints on the input size or value range?', tag:'frasa', id:'Apakah ada batasan ukuran atau rentang nilai input?', desc:'Kalau constraints tidak disebutkan di soal, wajib tanya ini duluan sebelum memilih pendekatan — jawabannya menentukan solusi kamu boleh yang sederhana atau harus yang lebih efisien.'},
+      {en:'Can the input be empty, or contain negative numbers or duplicates?', tag:'frasa', id:'Apakah input-nya bisa kosong, atau ada angka negatif/duplikat?', desc:'Ini cara sopan untuk menanyakan edge case tanpa terlihat menebak-nebak. Jawabannya langsung menentukan kondisi apa saja yang perlu ditangani di kode kamu.'},
+      {en:'Should I optimize for time or space?', tag:'frasa', id:'Saya perlu optimalkan dari sisi waktu atau memori?', desc:'Tanyakan ini kalau kamu punya dua opsi solusi dengan trade-off berbeda, misalnya lebih cepat tapi memakai lebih banyak memori. Pertanyaan ini menunjukkan kamu paham ada trade-off, bukan cuma mencari satu jawaban.'},
+      {en:'Let me restate the problem to make sure I understand it correctly.', tag:'frasa', id:'Saya coba ulangi soalnya biar yakin paham dengan benar.', desc:'Kalimat penyelamat kalau kepala tiba-tiba blank. Mengucapkan ini memberi kamu waktu untuk berpikir tanpa hening yang canggung, sekaligus mengecek pemahaman kamu benar atau tidak.'},
+    ]
+  },
+];
+
+const mainEl = document.getElementById('mainContent');
+const catNavEl = document.getElementById('catNav');
+const emptyStateEl = document.getElementById('emptyState');
+const searchCountEl = document.getElementById('searchCount');
+const totalTerms = DATA.reduce((sum, cat) => sum + cat.terms.length, 0);
+
+function escapeHTML(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function renderNav(){
+  catNavEl.innerHTML = DATA.map(cat => (
+    '<a class="pill" href="#' + cat.id + '">' +
+      '<span class="pill-dot" style="background:' + cat.accent + '"></span>' + escapeHTML(cat.title) +
+    '</a>'
+  )).join('');
+}
+
+function renderCard(term, catId, accent){
+  const exampleBlock = term.ex_context ? (
+    '<div class="example">' +
+      '<div class="example-label">Contoh</div>' +
+      '<div class="example-context">' + escapeHTML(term.ex_context) + '</div>' +
+      '<div class="example-explain">' + escapeHTML(term.ex_explain) + '</div>' +
+    '</div>'
+  ) : '';
+
+  return (
+    '<article class="term-card" data-cat="' + catId + '" style="--accent:' + accent + '" ' +
+      'data-search="' + escapeHTML((term.en + ' ' + term.id).toLowerCase()) + '">' +
+      '<div class="term-head">' +
+        '<div class="term-en">' + escapeHTML(term.en) + '</div>' +
+        '<div class="term-tag">' + escapeHTML(term.tag) + '</div>' +
+      '</div>' +
+      '<div class="term-id">' + escapeHTML(term.id) + '</div>' +
+      '<div class="term-desc">' + escapeHTML(term.desc) + '</div>' +
+      exampleBlock +
+    '</article>'
+  );
+}
+
+function renderMain(){
+  mainEl.innerHTML = DATA.map(cat => (
+    '<section class="category" id="' + cat.id + '">' +
+      '<div class="cat-heading">' +
+        '<h2 style="color:' + cat.accent + '">' + escapeHTML(cat.title) + '</h2>' +
+        '<span class="count">' + cat.terms.length + ' istilah</span>' +
+      '</div>' +
+      '<div class="grid">' +
+        cat.terms.map(t => renderCard(t, cat.id, cat.accent)).join('') +
+      '</div>' +
+    '</section>'
+  )).join('');
+}
+
+function applySearch(query){
+  const q = query.trim().toLowerCase();
+  const cards = mainEl.querySelectorAll('.term-card');
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    const match = !q || card.getAttribute('data-search').includes(q);
+    card.style.display = match ? '' : 'none';
+    if(match) visibleCount++;
+  });
+
+  mainEl.querySelectorAll('section.category').forEach(section => {
+    const visibleInSection = section.querySelectorAll('.term-card:not([style*="display: none"])').length;
+    section.style.display = visibleInSection ? '' : 'none';
+  });
+
+  emptyStateEl.style.display = visibleCount === 0 ? 'block' : 'none';
+  searchCountEl.textContent = q ? (visibleCount + ' / ' + totalTerms + ' istilah') : (totalTerms + ' istilah');
+}
+
+renderNav();
+renderMain();
+applySearch('');
+
+document.getElementById('searchInput').addEventListener('input', (e) => applySearch(e.target.value));
+</script>
+
+</body>
+</html>

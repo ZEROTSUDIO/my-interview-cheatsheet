@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Interview Cheat Sheet — LeetCode Edition (MySQL)</title>
+  <meta name="description" content="A comprehensive MySQL SQL cheat sheet for LeetCode-style database coding interviews. Covers SELECT, JOINs, aggregations, window functions, CTEs, and advanced patterns with real solutions." />
+
+  <!-- Custom JS & Tailwind Config -->
+  <script src="script.js"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div id="reading-bar"></div>
+
+<!-- ══════════════════════════════════════════════════ SIDEBAR -->
+<aside id="sidebar">
+
+  <!-- Logo + Search -->
+  <div style="padding:18px 14px 12px; border-bottom:1px solid var(--border); flex-shrink:0;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <div style="background:linear-gradient(135deg,#58a6ff,#3fb950); width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;">🗄️</div>
+      <div>
+        <div style="font-weight:700; font-size:13px; color:var(--text-primary);">SQL Cheat Sheet</div>
+        <div style="font-size:10px; color:var(--text-muted);">LeetCode Edition · MySQL 8.0</div>
+      </div>
+    </div>
+    <!-- Search -->
+    <div style="position:relative;">
+      <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-dim);" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search-box" type="text" placeholder="Search topics…" oninput="doSearch(this.value)" />
+    </div>
+  </div>
+
+  <!-- Nav links -->
+  <div class="sidebar-nav-scroll" id="sidebar-nav">
+    <div class="nav-section-label">Sections</div>
+    <a href="#s1" class="nav-link" id="nl-s1">🔍&nbsp; SELECT &amp; Filtering</a>
+    <a href="#s2" class="nav-link" id="nl-s2">📊&nbsp; Aggregations</a>
+    <a href="#s3" class="nav-link" id="nl-s3">🔗&nbsp; JOINs</a>
+    <a href="#s4" class="nav-link" id="nl-s4">🧩&nbsp; Subqueries &amp; CTEs</a>
+    <a href="#s5" class="nav-link" id="nl-s5">🪟&nbsp; Window Functions</a>
+    <a href="#s6" class="nav-link" id="nl-s6">🛠️&nbsp; String &amp; Date</a>
+    <a href="#s7" class="nav-link" id="nl-s7">🔀&nbsp; SET Operations</a>
+    <a href="#s8" class="nav-link" id="nl-s8">⚡&nbsp; Advanced Patterns</a>
+    <div class="nav-section-label" style="margin-top:8px;">Quick Ref</div>
+    <a href="#qref-joins"   class="nav-link">📋&nbsp; JOIN Types</a>
+    <a href="#qref-window"  class="nav-link">📋&nbsp; Window Skeleton</a>
+    <a href="#qref-strings" class="nav-link">📋&nbsp; String Functions</a>
+    <a href="#qref-dates"   class="nav-link">📋&nbsp; Date Functions</a>
+  </div>
+
+  <!-- Legend -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px;border-top:1px solid var(--border);background:var(--bg-secondary);flex-shrink:0;">
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <span class="badge badge-easy">Easy</span>
+      <span class="badge badge-medium">Medium</span>
+      <span class="badge badge-hard">Hard</span>
+      <span style="font-size:10px;color:var(--text-muted);">= LC difficulty</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════ MAIN -->
+<main id="main" style="padding:0 44px 80px; max-width:980px;">
+
+  <!-- Page Header -->
+  <header style="padding:36px 0 28px; border-bottom:1px solid var(--border); margin-bottom:44px;">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <span class="chip">MySQL 8.0</span>
+          <span class="chip">LeetCode</span>
+          <span class="chip">Interview Prep</span>
+        </div>
+        <h1 style="font-size:34px;font-weight:800;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#e6edf3 30%,#58a6ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">SQL Interview<br/>Cheat Sheet</h1>
+        <p style="font-size:14px;color:var(--text-muted);max-width:520px;line-height:1.65;">
+          Complete MySQL reference for LeetCode database interviews — every pattern from <span style="color:var(--green);">Easy</span> to <span style="color:var(--red);">Hard</span>, with real solutions and key gotchas.
+        </p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:30px;font-weight:800;color:var(--blue);font-family:'JetBrains Mono',monospace;line-height:1;">8</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px;">sections</div>
+        <div style="font-size:30px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">40+</div>
+        <div style="font-size:10px;color:var(--text-muted);">patterns</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ S1: SELECT & Filtering -->
+  <section id="s1" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🔍</span>
+      <div>
+        <h2>SELECT &amp; Filtering</h2>
+        <p>The foundation of every SQL query — selecting, filtering, and shaping data.</p>
+      </div>
+    </div>
+
+    <!-- Card: WHERE & NULL -->
+    <div class="card" data-kw="where null is null filtering case when conditional">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">WHERE</span><span class="chip">IS NULL</span><span class="chip">CASE WHEN</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">NULL Handling &amp; Conditional Filtering</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <strong>NULL gotcha:</strong> <span class="ic">NULL != 2</span> evaluates to <span class="ic">NULL</span>, not <span class="ic">TRUE</span>. Always explicitly use <span class="ic">IS NULL</span> or <span class="ic">IS NOT NULL</span> — never compare with <span class="ic">= NULL</span>.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">SELECT col1, col2
+FROM tbl
+WHERE condition1
+  AND (condition2 OR condition3)
+  AND col IS NOT NULL;   -- always use IS NULL, not = NULL
+
+-- NULL-safe tricks
+col IS NULL              -- matches NULLs
+col IS NOT NULL          -- excludes NULLs
+COALESCE(col, default)   -- replace NULL with a fallback value
+IFNULL(col, default)     -- MySQL alias for COALESCE with 2 args</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Find Customer Referee</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #584</span>
+          </div>
+          <p class="ex-desc">Return customers <strong>not referred</strong> by customer id = 2. The trick: rows where <span class="ic">referee_id</span> is <span class="ic">NULL</span> must also be included.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 584</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Customer(id, name, referee_id)
+
+SELECT name
+FROM Customer
+WHERE referee_id != 2
+   OR referee_id IS NULL;
+
+-- ❌ Wrong: WHERE referee_id != 2
+--    Misses rows where referee_id IS NULL
+--    because NULL != 2 evaluates to NULL (treated as false)</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">CASE WHEN — Classify Records</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <p class="ex-desc">Use <span class="ic">CASE WHEN</span> as an inline if-else to compute new columns or reclassify values on the fly.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · CASE WHEN pattern</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Orders(order_id, customer_id, amount, status)
+
+SELECT
+    customer_id,
+    amount,
+    -- Searched CASE (range checks)
+    CASE
+        WHEN amount >= 1000 THEN 'Premium'
+        WHEN amount >= 500  THEN 'Standard'
+        WHEN amount > 0     THEN 'Basic'
+        ELSE 'Free'
+    END AS tier,
+    -- Simple CASE (equality check shorthand)
+    CASE status
+        WHEN 'A' THEN 'Active'
+        WHEN 'I' THEN 'Inactive'
+        ELSE 'Unknown'
+    END AS status_label
+FROM Orders;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: DISTINCT, LIMIT, Nth -->
+    <div class="card" data-kw="distinct limit offset top nth highest deduplicate second">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">DISTINCT</span><span class="chip">LIMIT</span><span class="chip">OFFSET</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">DISTINCT, LIMIT &amp; Nth Record</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <strong>Nth highest pattern:</strong> <span class="ic">ORDER BY col DESC LIMIT 1 OFFSET N-1</span> skips N−1 rows and returns the Nth distinct value without window functions.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">SELECT DISTINCT col      -- removes duplicate rows in result
+FROM tbl
+ORDER BY col DESC
+LIMIT n;                 -- return first n rows
+
+-- Nth row pattern (0-indexed offset):
+LIMIT 1 OFFSET N-1      -- skip N-1, take 1</code></pre>
+          </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Second Highest Salary</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #176</span>
+          </div>
+          <p class="ex-desc">Return <span class="ic">NULL</span> if there is no second highest — not an empty result set.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 176</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, salary)
+
+-- Method 1: Subquery trick (outer SELECT returns NULL if inner is empty)
+SELECT (
+    SELECT DISTINCT salary
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+) AS SecondHighestSalary;
+
+-- Method 2: MAX where salary < overall max
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary < (SELECT MAX(salary) FROM Employee);</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Delete Duplicate Emails</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #196</span>
+          </div>
+          <p class="ex-desc">Keep the row with the smallest <span class="ic">id</span> for each email. Self-join trick because MySQL disallows DELETE + SELECT on same table directly.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 196</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Person(id, email)
+
+DELETE p1
+FROM Person p1
+JOIN Person p2
+  ON  p1.email = p2.email
+  AND p1.id    > p2.id;       -- keep the smaller id, delete the rest</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S2: Aggregations -->
+  <section id="s2" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">📊</span>
+      <div>
+        <h2>Aggregations &amp; GROUP BY</h2>
+        <p>Summarizing and grouping data — the most common LeetCode SQL pattern.</p>
+      </div>
+    </div>
+
+    <!-- Card: COUNT SUM AVG -->
+    <div class="card" data-kw="count sum avg min max aggregate group by having conditional sum">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">COUNT</span><span class="chip">SUM</span><span class="chip">AVG</span><span class="chip">GROUP BY</span><span class="chip">HAVING</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Aggregate Functions &amp; GROUP BY</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="warn">⚠️ <strong>HAVING vs WHERE:</strong> <span class="ic">WHERE</span> filters rows <em>before</em> grouping. <span class="ic">HAVING</span> filters groups <em>after</em> aggregation. You cannot use aggregate functions inside <span class="ic">WHERE</span>.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">SELECT
+    group_col,
+    COUNT(*)               AS total_rows,
+    COUNT(col)             AS non_null_count,   -- ignores NULLs
+    COUNT(DISTINCT col)    AS unique_count,
+    SUM(amount)            AS total,
+    AVG(amount)            AS average,
+    MIN(amount)            AS minimum,
+    MAX(amount)            AS maximum,
+    -- Conditional count shortcut (TRUE=1, FALSE=0 in MySQL):
+    SUM(col = 'value')     AS matching_count,
+    SUM(CASE WHEN col = 'value' THEN amount ELSE 0 END) AS cond_sum
+FROM tbl
+WHERE pre_filter_condition         -- filters BEFORE grouping
+GROUP BY group_col
+HAVING aggregate_condition         -- filters AFTER grouping
+ORDER BY total_rows DESC;</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Customer Placing the Largest Number of Orders</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #586</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 586</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Orders(order_number, customer_number)
+
+SELECT customer_number
+FROM Orders
+GROUP BY customer_number
+ORDER BY COUNT(*) DESC
+LIMIT 1;     -- problem guarantees single answer</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Monthly Transactions Summary</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #1193</span>
+          </div>
+          <p class="ex-desc">Multi-column aggregation with a conditional sum — extremely common in LC database problems.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 1193</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Transactions(id, country, state, amount, trans_date)
+-- state ∈ {'approved', 'declined'}
+
+SELECT
+    DATE_FORMAT(trans_date, '%Y-%m')          AS month,
+    country,
+    COUNT(*)                                   AS trans_count,
+    SUM(state = 'approved')                    AS approved_count,    -- boolean trick
+    SUM(amount)                                AS trans_total_amount,
+    SUM(CASE WHEN state = 'approved'
+             THEN amount ELSE 0 END)           AS approved_total_amount
+FROM Transactions
+GROUP BY month, country;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: HAVING deep dive -->
+    <div class="card" data-kw="having duplicate more than count filter group">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">HAVING</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">HAVING — Filtering Aggregated Groups</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <span class="ic">HAVING COUNT(*) &gt; 1</span> is the go-to pattern for finding duplicates across any column(s).</div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:8px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Duplicate Emails</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #182</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 182</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Person(id, email)
+
+SELECT email
+FROM Person
+GROUP BY email
+HAVING COUNT(*) > 1;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Departments with Above-Average Salary</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <p class="ex-desc">Combines a scalar subquery (company-wide average) inside <span class="ic">HAVING</span> — a very clean pattern.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, name, salary, dept_id)
+
+SELECT dept_id, ROUND(AVG(salary), 2) AS avg_salary
+FROM Employee
+GROUP BY dept_id
+HAVING AVG(salary) > (
+    SELECT AVG(salary) FROM Employee   -- company-wide average
+)
+ORDER BY avg_salary DESC;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S3: JOINs -->
+  <section id="s3" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🔗</span>
+      <div>
+        <h2>JOINs</h2>
+        <p>The #1 most tested SQL topic in interviews. Master every join type.</p>
+      </div>
+    </div>
+
+    <!-- Quick JOIN Reference -->
+    <div id="qref-joins" class="card" style="margin-bottom:20px;">
+      <div style="padding:14px 18px; border-bottom:1px solid var(--border);">
+        <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);">Join Type Quick Reference</span>
+      </div>
+      <div style="padding:16px 18px;">
+        <div class="qref-grid">
+          <div class="qref-item" style="background:rgba(88,166,255,.05);border-color:rgba(88,166,255,.2);">
+            <div class="qref-label" style="color:var(--blue);">INNER JOIN</div>
+            <div class="qref-desc">Only rows with a match in <em>both</em> tables</div>
+          </div>
+          <div class="qref-item" style="background:rgba(63,185,80,.05);border-color:rgba(63,185,80,.2);">
+            <div class="qref-label" style="color:var(--green);">LEFT JOIN</div>
+            <div class="qref-desc">All left rows + matching right (NULL if no match)</div>
+          </div>
+          <div class="qref-item" style="background:rgba(188,140,255,.05);border-color:rgba(188,140,255,.2);">
+            <div class="qref-label" style="color:var(--purple);">RIGHT JOIN</div>
+            <div class="qref-desc">All right rows + matching left (NULL if no match)</div>
+          </div>
+          <div class="qref-item" style="background:rgba(227,179,65,.05);border-color:rgba(227,179,65,.2);">
+            <div class="qref-label" style="color:var(--orange);">CROSS JOIN</div>
+            <div class="qref-desc">Cartesian product — every row × every row</div>
+          </div>
+          <div class="qref-item" style="background:rgba(255,123,114,.05);border-color:rgba(255,123,114,.2);">
+            <div class="qref-label" style="color:var(--red);">SELF JOIN</div>
+            <div class="qref-desc">Table joined to itself via two aliases</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: LEFT JOIN & Anti-Join -->
+    <div class="card" data-kw="left join inner join anti join null missing customers orders never">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">LEFT JOIN</span><span class="chip">INNER JOIN</span><span class="chip">Anti-Join</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">JOIN Fundamentals &amp; Anti-Join Pattern</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <strong>Anti-Join:</strong> <span class="ic">LEFT JOIN … WHERE right.id IS NULL</span> finds rows that exist in the left table but have <em>no matching row</em> in the right table. Faster than <span class="ic">NOT IN</span> with NULLs.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">-- INNER JOIN: matching rows only
+SELECT a.col, b.col
+FROM A a INNER JOIN B b ON a.id = b.a_id;
+
+-- LEFT JOIN: all rows from A, NULL on B side if no match
+SELECT a.col, b.col
+FROM A a LEFT JOIN B b ON a.id = b.a_id;
+
+-- Anti-Join: rows in A with NO match in B
+SELECT a.col
+FROM A a
+LEFT JOIN B b ON a.id = b.a_id
+WHERE b.a_id IS NULL;         -- ← the anti-join filter</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Combine Two Tables (Allow Missing Addresses)</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #175</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 175</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Person(personId, firstName, lastName)
+-- Address(addressId, personId, city, state)
+
+SELECT p.firstName, p.lastName, a.city, a.state
+FROM Person p
+LEFT JOIN Address a ON p.personId = a.personId;
+-- People with no address get NULL for city and state</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Customers Who Never Ordered</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #183</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 183</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Customers(id, name)  Orders(id, customerId)
+
+-- Method 1: Anti-Join (preferred — handles NULLs safely)
+SELECT c.name AS Customers
+FROM Customers c
+LEFT JOIN Orders o ON c.id = o.customerId
+WHERE o.customerId IS NULL;
+
+-- Method 2: NOT IN subquery (works, but risky if NULLs exist in subquery)
+SELECT name AS Customers
+FROM Customers
+WHERE id NOT IN (SELECT customerId FROM Orders);</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: SELF JOIN -->
+    <div class="card" data-kw="self join manager employee hierarchy compare rows same table temperature rising">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">SELF JOIN</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">SELF JOIN — Comparing Rows Within Same Table</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ A self join aliases the <strong>same table twice</strong>. Perfect for manager/employee comparisons, before/after rows, or any within-table relationship.</div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:8px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Employees Earning More Than Their Manager</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #181</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 181</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, name, salary, managerId)
+
+SELECT e.name AS Employee
+FROM Employee e
+JOIN Employee m ON e.managerId = m.id
+WHERE e.salary > m.salary;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Rising Temperature (Consecutive Day Compare)</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #197</span>
+          </div>
+          <p class="ex-desc">Find dates where temperature is higher than the previous day. Use <span class="ic">DATE_ADD</span> to match yesterday's row.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 197</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Weather(id, recordDate, temperature)
+
+SELECT w1.id
+FROM Weather w1
+JOIN Weather w2
+  ON w1.recordDate = DATE_ADD(w2.recordDate, INTERVAL 1 DAY)
+WHERE w1.temperature > w2.temperature;
+
+-- DATE_ADD(date, INTERVAL n DAY) = add n days to a date
+-- DATE_SUB(date, INTERVAL n DAY) = subtract n days</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S4: Subqueries & CTEs -->
+  <section id="s4" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🧩</span>
+      <div>
+        <h2>Subqueries &amp; CTEs</h2>
+        <p>Modular, readable query building. CTEs are your best tool for complex multi-step problems.</p>
+      </div>
+    </div>
+
+    <!-- Card: Subqueries -->
+    <div class="card" data-kw="subquery in not in exists not exists correlated scalar tuple">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">IN</span><span class="chip">EXISTS</span><span class="chip">NOT EXISTS</span><span class="chip">Correlated</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Subqueries: IN vs EXISTS</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="warn">⚠️ <strong>NOT IN + NULL trap:</strong> If the subquery result contains any <span class="ic">NULL</span>, <span class="ic">NOT IN</span> returns <em>zero rows</em>. Use <span class="ic">NOT EXISTS</span> or the anti-join pattern instead for safety.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">-- Scalar subquery (returns single value)
+WHERE salary = (SELECT MAX(salary) FROM Employee)
+
+-- IN subquery (returns list of values)
+WHERE dept_id IN (SELECT id FROM Dept WHERE budget > 50000)
+
+-- EXISTS (TRUE if subquery has any rows — often faster)
+WHERE EXISTS (
+    SELECT 1 FROM Orders WHERE Orders.customer_id = Customer.id
+)
+
+-- NOT EXISTS (safer than NOT IN when NULLs possible)
+WHERE NOT EXISTS (
+    SELECT 1 FROM Orders WHERE Orders.customer_id = Customer.id
+)
+
+-- Correlated subquery (references outer query row by row)
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employee e2
+    WHERE e2.dept_id = e1.dept_id   -- ← references outer alias e1
+)
+
+-- Tuple / row comparison (MySQL extension)
+WHERE (dept_id, salary) IN (SELECT dept_id, MAX(salary) FROM Employee GROUP BY dept_id)</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Department Highest Salary</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #184</span>
+          </div>
+          <p class="ex-desc">The tuple <span class="ic">(dept_id, salary) IN (...)</span> trick elegantly filters for the max-salary employees per department.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 184</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, name, salary, departmentId)
+-- Department(id, name)
+
+SELECT d.name AS Department, e.name AS Employee, e.salary AS Salary
+FROM Employee e
+JOIN Department d ON e.departmentId = d.id
+WHERE (e.departmentId, e.salary) IN (
+    SELECT departmentId, MAX(salary)
+    FROM Employee
+    GROUP BY departmentId
+);</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Trips &amp; Users — Multi-Step CTE</span>
+            <span class="badge badge-hard">Hard</span>
+            <span class="ex-lc">LC #262</span>
+          </div>
+          <p class="ex-desc">CTEs let you name and reuse intermediate result sets — essential for breaking down hard problems into clear steps.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 262 — CTE approach</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Trips(id, client_id, driver_id, status, request_at)
+-- Users(users_id, banned, role)
+
+WITH non_banned AS (
+    -- Step 1: collect non-banned user IDs
+    SELECT users_id FROM Users WHERE banned = 'No'
+),
+valid_trips AS (
+    -- Step 2: keep only trips involving non-banned users in date range
+    SELECT *
+    FROM Trips
+    WHERE request_at BETWEEN '2013-10-01' AND '2013-10-03'
+      AND client_id IN (SELECT users_id FROM non_banned)
+      AND driver_id IN (SELECT users_id FROM non_banned)
+)
+-- Step 3: compute daily cancellation rate
+SELECT
+    request_at                                   AS Day,
+    ROUND(SUM(status != 'completed') / COUNT(*), 2) AS 'Cancellation Rate'
+FROM valid_trips
+GROUP BY request_at;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S5: Window Functions -->
+  <section id="s5" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🪟</span>
+      <div>
+        <h2>Window Functions</h2>
+        <p>Compute across rows without collapsing. Essential for Medium/Hard ranking &amp; analytics problems.</p>
+      </div>
+    </div>
+
+    <!-- Quick Window Reference -->
+    <div id="qref-window" class="card" style="margin-bottom:20px;">
+      <div style="padding:14px 18px; border-bottom:1px solid var(--border);">
+        <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);">Window Function Skeleton</span>
+      </div>
+      <div style="padding:0;">
+        <div class="code-wrap" style="margin:0;border:none;border-radius:0;">
+          <div class="code-bar"><span>sql · skeleton</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">function_name() OVER (
+    PARTITION BY col           -- defines "window" groups (optional)
+    ORDER BY col DESC          -- ordering within each partition (optional)
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW  -- frame (optional)
+)
+
+-- ── Ranking functions ──────────────────────────────────────────────
+ROW_NUMBER()       -- unique sequential number: 1,2,3,4 (no ties)
+RANK()             -- ties share rank, next rank skips: 1,2,2,4
+DENSE_RANK()       -- ties share rank, no gaps:         1,2,2,3  ← Nth highest
+
+-- ── Navigation functions ───────────────────────────────────────────
+LAG(col, n, default)    -- value n rows BEFORE current row
+LEAD(col, n, default)   -- value n rows AFTER current row
+FIRST_VALUE(col)        -- first value in the window partition
+LAST_VALUE(col)         -- last value in the window partition
+
+-- ── Aggregate as windows (rows not collapsed!) ─────────────────────
+SUM(col)   OVER (...)   -- running total
+AVG(col)   OVER (...)   -- rolling average
+COUNT(col) OVER (...)   -- running count
+NTILE(n)   OVER (...)   -- divide rows into n equal buckets (1..n)</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: RANK / DENSE_RANK -->
+    <div class="card" data-kw="rank dense rank row number nth highest window partition ranking">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">DENSE_RANK</span><span class="chip">ROW_NUMBER</span><span class="chip">PARTITION BY</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Ranking Functions</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ Use <span class="ic">DENSE_RANK()</span> for "Nth highest" problems (handles ties). Use <span class="ic">ROW_NUMBER()</span> to deduplicate or paginate.</div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:8px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Rank Scores (No Gaps)</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #178</span>
+          </div>
+          <p class="ex-desc">Tie scores must share the same rank with no gaps — exactly what <span class="ic">DENSE_RANK()</span> does.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 178</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Scores(id, score)
+
+SELECT
+    score,
+    DENSE_RANK() OVER (ORDER BY score DESC) AS 'rank'
+FROM Scores
+ORDER BY score DESC;
+
+-- Comparison:
+-- score:       100, 90, 90, 80
+-- RANK():        1,  2,  2,  4   (gap after tie)
+-- DENSE_RANK():  1,  2,  2,  3   (no gap — LC wants this)
+-- ROW_NUMBER():  1,  2,  3,  4   (always unique)</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Department Top 3 Salaries</span>
+            <span class="badge badge-hard">Hard</span>
+            <span class="ex-lc">LC #185</span>
+          </div>
+          <p class="ex-desc"><span class="ic">PARTITION BY departmentId</span> resets the rank counter for each department independently.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 185</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, name, salary, departmentId)
+-- Department(id, name)
+
+WITH ranked AS (
+    SELECT
+        name, salary, departmentId,
+        DENSE_RANK() OVER (
+            PARTITION BY departmentId
+            ORDER BY salary DESC
+        ) AS rnk
+    FROM Employee
+)
+SELECT d.name AS Department, r.name AS Employee, r.salary AS Salary
+FROM ranked r
+JOIN Department d ON r.departmentId = d.id
+WHERE r.rnk <= 3;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: LAG / LEAD / Running Total -->
+    <div class="card" data-kw="lag lead previous next row running total sum over cumulative rolling average">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">LAG</span><span class="chip">LEAD</span><span class="chip">SUM OVER</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">LAG / LEAD &amp; Running Totals</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <!-- Example 1 -->
+        <div style="margin-top:4px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Day-over-Day Page View Change</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <p class="ex-desc"><span class="ic">LAG(col, 1, 0)</span> returns the previous row's value. The third argument is the default when there is no previous row.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LAG pattern</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Activity(user_id, activity_date, page_views)
+
+SELECT
+    user_id,
+    activity_date,
+    page_views,
+    LAG(page_views, 1, 0) OVER (
+        PARTITION BY user_id
+        ORDER BY activity_date
+    )                        AS prev_day_views,
+    page_views - LAG(page_views, 1, 0) OVER (
+        PARTITION BY user_id
+        ORDER BY activity_date
+    )                        AS daily_change
+FROM Activity;
+
+-- LAG(col, offset, default_when_no_prior_row)
+-- LEAD(col, offset, default_when_no_next_row)  ← same but looks forward</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Cumulative Revenue &amp; 7-Day Rolling Average</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · SUM OVER pattern</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Sales(sale_id, sale_date, amount)
+
+SELECT
+    sale_id,
+    sale_date,
+    amount,
+    -- Running total from beginning up to current row
+    SUM(amount) OVER (
+        ORDER BY sale_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    )                        AS running_total,
+    -- Rolling 7-day average (current + 6 prior rows)
+    ROUND(AVG(amount) OVER (
+        ORDER BY sale_date
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ), 2)                    AS rolling_7day_avg
+FROM Sales
+ORDER BY sale_date;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S6: String & Date -->
+  <section id="s6" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🛠️</span>
+      <div>
+        <h2>String &amp; Date Functions</h2>
+        <p>MySQL built-ins for transforming text and working with timestamps.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="string date concat substring format year month datediff extract upper lower trim replace left right">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">DATE_FORMAT</span><span class="chip">CONCAT</span><span class="chip">SUBSTRING</span><span class="chip">DATEDIFF</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">String &amp; Date Cheatsheet</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+
+        <!-- String quick ref -->
+        <div id="qref-strings">
+          <div class="code-label">String Functions</div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql string functions</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Concatenation
+CONCAT('Hello', ' ', 'World')          -- 'Hello World'
+CONCAT_WS(', ', first_name, last_name) -- 'John, Doe' (separator first)
+
+-- Substrings
+SUBSTRING(str, start, length)          -- 1-indexed; SUBSTRING('abcde', 2, 3) = 'bcd'
+LEFT(str, n)                           -- first n characters
+RIGHT(str, n)                          -- last n characters
+
+-- Case & cleanup
+UPPER(str), LOWER(str)
+TRIM(str)                              -- strip leading + trailing spaces
+LTRIM(str), RTRIM(str)                 -- one side only
+
+-- Search & replace
+LOCATE('sub', str)                     -- position of substring (0 = not found)
+REPLACE(str, 'old', 'new')            -- replace all occurrences
+REGEXP_LIKE(str, pattern)              -- MySQL 8+ regex match (returns 0/1)
+
+-- Length
+LENGTH(str)                            -- byte length
+CHAR_LENGTH(str)                       -- character length (use for Unicode)</code></pre>
+          </div>
+        </div>
+
+        <!-- Date quick ref -->
+        <div id="qref-dates" style="margin-top:4px;">
+          <div class="code-label">Date Functions</div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql date functions</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Extract parts
+YEAR(d), MONTH(d), DAY(d)
+HOUR(dt), MINUTE(dt), SECOND(dt)
+DAYOFWEEK(d)                           -- 1=Sun, 2=Mon, … 7=Sat
+DATE_FORMAT(d, '%Y-%m')                -- '2024-03'   ← GROUP BY month
+DATE_FORMAT(d, '%Y-%m-%d')             -- '2024-03-15'
+DATE_FORMAT(d, '%W')                   -- 'Friday'    (day name)
+
+-- Arithmetic
+DATE_ADD(d, INTERVAL 7 DAY)
+DATE_SUB(d, INTERVAL 1 MONTH)
+DATEDIFF(end_date, start_date)         -- integer days (end − start)
+TIMESTAMPDIFF(MINUTE, start_dt, end_dt)-- difference in given unit
+
+-- Current time
+NOW()                                  -- current datetime (DATETIME)
+CURDATE()                              -- current date (DATE only)
+
+-- Conversion
+STR_TO_DATE('2024-03-15', '%Y-%m-%d')  -- string → DATE</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:16px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Fix Names — Capitalize First Letter</span>
+            <span class="badge badge-easy">Easy</span>
+            <span class="ex-lc">LC #1667</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 1667</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Users(user_id, name)
+-- Format: capitalize first letter, lowercase the rest
+
+SELECT
+    user_id,
+    CONCAT(
+        UPPER(LEFT(name, 1)),
+        LOWER(SUBSTRING(name, 2))
+    ) AS name
+FROM Users
+ORDER BY user_id;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Monthly Session Duration Summary</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · date arithmetic</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Sessions(session_id, user_id, start_time, end_time)
+
+SELECT
+    user_id,
+    DATE_FORMAT(start_time, '%Y-%m')                          AS month,
+    COUNT(*)                                                   AS sessions,
+    SUM(TIMESTAMPDIFF(MINUTE, start_time, end_time))          AS total_minutes,
+    ROUND(AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)), 1) AS avg_minutes
+FROM Sessions
+WHERE start_time >= '2024-01-01'
+GROUP BY user_id, DATE_FORMAT(start_time, '%Y-%m')
+ORDER BY month, user_id;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S7: SET Operations -->
+  <section id="s7" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🔀</span>
+      <div>
+        <h2>SET Operations</h2>
+        <p>Combine, intersect, or subtract result sets from multiple queries.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="union union all intersect except minus combine set operations">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">UNION</span><span class="chip">UNION ALL</span><span class="chip">INTERSECT</span><span class="chip">EXCEPT</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">UNION, INTERSECT &amp; EXCEPT</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="warn">⚠️ <strong>MySQL version note:</strong> <span class="ic">INTERSECT</span> and <span class="ic">EXCEPT</span> are available in MySQL 8.0+. For older versions simulate with <span class="ic">INNER JOIN</span> and <span class="ic">LEFT JOIN … IS NULL</span>.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">-- UNION: combine results, remove duplicates
+SELECT col FROM A
+UNION
+SELECT col FROM B;
+
+-- UNION ALL: combine results, KEEP duplicates (faster, use when you know no dups)
+SELECT col FROM A
+UNION ALL
+SELECT col FROM B;
+
+-- INTERSECT: rows in BOTH result sets (MySQL 8.0+)
+SELECT col FROM A
+INTERSECT
+SELECT col FROM B;
+
+-- EXCEPT: rows in first set but NOT in second (MySQL 8.0+)
+SELECT col FROM A
+EXCEPT
+SELECT col FROM B;
+
+-- Rules: same number of columns, compatible data types in each position</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:18px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Combine Employees &amp; Contractors</span>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · UNION pattern</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employees(id, name, email)  Contractors(id, name, email)
+
+SELECT email, 'employee'   AS type FROM Employees
+UNION                                 -- deduplicates
+SELECT email, 'contractor' AS type FROM Contractors
+ORDER BY type, email;
+
+-- Use UNION ALL if emails can legitimately appear in both tables
+-- and you want to see all rows</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Non-Friends (EXCEPT simulation)</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <p class="ex-desc">Finding "everyone except a specific set" — show both the MySQL 8.0+ <span class="ic">EXCEPT</span> syntax and the backward-compatible anti-join.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · EXCEPT &amp; fallback</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Users(id, name)  Friends(user1_id, user2_id)
+-- People who are NOT friends with user_id = 1
+
+-- MySQL 8.0+:
+SELECT id, name FROM Users WHERE id != 1
+EXCEPT
+SELECT u.id, u.name
+FROM Users u
+JOIN Friends f
+  ON (f.user1_id = 1 AND f.user2_id = u.id)
+  OR (f.user2_id = 1 AND f.user1_id = u.id);
+
+-- Backward-compatible anti-join (works on all MySQL versions):
+SELECT u.id, u.name
+FROM Users u
+LEFT JOIN Friends f
+  ON (f.user1_id = 1 AND f.user2_id = u.id)
+  OR (f.user2_id = 1 AND f.user1_id = u.id)
+WHERE u.id != 1
+  AND f.user1_id IS NULL;   -- no friendship row found</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S8: Advanced Patterns -->
+  <section id="s8" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">⚡</span>
+      <div>
+        <h2>Advanced Patterns</h2>
+        <p>Hard-level tricks that separate good candidates from great ones.</p>
+      </div>
+    </div>
+
+    <!-- Card: Consecutive / Gaps & Islands -->
+    <div class="card" data-kw="consecutive rows gaps islands streak login sequence numbers in a row">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Gaps &amp; Islands</span><span class="chip">Consecutive</span><span class="chip">Streak</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Consecutive Rows &amp; Streak Detection</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <strong>Classic trick:</strong> Subtract <span class="ic">ROW_NUMBER()</span> from a date sequence — rows in the same consecutive group produce the same difference (the "island" key).</div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:8px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Consecutive Numbers (at least 3 in a row)</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #180</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 180</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Logs(id, num)   id is sequential
+
+-- Method 1: Triple self-join (simple, works for exactly 3)
+SELECT DISTINCT l1.num AS ConsecutiveNums
+FROM Logs l1
+JOIN Logs l2 ON l2.id = l1.id + 1 AND l2.num = l1.num
+JOIN Logs l3 ON l3.id = l1.id + 2 AND l3.num = l1.num;
+
+-- Method 2: LAG/LEAD (scalable to N consecutive)
+WITH flagged AS (
+    SELECT num,
+           LAG(num, 1) OVER (ORDER BY id) AS p1,
+           LAG(num, 2) OVER (ORDER BY id) AS p2
+    FROM Logs
+)
+SELECT DISTINCT num AS ConsecutiveNums
+FROM flagged
+WHERE num = p1 AND num = p2;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Longest Consecutive Login Streak</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · Gaps &amp; Islands pattern</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Logins(user_id, login_date)
+
+WITH deduped AS (
+    SELECT DISTINCT user_id, login_date FROM Logins
+),
+grouped AS (
+    -- Subtracting row_number from date groups consecutive dates together
+    SELECT
+        user_id,
+        login_date,
+        DATE_SUB(
+            login_date,
+            INTERVAL ROW_NUMBER() OVER (
+                PARTITION BY user_id ORDER BY login_date
+            ) DAY
+        ) AS grp          -- same grp = consecutive day streak
+    FROM deduped
+),
+streaks AS (
+    SELECT user_id, grp, COUNT(*) AS streak_len
+    FROM grouped
+    GROUP BY user_id, grp
+)
+SELECT user_id, MAX(streak_len) AS longest_streak
+FROM streaks
+GROUP BY user_id
+ORDER BY longest_streak DESC;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: Pivot -->
+    <div class="card" data-kw="pivot unpivot conditional aggregation matrix rows columns reformat monthly">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">PIVOT</span><span class="chip">Conditional Agg</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Pivoting Rows into Columns</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ MySQL has no <span class="ic">PIVOT</span> keyword. Simulate it with <span class="ic">SUM(CASE WHEN col = 'value' THEN amount END)</span> — one column per pivot value.</div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:8px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Reformat Department Table (Monthly Pivot)</span>
+            <span class="badge badge-medium">Medium</span>
+            <span class="ex-lc">LC #1179</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 1179</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Department(id, revenue, month)
+-- month ∈ {'Jan','Feb',...,'Dec'}
+-- Pivot: one row per id, one column per month
+
+SELECT
+    id,
+    SUM(CASE WHEN month = 'Jan' THEN revenue END) AS Jan_Revenue,
+    SUM(CASE WHEN month = 'Feb' THEN revenue END) AS Feb_Revenue,
+    SUM(CASE WHEN month = 'Mar' THEN revenue END) AS Mar_Revenue,
+    SUM(CASE WHEN month = 'Apr' THEN revenue END) AS Apr_Revenue,
+    SUM(CASE WHEN month = 'May' THEN revenue END) AS May_Revenue,
+    SUM(CASE WHEN month = 'Jun' THEN revenue END) AS Jun_Revenue,
+    SUM(CASE WHEN month = 'Jul' THEN revenue END) AS Jul_Revenue,
+    SUM(CASE WHEN month = 'Aug' THEN revenue END) AS Aug_Revenue,
+    SUM(CASE WHEN month = 'Sep' THEN revenue END) AS Sep_Revenue,
+    SUM(CASE WHEN month = 'Oct' THEN revenue END) AS Oct_Revenue,
+    SUM(CASE WHEN month = 'Nov' THEN revenue END) AS Nov_Revenue,
+    SUM(CASE WHEN month = 'Dec' THEN revenue END) AS Dec_Revenue
+FROM Department
+GROUP BY id
+ORDER BY id;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Median Employee Salary</span>
+            <span class="badge badge-hard">Hard</span>
+            <span class="ex-lc">LC #569</span>
+          </div>
+          <p class="ex-desc">MySQL has no <span class="ic">MEDIAN()</span>. Use the double row-number trick to identify the middle row(s).</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · LC 569</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, company, salary)
+
+WITH ranked AS (
+    SELECT
+        id, company, salary,
+        ROW_NUMBER() OVER (PARTITION BY company ORDER BY salary)     AS rn,
+        COUNT(*)     OVER (PARTITION BY company)                     AS cnt
+    FROM Employee
+)
+SELECT id, company, salary
+FROM ranked
+-- For odd cnt: single middle row; for even cnt: two middle rows
+WHERE rn BETWEEN cnt / 2.0 AND cnt / 2.0 + 1;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: Recursive CTE -->
+    <div class="card" data-kw="recursive cte hierarchy tree manager org chart date series generate sequence">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Recursive CTE</span><span class="chip">WITH RECURSIVE</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Recursive CTEs — Hierarchies &amp; Sequences</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="tip">⚡ <strong>Structure:</strong> Anchor (base case) + <span class="ic">UNION ALL</span> + Recursive (self-references CTE). Always add a depth/level counter to prevent infinite loops.</div>
+
+        <div class="code-label">Syntax Template</div>
+        <div class="code-wrap">
+          <div class="code-bar"><span>sql · skeleton</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-sql">WITH RECURSIVE cte AS (
+    -- Anchor: base case, no self-reference
+    SELECT id, parent_id, name, 1 AS depth
+    FROM tbl
+    WHERE parent_id IS NULL         -- root nodes
+
+    UNION ALL
+
+    -- Recursive: join table back to CTE
+    SELECT t.id, t.parent_id, t.name, c.depth + 1
+    FROM tbl t
+    JOIN cte c ON t.parent_id = c.id
+    WHERE c.depth < 20              -- ← always add depth limit!
+)
+SELECT * FROM cte ORDER BY depth;</code></pre>
+        </div>
+
+        <!-- Example 1 -->
+        <div style="margin-top:16px;">
+          <div class="ex-header">
+            <span class="ex-num">1</span>
+            <span class="ex-title">Generate a Date Series (Fill Missing Dates)</span>
+            <span class="badge badge-medium">Medium</span>
+          </div>
+          <p class="ex-desc">Recursive CTEs can generate number or date sequences — perfect for filling gaps in sparse date data.</p>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · date sequence generator</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Generate every date in Jan 2024, fill zeros for days with no orders
+
+WITH RECURSIVE cal AS (
+    SELECT DATE('2024-01-01') AS dt
+    UNION ALL
+    SELECT DATE_ADD(dt, INTERVAL 1 DAY)
+    FROM cal
+    WHERE dt < '2024-01-31'
+)
+SELECT
+    cal.dt,
+    COALESCE(SUM(o.amount), 0) AS daily_revenue
+FROM cal
+LEFT JOIN Orders o ON DATE(o.created_at) = cal.dt
+GROUP BY cal.dt
+ORDER BY cal.dt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div style="margin-top:20px;">
+          <div class="ex-header">
+            <span class="ex-num">2</span>
+            <span class="ex-title">Full Manager Hierarchy / Org Chart</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+          <div class="code-wrap">
+            <div class="code-bar"><span>mysql · recursive hierarchy</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+            <pre><code class="language-sql">-- Employee(id, name, manager_id, salary)
+-- Find all employees under manager id = 5 (any depth)
+
+WITH RECURSIVE org AS (
+    -- Anchor: start from the target manager
+    SELECT id, name, manager_id, salary, 0 AS depth
+    FROM Employee
+    WHERE id = 5
+
+    UNION ALL
+
+    -- Recursive: find direct reports of current level
+    SELECT e.id, e.name, e.manager_id, e.salary, o.depth + 1
+    FROM Employee e
+    JOIN org o ON e.manager_id = o.id
+)
+SELECT
+    CONCAT(REPEAT('  ', depth), name)  AS hierarchy,
+    depth,
+    salary
+FROM org
+ORDER BY depth, name;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding:28px 0;text-align:center;">
+    <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px;">
+      SQL Interview Cheat Sheet &nbsp;·&nbsp; MySQL 8.0 &nbsp;·&nbsp; Built for LeetCode prep 🚀
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span class="chip">40+ Patterns</span>
+      <span class="chip">8 Sections</span>
+      <span class="chip">Real LC Examples</span>
+      <span class="chip">MySQL 8.0</span>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════ SCRIPT -->
+
+</body>
+</html>
