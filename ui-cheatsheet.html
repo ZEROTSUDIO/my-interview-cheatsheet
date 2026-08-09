@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI/UX Interview Cheat Sheet — CSS & JavaScript</title>
+  <meta name="description" content="Cheat sheet lengkap pertanyaan interview UI/UX — CSS, JavaScript, Flexbox, Grid, Event Loop, DOM, dan Web Performance." />
+  <script src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Live Preview Panel ───────────────────────── */
+    .preview-wrap {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      overflow: hidden;
+    }
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      background: rgba(63,185,80,0.08);
+      border-bottom: 1px solid rgba(63,185,80,0.2);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+    }
+    .preview-bar::before { content: "▶"; }
+    .preview-body {
+      padding: 20px;
+      background: #0d1117;
+    }
+    /* ── Demo box model ──────────────────────────── */
+    .demo-box-outer {
+      border: 2px dashed rgba(88,166,255,0.5);
+      padding: 16px;
+      position: relative;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .demo-box-border {
+      border: 8px solid rgba(227,179,65,0.6);
+      padding: 12px;
+      position: relative;
+    }
+    .demo-box-padding {
+      background: rgba(63,185,80,0.12);
+      padding: 12px;
+      position: relative;
+    }
+    .demo-box-content {
+      background: rgba(88,166,255,0.18);
+      padding: 10px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .demo-box-label {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: absolute;
+      top: 3px; left: 5px;
+    }
+    /* ── Flex demo ───────────────────────────────── */
+    .flex-demo-container {
+      background: rgba(88,166,255,0.06);
+      border: 1px dashed rgba(88,166,255,0.3);
+      border-radius: 7px;
+      padding: 10px;
+      min-height: 70px;
+      display: flex;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .flex-demo-item {
+      background: rgba(88,166,255,0.25);
+      border: 1px solid rgba(88,166,255,0.5);
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .flex-demo-item.grow { flex: 1; text-align: center; }
+    /* ── Grid demo ───────────────────────────────── */
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .grid-cell {
+      background: rgba(188,140,255,0.15);
+      border: 1px solid rgba(188,140,255,0.3);
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--purple);
+    }
+    .grid-cell.span-all { grid-column: 1 / -1; background: rgba(188,140,255,0.25); }
+    .grid-cell.span-2 { grid-column: span 2; }
+    /* ── Positioning demo ────────────────────────── */
+    .pos-demo { position: relative; height: 100px; background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 6px; overflow: hidden; }
+    /* ── Animation previews ──────────────────────── */
+    @keyframes demo-fade-up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes demo-spin { to { transform: rotate(360deg); } }
+    @keyframes demo-pulse { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.12); opacity:0.7; } }
+    @keyframes demo-slide { 0%,100% { transform: translateX(0); } 50% { transform: translateX(60px); } }
+    /* ── Toggle controls ─────────────────────────── */
+    .demo-btn-group { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+    .demo-btn {
+      padding:4px 10px; font-size:10.5px; border-radius:5px; cursor:pointer; font-family:'JetBrains Mono',monospace;
+      background:rgba(88,166,255,0.1); border:1px solid rgba(88,166,255,0.25); color:var(--blue);
+      transition: all .15s;
+    }
+    .demo-btn:hover { background:rgba(88,166,255,0.2); }
+    .demo-btn.active { background:var(--blue); color:#0d1117; }
+    /* ── Event log ───────────────────────────────── */
+    .event-log {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      min-height: 48px;
+      max-height: 100px;
+      overflow-y: auto;
+      line-height: 1.7;
+    }
+    .event-log .log-entry { animation: demo-fade-up 0.2s ease; }
+    .log-ts { color: var(--text-dim); margin-right: 6px; }
+    .log-ok { color: var(--green); }
+    .log-warn { color: var(--orange); }
+    /* ── Specificity color demo ──────────────────── */
+    .spec-p    { color: #8b949e; font-size:14px; font-weight:400; }
+    .spec-class { color: var(--blue); font-size:14px; font-weight:600; }
+    .spec-id   { color: var(--green); font-size:14px; font-weight:700; }
+    .spec-inline { color: var(--orange); font-size:14px; font-weight:700; }
+  </style>
+</head>
+<body>
+
+<div id="reading-bar"></div>
+
+<!-- ══════════════════════════════════════════════════ SIDEBAR -->
+<aside id="sidebar">
+  <div style="padding:14px 14px 12px; border-bottom:1px solid var(--border); flex-shrink:0;">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--blue);text-decoration:none;margin-bottom:12px;font-weight:600;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">&larr; Kembali ke Portal Hub</a>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="background:linear-gradient(135deg,#f778ba,#58a6ff);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">🎨</div>
+      <div>
+        <div style="font-weight:700;font-size:13.5px;color:var(--text-primary);">UI/UX Sheet</div>
+        <div style="font-size:10px;color:var(--text-muted);">CSS & JS · Frontend Interview</div>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-dim);" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search-box" type="text" placeholder="Cari topik (misal: flexbox, event loop)..." oninput="doSearch(this.value)" />
+    </div>
+  </div>
+  <div class="sidebar-nav-scroll">
+    <div class="nav-section-label">Dasar-Dasar CSS</div>
+    <a href="#s1" class="nav-link" id="nl-s1">📦&nbsp; Box Model &amp; Selectors</a>
+    <a href="#s2" class="nav-link" id="nl-s2">🔲&nbsp; Flexbox &amp; Grid</a>
+    <a href="#s3" class="nav-link" id="nl-s3">📌&nbsp; Positioning &amp; Z-index</a>
+    <a href="#s4" class="nav-link" id="nl-s4">📱&nbsp; Responsive Design</a>
+    <a href="#s5" class="nav-link" id="nl-s5">✨&nbsp; Animations &amp; Transitions</a>
+    <div class="nav-section-label">Pola JavaScript UI</div>
+    <a href="#s6" class="nav-link" id="nl-s6">🌐&nbsp; DOM &amp; Events</a>
+    <a href="#s7" class="nav-link" id="nl-s7">⚡&nbsp; Event Loop &amp; Async</a>
+    <a href="#s8" class="nav-link" id="nl-s8">🚀&nbsp; Performance &amp; Accessibility</a>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════ MAIN -->
+<main id="main" style="padding:0 44px 80px;">
+
+  <header style="padding:36px 0 28px;border-bottom:1px solid var(--border);margin-bottom:44px;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <span class="chip">CSS3</span>
+          <span class="chip chip-purple">JavaScript</span>
+          <span class="chip chip-orange">Frontend Interview</span>
+          <span class="chip chip-green">Live Preview ✓</span>
+        </div>
+        <h1 style="font-size:34px;font-weight:800;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#e6edf3 30%,#f778ba 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">UI/UX Interview<br/>Cheat Sheet</h1>
+        <p style="font-size:14px;color:var(--text-muted);max-width:560px;line-height:1.65;">
+          Referensi CSS &amp; JavaScript untuk frontend interview — setiap topik dilengkapi penjelasan, kode, dan <strong style="color:var(--green);">live preview interaktif</strong> yang langsung menampilkan hasilnya.
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+        <span class="complex">⏱ ~25 min read</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+          <span class="badge badge-easy">Dasar CSS</span>
+          <span class="badge badge-medium">JS Pattern</span>
+          <span class="badge badge-hard">Performance</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="divider-label">🎨 Dasar-Dasar CSS</div>
+
+  <!-- ═════════════════ S1: Box Model & Selectors ═════════════ -->
+  <section id="s1" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">📦</span>
+      <div>
+        <h2>Box Model &amp; Selectors</h2>
+        <p>Fondasi tata letak CSS — cara browser menghitung ukuran elemen dan cara memilih elemen secara presisi.</p>
+      </div>
+    </div>
+
+    <!-- Box Model -->
+    <div class="card" data-kw="box model margin padding border content width height box-sizing layout">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">📦</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">CSS Box Model</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Fondasi semua tata letak CSS</div>
+          </div>
+          <span class="badge badge-easy">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          Setiap elemen HTML adalah "kotak" dengan 4 lapisan: <strong>content</strong> (konten asli) → <strong>padding</strong> (ruang dalam, ikut background) → <strong>border</strong> (garis tepi) → <strong>margin</strong> (ruang luar, transparan). <br/><br/>
+          Kunci interview: <code>box-sizing: content-box</code> (default — width tidak termasuk padding/border) vs <code>box-sizing: border-box</code> (width SUDAH termasuk padding dan border — dipakai hampir semua proyek modern).
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">content-box vs border-box</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">/* Default — width BELUM termasuk padding/border */
+.box { box-sizing: content-box; width: 200px; padding: 20px; border: 4px solid; }
+/* Total: 200 + 40 + 8 = 248px */
+
+/* Modern — width SUDAH termasuk segalanya */
+.box { box-sizing: border-box; width: 200px; padding: 20px; border: 4px solid; }
+/* Total tetap: 200px */</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Reset global terbaik</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">/* Tempel di paling atas style.css */
+*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Box Model Visual</div>
+          <div class="preview-body">
+            <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;justify-content:center;">
+              <!-- content-box -->
+              <div style="text-align:center;">
+                <div style="font-size:10px;color:var(--orange);font-family:'JetBrains Mono',monospace;margin-bottom:6px;font-weight:700;">content-box</div>
+                <div style="display:inline-block;border:2px dashed rgba(88,166,255,0.4);padding:10px;position:relative;">
+                  <div style="font-size:8px;color:var(--blue);font-family:'JetBrains Mono',monospace;position:absolute;top:2px;left:4px;">margin</div>
+                  <div style="border:6px solid rgba(227,179,65,0.7);padding:8px;position:relative;">
+                    <div style="font-size:8px;color:var(--orange);font-family:'JetBrains Mono',monospace;position:absolute;top:1px;left:3px;">border</div>
+                    <div style="background:rgba(63,185,80,0.15);padding:8px;position:relative;">
+                      <div style="font-size:8px;color:var(--green);font-family:'JetBrains Mono',monospace;position:absolute;top:1px;left:3px;">padding</div>
+                      <div style="background:rgba(88,166,255,0.25);padding:8px 16px;text-align:center;">
+                        <span style="font-size:10px;color:var(--blue);font-family:'JetBrains Mono',monospace;font-weight:700;">content</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:9px;color:var(--orange);margin-top:4px;font-family:'JetBrains Mono',monospace;">width = content only<br/>total lebih lebar</div>
+              </div>
+              <!-- border-box -->
+              <div style="text-align:center;">
+                <div style="font-size:10px;color:var(--green);font-family:'JetBrains Mono',monospace;margin-bottom:6px;font-weight:700;">border-box ✅</div>
+                <div style="display:inline-block;width:120px;border:6px solid rgba(63,185,80,0.7);padding:8px;position:relative;">
+                  <div style="font-size:8px;color:var(--orange);font-family:'JetBrains Mono',monospace;position:absolute;top:1px;left:3px;">border</div>
+                  <div style="background:rgba(63,185,80,0.15);padding:8px;position:relative;">
+                    <div style="font-size:8px;color:var(--green);font-family:'JetBrains Mono',monospace;position:absolute;top:1px;left:3px;">padding</div>
+                    <div style="background:rgba(88,166,255,0.25);padding:6px;text-align:center;">
+                      <span style="font-size:10px;color:var(--blue);font-family:'JetBrains Mono',monospace;font-weight:700;">content</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:9px;color:var(--green);margin-top:4px;font-family:'JetBrains Mono',monospace;">width = total keseluruhan<br/>konsisten &amp; prediktable</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip">⚡ <strong>Tip:</strong> Margin collapse — dua margin vertikal yang bersebelahan <em>digabung</em> jadi satu (ambil yang terbesar, bukan dijumlahkan). Tidak terjadi di flex/grid.</div>
+      </div>
+    </div>
+
+    <!-- Specificity -->
+    <div class="card" data-kw="specificity selectors css priority inline style id class pseudo-element">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">🎯</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">CSS Specificity &amp; Cascade</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Style mana yang menang saat ada konflik</div>
+          </div>
+          <span class="badge badge-easy">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          Skor specificity dihitung sebagai <code>(inline, ID, class, element)</code>. Yang punya skor lebih tinggi menang. Urutan kekuatan: <strong>inline &gt; #id &gt; .class &gt; element</strong>. <code>!important</code> mengalahkan semua, tapi hindari kecuali terpaksa.
+        </div>
+
+        <div class="qref-grid">
+          <div class="qref-item" style="border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.05);">
+            <div class="qref-label" style="color:var(--green);">(0,0,0,1)</div>
+            <div class="qref-desc"><code>p, div, ::before</code></div>
+          </div>
+          <div class="qref-item" style="border-color:rgba(88,166,255,.3);background:rgba(88,166,255,.05);">
+            <div class="qref-label" style="color:var(--blue);">(0,0,1,0)</div>
+            <div class="qref-desc"><code>.class, :hover, [attr]</code></div>
+          </div>
+          <div class="qref-item" style="border-color:rgba(188,140,255,.3);background:rgba(188,140,255,.05);">
+            <div class="qref-label" style="color:var(--purple);">(0,1,0,0)</div>
+            <div class="qref-desc"><code>#id</code></div>
+          </div>
+          <div class="qref-item" style="border-color:rgba(227,179,65,.3);background:rgba(227,179,65,.05);">
+            <div class="qref-label" style="color:var(--orange);">(1,0,0,0)</div>
+            <div class="qref-desc"><code>style=""</code> (inline)</div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Prioritas Selector</div>
+          <div class="preview-body">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:140px;font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">p { color: gray }</div>
+                <div style="flex:1;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:5px;font-size:13px;color:#8b949e;font-family:'Inter',sans-serif;">Ini teks biasa (element selector)</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:140px;font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">.text { color: blue }</div>
+                <div style="flex:1;padding:8px 12px;background:rgba(88,166,255,0.06);border-radius:5px;font-size:13px;color:var(--blue);font-family:'Inter',sans-serif;">Ini teks dengan class (menang dari p)</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:140px;font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">#title { color: green }</div>
+                <div style="flex:1;padding:8px 12px;background:rgba(63,185,80,0.06);border-radius:5px;font-size:13px;color:var(--green);font-family:'Inter',sans-serif;font-weight:700;">Ini teks dengan ID (menang dari .class)</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:140px;font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">style="orange"</div>
+                <div style="flex:1;padding:8px 12px;background:rgba(227,179,65,0.06);border-radius:5px;font-size:13px;color:var(--orange);font-family:'Inter',sans-serif;font-weight:700;">Inline style — pemenang mutlak 🏆</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn">⚠️ <strong>Gotcha:</strong> <code>!important</code> vs <code>!important</code> — kalau keduanya pakai <code>!important</code>, yang menang adalah yang punya specificity lebih tinggi. Bukan berarti "menang mutlak".</div>
+      </div>
+    </div>
+
+    <!-- Pseudo -->
+    <div class="card" data-kw="pseudo-class pseudo-element hover focus nth-child before after css selectors">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">🔮</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Pseudo-class vs Pseudo-element</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Selector untuk state &amp; bagian elemen</div>
+          </div>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Pseudo-class (1 titik dua) — State</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">a:hover   { color: blue; }
+a:focus   { outline: 2px solid; }
+li:first-child  { font-weight: bold; }
+li:nth-child(2) { background: #eee; }
+input:disabled  { opacity: 0.5; }</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Pseudo-element (2 titik dua) — Bagian</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.card::before { content: "★"; color: gold; }
+.card::after  { content: ""; display: block; }
+::selection   { background: #b3d4fc; }
+p::first-letter { font-size: 2em; }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Coba hover &amp; klik!</div>
+          <div class="preview-body">
+            <style>
+              .demo-list li { padding:5px 10px; border-radius:5px; cursor:pointer; font-size:13px; color:var(--text-muted); transition:all .2s; list-style:none; font-family:'Inter',sans-serif; }
+              .demo-list li:first-child { font-weight:700; color:var(--text-primary); }
+              .demo-list li:hover { background:rgba(88,166,255,0.1); color:var(--blue); }
+              .demo-list li:nth-child(3) { color:var(--purple); }
+              .pseudo-btn {
+                position:relative; display:inline-flex; align-items:center; gap:6px;
+                padding:8px 16px; border-radius:7px; font-size:13px; font-family:'Inter',sans-serif;
+                background:rgba(88,166,255,0.12); border:1px solid rgba(88,166,255,0.3);
+                color:var(--blue); cursor:pointer; transition:all .2s;
+              }
+              .pseudo-btn::before { content:"★"; color:gold; transition:transform .2s; }
+              .pseudo-btn:hover { background:var(--blue); color:#0d1117; }
+              .pseudo-btn:hover::before { transform:rotate(180deg); }
+            </style>
+            <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+              <div>
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">:first-child, :hover, :nth-child(3)</div>
+                <ul class="demo-list" style="padding:0;margin:0;">
+                  <li>Item 1 — first-child (bold)</li>
+                  <li>Item 2 — hover untuk highlight</li>
+                  <li>Item 3 — nth-child(3) ungu</li>
+                  <li>Item 4 — biasa</li>
+                </ul>
+              </div>
+              <div>
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">::before (★) + :hover</div>
+                <button class="pseudo-btn">Hover untuk efek ★</button>
+                <div style="font-size:10px;color:var(--text-dim);margin-top:8px;">★ muncul via ::before,<br/>rotasi saat :hover</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip">⚡ <strong>Tip:</strong> Pseudo-element butuh <code>content</code> property — bahkan <code>content: ""</code> (string kosong) agar tampil. Lupa ini = tidak ada hasilnya.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S2: Flexbox & Grid ════════════════════ -->
+  <section id="s2" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🔲</span>
+      <div>
+        <h2>Flexbox &amp; Grid</h2>
+        <p>Flexbox untuk satu dimensi, Grid untuk dua dimensi.</p>
+      </div>
+    </div>
+
+    <!-- Flexbox -->
+    <div class="card" data-kw="flexbox flex justify-content align-items flex-wrap flex-direction gap row column">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">↔️</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Flexbox — Tata Letak Satu Dimensi</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Container &amp; item properties, centering tricks</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          Flexbox bekerja pada dua sumbu: <strong>main axis</strong> (arah flex-direction) dan <strong>cross axis</strong> (tegak lurusnya).
+          <code>justify-content</code> = distribusi di main axis. <code>align-items</code> = posisi di cross axis (satu baris).
+          <code>flex: 1</code> = shorthand grow+shrink+basis, membuat item mengisi ruang kosong.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-bar"><span>CSS — Flexbox Essentials</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+          <pre><code class="language-css">.container {
+  display: flex;
+  flex-direction: row;          /* row | column */
+  justify-content: space-between; /* distribusi main axis */
+  align-items: center;          /* posisi cross axis */
+  flex-wrap: wrap;              /* turun baris kalau sempit */
+  gap: 16px;
+}
+.item { flex: 1; }              /* ambil ruang tersisa */
+.card { display:flex; flex-direction:column; }
+.card .btn { margin-top: auto; } /* dorong tombol ke bawah */</code></pre>
+        </div>
+
+        <!-- LIVE PREVIEW INTERAKTIF -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Interaktif: ubah justify-content</div>
+          <div class="preview-body">
+            <div class="demo-btn-group" id="flex-jc-btns">
+              <button class="demo-btn active" onclick="setFlexJC(this,'flex-start')">flex-start</button>
+              <button class="demo-btn" onclick="setFlexJC(this,'center')">center</button>
+              <button class="demo-btn" onclick="setFlexJC(this,'flex-end')">flex-end</button>
+              <button class="demo-btn" onclick="setFlexJC(this,'space-between')">space-between</button>
+              <button class="demo-btn" onclick="setFlexJC(this,'space-around')">space-around</button>
+            </div>
+            <div id="flex-demo" class="flex-demo-container" style="justify-content:flex-start;">
+              <div class="flex-demo-item">A</div>
+              <div class="flex-demo-item">BB</div>
+              <div class="flex-demo-item">CCC</div>
+            </div>
+            <div style="margin-top:12px;font-size:10px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">
+              justify-content: <span id="flex-jc-label" style="color:var(--blue);">flex-start</span>
+            </div>
+
+            <div style="margin-top:16px;font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">flex: 1 — item mengisi ruang kosong:</div>
+            <div class="flex-demo-container" style="justify-content:stretch;">
+              <div class="flex-demo-item grow">flex: 1</div>
+              <div class="flex-demo-item grow">flex: 1</div>
+              <div class="flex-demo-item grow">flex: 1</div>
+            </div>
+
+            <div style="margin-top:16px;font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">Card dengan tombol selalu di bawah (margin-top: auto):</div>
+            <div style="display:flex;gap:8px;">
+              <div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:7px;padding:12px;width:110px;min-height:90px;">
+                <div style="font-size:11px;color:var(--text-primary);margin-bottom:4px;">Card pendek</div>
+                <div style="margin-top:auto;"><div style="background:rgba(88,166,255,0.2);border-radius:4px;padding:4px 8px;font-size:10px;color:var(--blue);text-align:center;">Buka</div></div>
+              </div>
+              <div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:7px;padding:12px;width:110px;min-height:90px;">
+                <div style="font-size:11px;color:var(--text-primary);margin-bottom:4px;">Card yang lebih panjang kontennya</div>
+                <div style="margin-top:auto;"><div style="background:rgba(88,166,255,0.2);border-radius:4px;padding:4px 8px;font-size:10px;color:var(--blue);text-align:center;">Buka</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="card" data-kw="css grid layout columns rows template area gap fr minmax auto-fill auto-fit">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">⊞</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">CSS Grid — Tata Letak Dua Dimensi</div>
+            <div style="font-size:11.5px;color:var(--text-muted);"><code>fr</code>, <code>minmax</code>, <code>auto-fit</code>, template areas</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <code>fr</code> = fractional unit, proporsi dari ruang sisa. <code>repeat(auto-fit, minmax(200px, 1fr))</code> = grid responsif otomatis tanpa media query — kolom akan menyesuaikan jumlahnya sendiri. <code>grid-area</code> memungkinkan layout semantik seperti header-sidebar-main-footer.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Grid Responsif Otomatis</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.hero { grid-column: 1 / -1; /* span semua kolom */ }</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Template Areas (Layout Semantik)</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.layout {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar main  "
+    "footer  footer";
+  grid-template-columns: 200px 1fr;
+}
+header  { grid-area: header; }
+.sidebar{ grid-area: sidebar; }
+main    { grid-area: main; }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Grid Layouts</div>
+          <div class="preview-body">
+            <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">repeat(3, 1fr) + grid-column: 1 / -1</div>
+            <div class="grid-demo" style="margin-bottom:16px;">
+              <div class="grid-cell span-all">Header — span all columns</div>
+              <div class="grid-cell">1</div>
+              <div class="grid-cell">2</div>
+              <div class="grid-cell">3</div>
+              <div class="grid-cell span-2">grid-column: span 2</div>
+              <div class="grid-cell">5</div>
+              <div class="grid-cell span-all">Footer — span all columns</div>
+            </div>
+
+            <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">grid-template-areas — sidebar layout</div>
+            <div style="display:grid;grid-template-areas:'hdr hdr' 'side main' 'ftr ftr';grid-template-columns:80px 1fr;grid-template-rows:auto auto auto;gap:4px;">
+              <div style="grid-area:hdr;background:rgba(188,140,255,0.25);border:1px solid rgba(188,140,255,0.4);padding:6px;border-radius:4px;text-align:center;font-size:10px;color:var(--purple);font-family:'JetBrains Mono',monospace;">header</div>
+              <div style="grid-area:side;background:rgba(63,185,80,0.12);border:1px solid rgba(63,185,80,0.3);padding:10px 6px;border-radius:4px;text-align:center;font-size:10px;color:var(--green);font-family:'JetBrains Mono',monospace;">sidebar</div>
+              <div style="grid-area:main;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);padding:10px;border-radius:4px;font-size:10px;color:var(--blue);font-family:'JetBrains Mono',monospace;">main content</div>
+              <div style="grid-area:ftr;background:rgba(188,140,255,0.15);border:1px solid rgba(188,140,255,0.3);padding:6px;border-radius:4px;text-align:center;font-size:10px;color:var(--purple);font-family:'JetBrains Mono',monospace;">footer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip">⚡ <strong>Flexbox vs Grid:</strong> Flexbox = komponen (navbar, tombol). Grid = layout halaman (header-sidebar-main). Kombinasikan keduanya.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S3: Positioning & Z-index ══════════════ -->
+  <section id="s3" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">📌</span>
+      <div>
+        <h2>Positioning &amp; Z-index</h2>
+        <p>Mengontrol posisi elemen di luar aliran normal dokumen HTML.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="position static relative absolute fixed sticky z-index stacking context layer overlay">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">📌</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">static / relative / absolute / fixed / sticky</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Kapan dan bagaimana pakai masing-masing nilai position</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <strong>static</strong> — default, tidak bisa pakai top/left. <strong>relative</strong> — digeser dari posisinya sendiri, ruang aslinya tetap ada. <strong>absolute</strong> — lepas dari aliran dokumen, posisi relatif ke ancestor non-static terdekat. <strong>fixed</strong> — relatif ke viewport, tidak ikut scroll. <strong>sticky</strong> — gabungan relative + fixed: ikut scroll sampai offset tertentu lalu menempel.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Pola: parent relative + child absolute</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.card { position: relative; }
+.badge {
+  position: absolute;
+  top: 8px; right: 8px;
+}
+nav { position: sticky; top: 0; z-index: 100; }
+.overlay {
+  position: fixed;
+  inset: 0; /* top:0;right:0;bottom:0;left:0 */
+  background: rgba(0,0,0,0.5);
+}</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Z-index &amp; Stacking Context</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.modal    { z-index: 1000; }
+.dropdown { z-index: 500;  }
+.header   { z-index: 100;  }
+
+/* Buat stacking context tanpa efek samping */
+.isolated { isolation: isolate; }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Positioning Demo</div>
+          <div class="preview-body">
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div>
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">relative (parent) + absolute (badge)</div>
+                <div style="position:relative;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:20px 16px;width:150px;min-height:70px;">
+                  <div style="font-size:12px;color:var(--text-muted);">Kartu produk<br/>biasa</div>
+                  <div style="position:absolute;top:-8px;right:-8px;background:var(--orange);color:#0d1117;font-size:9px;font-weight:700;padding:2px 7px;border-radius:12px;font-family:'JetBrains Mono',monospace;">BARU</div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">Z-index layers</div>
+                <div style="position:relative;width:150px;height:80px;">
+                  <div style="position:absolute;top:0;left:0;width:100px;height:60px;background:rgba(88,166,255,0.2);border:1px solid rgba(88,166,255,0.4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--blue);font-family:'JetBrains Mono',monospace;z-index:1;">z-index: 1</div>
+                  <div style="position:absolute;top:20px;left:30px;width:100px;height:55px;background:rgba(188,140,255,0.25);border:1px solid rgba(188,140,255,0.5);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--purple);font-family:'JetBrains Mono',monospace;z-index:2;">z-index: 2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn">⚠️ <strong>Gotcha:</strong> <code>z-index</code> tinggi tidak menjamin tampil di atas — elemen terbatas di <em>stacking context</em> parent-nya. Elemen anak tidak bisa keluar dari stacking context parent.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S4: Responsive Design ═════════════════ -->
+  <section id="s4" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">📱</span>
+      <div>
+        <h2>Responsive Design &amp; Media Queries</h2>
+        <p>Tampilan adaptif di semua ukuran layar dengan pendekatan mobile-first modern.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="responsive media queries mobile first breakpoint viewport clamp fluid rem em vw vh dvh container query">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">📱</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Media Queries &amp; Unit Responsif Modern</div>
+            <div style="font-size:11.5px;color:var(--text-muted);"><code>clamp()</code>, <code>min()</code>, <code>dvh</code>, mobile-first strategy</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <strong>Mobile-first</strong>: tulis default untuk layar kecil, override dengan <code>min-width</code> untuk layar besar. Lebih efisien karena device kecil unduh lebih sedikit CSS. <code>clamp(min, preferred, max)</code> = ukuran fluid yang terbatas. <code>dvh</code> (dynamic viewport height) = lebih aman dari <code>vh</code> di mobile karena memperhitungkan address bar.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Mobile-first Media Queries</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">/* Default: mobile */
+.grid { grid-template-columns: 1fr; }
+
+/* ≥ 768px: tablet */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* ≥ 1024px: desktop */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+}</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Unit Responsif Modern</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">/* clamp: fluid antara 1rem – 2rem */
+h1 { font-size: clamp(1rem, 4vw + 1rem, 2rem); }
+
+/* Container yang aman */
+.wrap {
+  width: min(100% - 48px, 1140px);
+  margin-inline: auto;
+}
+/* Tinggi hero aman di mobile */
+.hero { min-height: 100dvh; }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — clamp() Font Size</div>
+          <div class="preview-body">
+            <div style="background:rgba(255,255,255,0.03);border:1px dashed var(--border);border-radius:6px;padding:12px;">
+              <div style="font-size:clamp(0.875rem, 2vw + 0.5rem, 1.5rem);font-weight:800;color:var(--text-primary);margin-bottom:4px;line-height:1.3;">
+                Heading ini pakai clamp()
+              </div>
+              <div style="font-size:clamp(0.75rem, 1vw + 0.5rem, 1rem);color:var(--text-muted);">
+                Paragraf ini juga fluid — coba resize browser untuk lihat efeknya.
+              </div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:80px;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);border-radius:6px;padding:8px;text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">📱 Mobile<br/>min: 14px</div>
+              </div>
+              <div style="flex:1;min-width:80px;background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.2);border-radius:6px;padding:8px;text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">💻 Tablet<br/>fluid: ~18px</div>
+              </div>
+              <div style="flex:1;min-width:80px;background:rgba(188,140,255,0.1);border:1px solid rgba(188,140,255,0.2);border-radius:6px;padding:8px;text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">🖥️ Desktop<br/>max: 24px</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S5: Animations & Transitions ══════════ -->
+  <section id="s5" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">✨</span>
+      <div>
+        <h2>Animations &amp; Transitions</h2>
+        <p>Membuat antarmuka yang terasa hidup — smooth di GPU, tidak menyebabkan reflow.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="css animation transition keyframes duration easing transform will-change GPU reflow repaint performance">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">✨</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Transition vs Animation &amp; GPU Compositing</div>
+            <div style="font-size:11.5px;color:var(--text-muted);"><code>transform</code> &amp; <code>opacity</code> = aman. Width/height = menyebabkan reflow</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <strong>Transition</strong> = animasi antara dua state, butuh pemicu. <strong>Animation + keyframes</strong> = mandiri, bisa loop. <br/><br/>
+          <strong>Performa kritis:</strong> <code>transform</code> dan <code>opacity</code> hanya melibatkan compositor layer (GPU) — tidak ada reflow. Property seperti <code>width</code>, <code>height</code>, <code>top</code>, <code>margin</code> menyebabkan layout recalculation seluruh halaman = lambat. Selalu prefer <code>transform: scale()</code> daripada mengubah width.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Transition — state change</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">.btn {
+  transition: background 0.2s ease,
+              transform  0.2s ease;
+}
+.btn:hover {
+  background: #79c0ff;
+  transform: translateY(-2px); /* ✅ GPU */
+}
+/* Jangan: margin-top: -2px; ❌ reflow */</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Animation + Keyframes</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-css">@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card { animation: fadeUp 0.4s ease forwards; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader { animation: spin 1s linear infinite; }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW ANIMASI -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Live Animations (coba hover!)</div>
+          <div class="preview-body">
+            <style>
+              .anim-card { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor:pointer; }
+              .anim-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(88,166,255,0.2); }
+            </style>
+            <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;">
+              <!-- Fade up -->
+              <div style="text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">fadeUp</div>
+                <div id="fadeup-demo" style="animation:demo-fade-up 0.6s ease forwards;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--blue);font-family:'JetBrains Mono',monospace;">
+                  fade + up ✨
+                </div>
+                <button class="demo-btn" style="margin-top:8px;" onclick="replayAnim('fadeup-demo','demo-fade-up 0.6s ease forwards')">Replay</button>
+              </div>
+              <!-- Spin -->
+              <div style="text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">spin (loader)</div>
+                <div style="width:40px;height:40px;margin:0 auto;border:3px solid rgba(188,140,255,0.2);border-top:3px solid var(--purple);border-radius:50%;animation:demo-spin 1s linear infinite;"></div>
+              </div>
+              <!-- Pulse -->
+              <div style="text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">pulse</div>
+                <div style="width:40px;height:40px;margin:0 auto;background:rgba(63,185,80,0.3);border:2px solid var(--green);border-radius:50%;animation:demo-pulse 1.5s ease infinite;display:flex;align-items:center;justify-content:center;font-size:16px;">❤️</div>
+              </div>
+              <!-- Slide -->
+              <div style="text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">slide</div>
+                <div style="width:80px;overflow:hidden;background:rgba(255,255,255,0.04);border-radius:6px;padding:4px;">
+                  <div style="width:24px;height:24px;background:var(--orange);border-radius:4px;animation:demo-slide 2s ease-in-out infinite;"></div>
+                </div>
+              </div>
+              <!-- Hover card -->
+              <div style="text-align:center;">
+                <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">hover lift (transition)</div>
+                <div class="anim-card" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--text-muted);">
+                  Hover me! 🚀
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn">⚠️ <strong>Gotcha:</strong> Property aman (GPU): <code>transform</code>, <code>opacity</code>. Property berbahaya (reflow): <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code>, <code>margin</code>, <code>font-size</code>.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-label">⚡ Pola JavaScript UI</div>
+
+  <!-- ═════════════════ S6: DOM & Events ═════════════════════ -->
+  <section id="s6" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🌐</span>
+      <div>
+        <h2>DOM &amp; Events</h2>
+        <p>Manipulasi elemen HTML dan penanganan event yang efisien dengan event delegation.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="dom manipulation querySelector createElement classList dataset textContent innerHTML event listener delegation bubbling capturing stopPropagation preventDefault">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">🌐</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">DOM Manipulation &amp; Event Delegation</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Seleksi, modifikasi elemen, bubbling &amp; delegation pattern</div>
+          </div>
+          <span class="badge badge-medium">Sering Ditanya</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <strong>Event Bubbling</strong>: event naik dari anak ke parent ke grandparent sampai window. <strong>Event Delegation</strong>: manfaatkan bubbling — pasang SATU listener di parent, tangkap event dari semua anak. Keuntungan: hemat memori, otomatis bekerja untuk elemen yang ditambahkan dinamis. <code>event.target</code> = elemen yang diklik. <code>event.currentTarget</code> = elemen yang dipasangi listener.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">DOM Essentials</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>JavaScript</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-javascript">// Seleksi
+const el = document.querySelector('.card');
+const all = document.querySelectorAll('.item');
+
+// Konten
+el.textContent = 'Halo!'; // ✅ safe
+el.innerHTML = '<b>Halo</b>'; // ⚠️ XSS risk
+
+// Class
+el.classList.add('active');
+el.classList.toggle('open');
+
+// Dataset
+el.dataset.userId; // akses data-user-id</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Event Delegation Pattern</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>JavaScript</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-javascript">// ✅ Satu listener di parent
+document.querySelector('.list')
+  .addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return; // klik bukan di .btn
+
+    // e.stopPropagation() — hentikan bubbling
+    // e.preventDefault()  — cegah default (link)
+    console.log('ID:', btn.dataset.id);
+  });</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW INTERAKTIF -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Coba klik tombol &amp; tambah elemen!</div>
+          <div class="preview-body">
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:200px;">
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Event Delegation — 1 listener di parent</div>
+                <div id="dom-list" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:7px;padding:8px;min-height:80px;">
+                  <div class="dom-item" style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border-radius:5px;margin-bottom:4px;background:rgba(88,166,255,0.08);">
+                    <span style="font-size:12px;color:var(--text-primary);">Item 1</span>
+                    <button class="btn demo-btn" data-id="1" style="font-size:9px;padding:2px 7px;">Klik</button>
+                  </div>
+                  <div class="dom-item" style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border-radius:5px;margin-bottom:4px;background:rgba(88,166,255,0.08);">
+                    <span style="font-size:12px;color:var(--text-primary);">Item 2</span>
+                    <button class="btn demo-btn" data-id="2" style="font-size:9px;padding:2px 7px;">Klik</button>
+                  </div>
+                </div>
+                <button class="demo-btn" style="margin-top:6px;font-size:10px;" onclick="addDomItem()">+ Tambah Item (akan otomatis bekerja!)</button>
+              </div>
+              <div style="flex:1;min-width:160px;">
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Event log:</div>
+                <div id="dom-log" class="event-log">Klik tombol untuk lihat event...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip">⚡ <strong>Tip:</strong> Gunakan <code>textContent</code> bukan <code>innerHTML</code> saat hanya mengganti teks — lebih aman dari XSS dan lebih cepat.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S7: Event Loop & Async ════════════════ -->
+  <section id="s7" style="margin-bottom:48px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">⚡</span>
+      <div>
+        <h2>Event Loop &amp; Async JavaScript</h2>
+        <p>Urutan eksekusi Promise vs setTimeout, debounce, dan throttle — topik favorit interviewer.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="event loop call stack microtask macrotask promise async await setTimeout fetch debounce throttle single-threaded">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">🔄</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Event Loop, Debounce &amp; Throttle</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Microtask vs macrotask, pembatasan frekuensi panggilan fungsi</div>
+          </div>
+          <span class="badge badge-hard">Sulit</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          JavaScript <strong>single-threaded</strong>. Event Loop menjalankan: (1) semua kode sync, (2) kosongkan <strong>microtask queue</strong> (Promise .then, queueMicrotask), (3) ambil satu task dari <strong>macrotask queue</strong> (setTimeout, setInterval, DOM events), lalu ulangi dari 2. Artinya: <strong>Promise selalu jalan sebelum setTimeout</strong>, seberapa pun cepatnya timeout.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Urutan Eksekusi (tebak outputnya!)</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>JavaScript</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-javascript">console.log('1 — sync');
+setTimeout(() => console.log('2 — macro'), 0);
+Promise.resolve().then(() => console.log('3 — micro'));
+console.log('4 — sync');
+// Output: 1, 4, 3, 2</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Debounce vs Throttle</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>JavaScript</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-javascript">// Debounce: tunggu SELESAI, lalu panggil sekali
+function debounce(fn, delay) {
+  let t; return (...a) => { clearTimeout(t);
+    t = setTimeout(() => fn(...a), delay); };
+}
+// Throttle: panggil MAKSIMAL sekali per N ms
+function throttle(fn, limit) {
+  let last = 0; return (...a) => {
+    if (Date.now() - last >= limit) {
+      last = Date.now(); fn(...a); }};
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW INTERAKTIF -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Coba ketik cepat di input!</div>
+          <div class="preview-body">
+            <!-- Event Loop Visual -->
+            <div style="margin-bottom:16px;">
+              <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Urutan eksekusi Event Loop:</div>
+              <button class="demo-btn" onclick="runEventLoopDemo()">▶ Jalankan Demo</button>
+              <div id="el-log" class="event-log" style="margin-top:8px;min-height:72px;">Klik "Jalankan Demo" untuk melihat urutan eksekusi...</div>
+            </div>
+
+            <!-- Debounce vs Throttle -->
+            <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Ketik di sini dan perhatikan perbedaan Debounce vs Throttle:</div>
+            <input id="dt-input" type="text" placeholder="Ketik terus dengan cepat..." oninput="onDTInput()" style="width:100%;padding:8px 10px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:6px;color:var(--text-primary);font-size:13px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;" />
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:130px;background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.2);border-radius:7px;padding:10px;">
+                <div style="font-size:10px;color:var(--blue);font-family:'JetBrains Mono',monospace;font-weight:700;margin-bottom:4px;">Debounce (300ms)</div>
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">Panggil setelah berhenti 300ms</div>
+                <div style="font-size:22px;font-weight:800;color:var(--blue);font-family:'JetBrains Mono',monospace;" id="debounce-count">0</div>
+                <div style="font-size:9px;color:var(--text-dim);">kali dipanggil</div>
+              </div>
+              <div style="flex:1;min-width:130px;background:rgba(63,185,80,0.06);border:1px solid rgba(63,185,80,0.2);border-radius:7px;padding:10px;">
+                <div style="font-size:10px;color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:700;margin-bottom:4px;">Throttle (300ms)</div>
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">Panggil max 1x per 300ms</div>
+                <div style="font-size:22px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;" id="throttle-count">0</div>
+                <div style="font-size:9px;color:var(--text-dim);">kali dipanggil</div>
+              </div>
+              <div style="flex:1;min-width:130px;background:rgba(227,179,65,0.06);border:1px solid rgba(227,179,65,0.2);border-radius:7px;padding:10px;">
+                <div style="font-size:10px;color:var(--orange);font-family:'JetBrains Mono',monospace;font-weight:700;margin-bottom:4px;">Tanpa keduanya</div>
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;">Setiap keystroke = panggilan</div>
+                <div style="font-size:22px;font-weight:800;color:var(--orange);font-family:'JetBrains Mono',monospace;" id="raw-count">0</div>
+                <div style="font-size:9px;color:var(--text-dim);">kali dipanggil</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════ S8: Performance & Accessibility ═══════ -->
+  <section id="s8" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🚀</span>
+      <div>
+        <h2>Performance &amp; Accessibility</h2>
+        <p>Lazy loading, layout thrashing, Core Web Vitals, dan ARIA — topik senior frontend interview.</p>
+      </div>
+    </div>
+
+    <div class="card" data-kw="web performance lazy loading intersection observer reflow repaint layout thrashing requestAnimationFrame core web vitals LCP CLS INP wcag aria accessibility keyboard focus">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:16px;">🚀</span>
+          <div>
+            <div style="font-weight:700;font-size:14px;">Web Performance &amp; Accessibility (a11y)</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">IntersectionObserver, Layout Thrashing, Core Web Vitals, ARIA</div>
+          </div>
+          <span class="badge badge-hard">Senior Level</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <button class="how-toggle" onclick="toggleHow(this)"><em class="hw-arrow">▶</em> Cara Kerja &amp; Penjelasan</button>
+        <div class="how-panel">
+          <strong>Core Web Vitals:</strong> LCP (Largest Contentful Paint) &lt;2.5s, CLS (Cumulative Layout Shift) &lt;0.1, INP (Interaction to Next Paint) &lt;200ms. <strong>Layout Thrashing</strong> = baca dan tulis DOM bergantian dalam loop — browser terpaksa flush layout setiap kali. Solusi: batch semua pembacaan dulu, lalu tulis semua. <strong>Accessibility</strong>: gunakan elemen semantik (<code>&lt;button&gt;</code>, bukan <code>&lt;div onclick&gt;</code>), pastikan focus visible, tambahkan ARIA hanya jika HTML tidak cukup ekspresif.
+        </div>
+
+        <div class="snippet-grid">
+          <div>
+            <div class="snip-label">Lazy Loading — Intersection Observer</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>JavaScript</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-javascript">const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src; // muat gambar
+        observer.unobserve(img);   // stop observasi
+      }
+    });
+  },
+  { rootMargin: '200px' } // mulai 200px sebelum terlihat
+);
+document.querySelectorAll('img[data-src]')
+  .forEach(img => observer.observe(img));</code></pre>
+            </div>
+          </div>
+          <div>
+            <div class="snip-label">Accessibility — ARIA &amp; Focus</div>
+            <div class="code-wrap">
+              <div class="code-bar"><span>HTML + CSS</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-html">&lt;button aria-label="Tutup" aria-expanded="false"
+        aria-controls="menu"&gt;☰&lt;/button&gt;
+&lt;div aria-live="polite"&gt;Tersimpan!&lt;/div&gt;
+
+/* Jangan hapus outline — custom saja */
+:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 3px;
+}
+/* Jangan: * { outline: none } ❌ */</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-wrap">
+          <div class="preview-bar">Hasil / Preview — Smooth vs Janky &amp; a11y Demo</div>
+          <div class="preview-body">
+            <style>
+              @keyframes smooth-move { 0%,100%{transform:translateX(0)} 50%{transform:translateX(120px)} }
+              @keyframes janky-move  { 0%,100%{margin-left:0} 50%{margin-left:120px} }
+              .demo-focus-btn { padding:8px 14px; border-radius:6px; font-size:12px; cursor:pointer; font-family:'Inter',sans-serif; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:var(--text-primary); margin:4px; }
+              .demo-focus-btn:focus-visible { outline:2px solid #58a6ff; outline-offset:3px; border-radius:6px; }
+            </style>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:200px;">
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:10px;font-family:'JetBrains Mono',monospace;">✅ Smooth — pakai transform (GPU)</div>
+                <div style="overflow:hidden;background:rgba(63,185,80,0.06);border:1px solid rgba(63,185,80,0.2);border-radius:6px;padding:10px;height:48px;display:flex;align-items:center;">
+                  <div style="width:24px;height:24px;background:var(--green);border-radius:4px;animation:smooth-move 2s ease-in-out infinite;"></div>
+                </div>
+                <div style="font-size:9px;color:var(--green);margin-top:4px;font-family:'JetBrains Mono',monospace;">60fps, tidak ada reflow</div>
+
+                <div style="font-size:10px;color:var(--text-dim);margin-top:14px;margin-bottom:10px;font-family:'JetBrains Mono',monospace;">❌ Janky — pakai margin (reflow)</div>
+                <div style="overflow:hidden;background:rgba(255,123,114,0.06);border:1px solid rgba(255,123,114,0.2);border-radius:6px;padding:10px;height:48px;display:flex;align-items:center;">
+                  <div style="width:24px;height:24px;background:var(--red);border-radius:4px;animation:janky-move 2s ease-in-out infinite;"></div>
+                </div>
+                <div style="font-size:9px;color:var(--red);margin-top:4px;font-family:'JetBrains Mono',monospace;">Memaksa layout recalculation</div>
+              </div>
+              <div style="flex:1;min-width:200px;">
+                <div style="font-size:10px;color:var(--text-dim);margin-bottom:10px;font-family:'JetBrains Mono',monospace;">♿ Accessibility — tekan Tab untuk navigasi</div>
+                <div style="background:rgba(88,166,255,0.04);border:1px solid rgba(88,166,255,0.15);border-radius:7px;padding:12px;">
+                  <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">Coba navigasi dengan keyboard (Tab / Enter):</div>
+                  <button class="demo-focus-btn">Tombol 1</button>
+                  <button class="demo-focus-btn">Tombol 2</button>
+                  <button class="demo-focus-btn">Tombol 3</button>
+                  <div style="margin-top:8px;font-size:9px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">Focus ring visible saat navigasi keyboard 👆</div>
+                </div>
+
+                <div style="margin-top:12px;background:rgba(188,140,255,0.06);border:1px solid rgba(188,140,255,0.2);border-radius:7px;padding:10px;">
+                  <div style="font-size:10px;color:var(--purple);font-family:'JetBrains Mono',monospace;font-weight:700;margin-bottom:6px;">Core Web Vitals Targets</div>
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <div style="display:flex;justify-content:space-between;font-size:10px;font-family:'JetBrains Mono',monospace;">
+                      <span style="color:var(--text-muted);">LCP (loading)</span>
+                      <span style="color:var(--green);">&lt; 2.5s ✓</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;font-family:'JetBrains Mono',monospace;">
+                      <span style="color:var(--text-muted);">CLS (layout shift)</span>
+                      <span style="color:var(--green);">&lt; 0.1 ✓</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;font-family:'JetBrains Mono',monospace;">
+                      <span style="color:var(--text-muted);">INP (responsiveness)</span>
+                      <span style="color:var(--green);">&lt; 200ms ✓</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn">⚠️ <strong>Gotcha a11y:</strong> <code>&lt;div onclick&gt;</code> tidak bisa Tab, tidak diumumkan screen reader. Pakai <code>&lt;button&gt;</code> untuk aksi dan <code>&lt;a href&gt;</code> untuk navigasi. Jika terpaksa pakai div: tambahkan <code>role="button"</code>, <code>tabindex="0"</code>, dan event keyboard (Enter/Space).</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border);padding:28px 0;text-align:center;">
+    <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px;">
+      UI/UX Interview Cheat Sheet &nbsp;·&nbsp; CSS &amp; JavaScript Frontend Interview Prep 🚀
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span class="chip">CSS3</span>
+      <span class="chip chip-purple">JavaScript ES2024+</span>
+      <span class="chip chip-green">8 Topik · Live Preview ✓</span>
+      <span class="chip chip-orange">Performance Tips</span>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ══════════════════════════════════ PREVIEW SCRIPTS ═══════ -->
+<script>
+// ── Flexbox justify-content toggle ──────────────────────────
+function setFlexJC(btn, value) {
+  document.getElementById('flex-demo').style.justifyContent = value;
+  document.getElementById('flex-jc-label').textContent = value;
+  document.querySelectorAll('#flex-jc-btns .demo-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Replay animation ─────────────────────────────────────────
+function replayAnim(id, animValue) {
+  const el = document.getElementById(id);
+  el.style.animation = 'none';
+  el.offsetHeight; // force reflow
+  el.style.animation = animValue;
+}
+
+// ── DOM Delegation Demo ──────────────────────────────────────
+let domItemCount = 2;
+const domLog = document.getElementById('dom-log');
+
+document.getElementById('dom-list').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const ts = new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-ts">${ts}</span><span class="log-ok">click</span> → Item ID: <strong style="color:var(--blue)">${id}</strong>`;
+  domLog.prepend(entry);
+  if (domLog.children.length > 6) domLog.lastChild.remove();
+  btn.textContent = '✓';
+  setTimeout(() => btn.textContent = 'Klik', 800);
+});
+
+function addDomItem() {
+  domItemCount++;
+  const list = document.getElementById('dom-list');
+  const div = document.createElement('div');
+  div.className = 'dom-item';
+  div.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border-radius:5px;margin-bottom:4px;background:rgba(63,185,80,0.1);animation:demo-fade-up 0.3s ease;';
+  div.innerHTML = `<span style="font-size:12px;color:var(--text-primary);">Item ${domItemCount} (baru!)</span><button class="btn demo-btn" data-id="${domItemCount}" style="font-size:9px;padding:2px 7px;">Klik</button>`;
+  list.appendChild(div);
+  const ts = new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-ts">${ts}</span><span class="log-warn">add</span> → Item ${domItemCount} ditambahkan — listener masih bekerja!`;
+  domLog.prepend(entry);
+}
+
+// ── Event Loop Demo ──────────────────────────────────────────
+function runEventLoopDemo() {
+  const log = document.getElementById('el-log');
+  log.innerHTML = '';
+  const steps = [
+    { text: '① console.log("1 — sync")', color: 'var(--blue)', delay: 0 },
+    { text: '② console.log("4 — sync")', color: 'var(--blue)', delay: 200 },
+    { text: '③ Promise .then → "3 — micro" (Microtask Queue)', color: 'var(--green)', delay: 600 },
+    { text: '④ setTimeout callback → "2 — macro" (Macrotask Queue)', color: 'var(--orange)', delay: 1100 },
+  ];
+  steps.forEach(({ text, color, delay }) => {
+    setTimeout(() => {
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `<span style="color:${color};font-family:'JetBrains Mono',monospace;font-size:11px;">${text}</span>`;
+      log.appendChild(entry);
+    }, delay);
+  });
+}
+
+// ── Debounce & Throttle Counter ──────────────────────────────
+let debounceTimer, throttleLast = 0;
+let dCount = 0, tCount = 0, rCount = 0;
+
+function onDTInput() {
+  // Raw — setiap keystroke
+  rCount++;
+  document.getElementById('raw-count').textContent = rCount;
+
+  // Throttle
+  const now = Date.now();
+  if (now - throttleLast >= 300) {
+    throttleLast = now;
+    tCount++;
+    document.getElementById('throttle-count').textContent = tCount;
+  }
+
+  // Debounce
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    dCount++;
+    document.getElementById('debounce-count').textContent = dCount;
+  }, 300);
+}
+</script>
+
+</body>
+</html>
