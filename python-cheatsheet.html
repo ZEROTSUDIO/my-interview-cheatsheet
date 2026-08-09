@@ -33,7 +33,7 @@
 
   <!-- Logo + Search -->
   <div style="padding:14px 14px 12px; border-bottom:1px solid var(--border); flex-shrink:0;">
-    <a href="index.html" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--blue); text-decoration:none; margin-bottom:12px; font-weight:600; transition:opacity 0.15s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">&larr; Back to Portal Hub</a>
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--blue); text-decoration:none; margin-bottom:12px; font-weight:600; transition:opacity 0.15s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">&larr; Kembali ke Portal Hub</a>
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
       <div style="background:linear-gradient(135deg,#f0c060,#3fb950); width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;">🐍</div>
       <div>
@@ -43,13 +43,13 @@
     </div>
     <div style="position:relative;">
       <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-dim);" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="search-box" type="text" placeholder="Search topics…" oninput="doSearch(this.value)" />
+      <input id="search-box" type="text" placeholder="Cari topik (misal: binary search)..." oninput="doSearch(this.value)" />
     </div>
   </div>
 
   <!-- Nav -->
   <div class="sidebar-nav-scroll">
-    <div class="nav-section-label">Python Fundamentals</div>
+    <div class="nav-section-label">Dasar-Dasar Python</div>
     <a href="#s1"  class="nav-link" id="nl-s1" >⌨️&nbsp; Basic I/O &amp; Types</a>
     <a href="#s2"  class="nav-link" id="nl-s2" >🔀&nbsp; Control Flow</a>
     <a href="#s3"  class="nav-link" id="nl-s3" >📝&nbsp; Strings</a>
@@ -57,7 +57,7 @@
     <a href="#s5"  class="nav-link" id="nl-s5" >🗂️&nbsp; Dicts &amp; Sets</a>
     <a href="#s6"  class="nav-link" id="nl-s6" >⚙️&nbsp; Functions</a>
     <a href="#s7"  class="nav-link" id="nl-s7" >🏗️&nbsp; OOP Basics</a>
-    <div class="nav-section-label" style="margin-top:8px;">Algorithm Patterns</div>
+    <div class="nav-section-label" style="margin-top:8px;">Pola Algoritma</div>
     <a href="#s8"  class="nav-link" id="nl-s8" >👆&nbsp; Two Pointers</a>
     <a href="#s9"  class="nav-link" id="nl-s9" >🪟&nbsp; Sliding Window</a>
     <a href="#s10" class="nav-link" id="nl-s10">🔍&nbsp; Binary Search</a>
@@ -72,7 +72,7 @@
     <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
       <span class="chip chip-green" style="font-family:'Inter',sans-serif;">O(1)</span>
       <span class="chip chip-orange" style="font-family:'Inter',sans-serif;">O(n log n)</span>
-      <span style="font-size:10px;color:var(--text-muted);">= complexity</span>
+      <span style="font-size:10px;color:var(--text-muted);">= kompleksitas</span>
     </div>
   </div>
 </aside>
@@ -91,14 +91,14 @@
         </div>
         <h1 style="font-size:34px;font-weight:800;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#e6edf3 30%,#f0c060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Python Interview<br/>Cheat Sheet</h1>
         <p style="font-size:14px;color:var(--text-muted);max-width:520px;line-height:1.65;">
-          Syntax snippets &amp; algorithm patterns — from core Python fundamentals to every major LeetCode algorithm template.
+          Snippet syntax &amp; pola algoritma — dari dasar-dasar Python hingga template algoritma LeetCode utama dengan penjelasan Bahasa Indonesia.
         </p>
       </div>
       <div style="text-align:right;">
         <div style="font-size:30px;font-weight:800;color:#f0c060;font-family:'JetBrains Mono',monospace;line-height:1;">7</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px;">fundamentals</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px;">dasar sintaks</div>
         <div style="font-size:30px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">7</div>
-        <div style="font-size:10px;color:var(--text-muted);">algo patterns</div>
+        <div style="font-size:10px;color:var(--text-muted);">pola algoritma</div>
       </div>
     </div>
   </header>
@@ -108,33 +108,33 @@
     <div class="sec-hdr">
       <span class="sec-icon">⌨️</span>
       <div>
-        <h2>Basic I/O &amp; Types</h2>
-        <p>Reading input, printing output, and casting types — the starting point of every problem.</p>
+        <h2>Basic I/O &amp; Type Casting</h2>
+        <p>Membaca input, mencetak output, dan konversi tipe data — langkah awal setiap soal coding.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="input print type cast int float str bool ord chr map split format input output">
+    <div class="card" data-kw="input print type cast int float str bool ord chr map split format input output masukan keluaran">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">input()</span><span class="chip">print()</span><span class="chip">map()</span><span class="chip">ord / chr</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Reading Input &amp; Type Casting</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Reading Input &amp; Type Casting (Membaca Input &amp; Konversi Tipe)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Every competitive / interview problem starts with reading input and printing output. Python's <span class="ic">input()</span> always returns a string — you must cast it. <span class="ic">map(int, input().split())</span> is the fastest way to read space-separated integers on one line.<br/><br/>
-          <strong>Common use cases</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          Setiap masalah coding/interview dimulai dengan membaca input dan mencetak hasil. Fungsi <span class="ic">input()</span> di Python selalu mengembalikan string — jadi kamu harus melakukan type cast. Menggunakan <span class="ic">map(int, input().split())</span> adalah cara tercepat membaca angka yang dipisahkan spasi dalam satu baris.<br/><br/>
+          <strong>Penggunaan Umum dalam Interview</strong>
           <ul>
-            <li>Read a single integer: <span class="ic">n = int(input())</span></li>
-            <li>Read two ints on one line: <span class="ic">a, b = map(int, input().split())</span></li>
-            <li>Read n lines into a list: <span class="ic">[int(input()) for _ in range(n)]</span></li>
-            <li>Format output: f-strings are the cleanest — <span class="ic">f"{val:.2f}"</span> for floats</li>
+            <li>Membaca satu integer: <span class="ic">n = int(input())</span></li>
+            <li>Membaca 2 integer dalam 1 baris: <span class="ic">a, b = map(int, input().split())</span></li>
+            <li>Membaca n baris menjadi list: <span class="ic">[int(input()) for _ in range(n)]</span></li>
+            <li>Format output: f-string adalah cara paling rapi — <span class="ic">f"{val:.2f}"</span> untuk angka desimal</li>
           </ul>
-          <strong>Edge cases to remember</strong><br/>
-          <span class="ic">ord('a') = 97</span>, <span class="ic">chr(97) = 'a'</span> — useful for letter-index tricks like <span class="ic">ord(c) - ord('a')</span>.
+          <strong>Kasus Khusus yang Perlu Diingat</strong><br/>
+          <span class="ic">ord('a') = 97</span>, <span class="ic">chr(97) = 'a'</span> — sangat berguna untuk trik indeks huruf seperti <span class="ic">ord(c) - ord('a')</span>.
         </div>
 
         <div class="snippet-grid">
@@ -142,49 +142,49 @@
             <div class="snip-label">input / print</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python">name = input("Enter name: ")
-n    = int(input())           # cast immediately
-a, b = map(int, input().split())
+              <pre><code class="language-python">name = input("Masukkan nama: ")
+n    = int(input())           # konversi string ke int langsung
+a, b = map(int, input().split()) # baca 2 angka sekaligus
 
-print(f"Hello, {name}!")
+print(f"Halo, {name}!")
 print(a, b, sep=", ", end="\n")</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">type casting</div>
+            <div class="snip-label">type casting (konversi tipe)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python">int("42")        # → 42
-float("3.14")    # → 3.14
-str(100)         # → "100"
-bool(0)          # → False
-list("abc")      # → ['a','b','c']
-ord('a')         # → 97
-chr(97)          # → 'a'</code></pre>
+              <pre><code class="language-python">int("42")        # → 42 (ke int)
+float("3.14")    # → 3.14 (ke float)
+str(100)         # → "100" (ke string)
+bool(0)          # → False (ke boolean)
+list("abc")      # → ['a','b','c'] (string ke list)
+ord('a')         # → 97 (kode ASCII)
+chr(97)          # → 'a' (karakter dari ASCII)</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">read multiple lines</div>
+            <div class="snip-label">baca banyak baris (multiple lines)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">n = int(input())
 arr = [int(input()) for _ in range(n)]
 
-# all on one line:
+# atau semua elemen dalam satu baris:
 arr = list(map(int, input().split()))</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">useful builtins</div>
+            <div class="snip-label">fungsi bawaan bermanfaat</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python">abs(-5)          # 5
-min(a, b)        # smaller
-max(a, b)        # larger
-sum([1,2,3])     # 6
-round(3.567, 2)  # 3.57
-pow(2, 10)       # 1024
-divmod(17, 5)    # (3, 2)</code></pre>
+              <pre><code class="language-python">abs(-5)          # 5 (nilai mutlak)
+min(a, b)        # nilai terkecil
+max(a, b)        # nilai terbesar
+sum([1,2,3])     # 6 (jumlah elemen)
+round(3.567, 2)  # 3.57 (pembulatan)
+pow(2, 10)       # 1024 (pangkat)
+divmod(17, 5)    # (3, 2) → (hasil bagi, sisa)</code></pre>
             </div>
           </div>
         </div>
@@ -197,32 +197,32 @@ divmod(17, 5)    # (3, 2)</code></pre>
     <div class="sec-hdr">
       <span class="sec-icon">🔀</span>
       <div>
-        <h2>Control Flow</h2>
-        <p>if/elif/else, loops, ternary, range tricks — Python's bread and butter.</p>
+        <h2>Control Flow (Percabangan &amp; Perulangan)</h2>
+        <p>if/elif/else, perulangan for/while, ternary operator, dan trik range() — pondasi utama logika Python.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="if elif else for while range break continue ternary loop control flow">
+    <div class="card" data-kw="if elif else for while range break continue ternary loop control flow percabangan perulangan">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">if / elif</span><span class="chip">for / while</span><span class="chip">range()</span><span class="chip">ternary</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Conditionals, Loops &amp; Range Tricks</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Conditionals, Loops &amp; Range Tricks (Kondisional &amp; Perulangan)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Python uses indentation for blocks — no braces. Key difference from other languages: there is no <span class="ic">i++</span>, use <span class="ic">i += 1</span>. The <span class="ic">else</span> clause on loops runs only if the loop was NOT broken out of — rarely used but useful to know.<br/><br/>
-          <strong>Range tricks</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          Python menggunakan indentasi (spasi) untuk menentukan blok kode — tanpa kurung kurawal <span class="ic">{}</span>. Perbedaan penting dengan bahasa lain: tidak ada operator <span class="ic">i++</span>, gunakan <span class="ic">i += 1</span>. Klausa <span class="ic">else</span> pada perulangan hanya berjalan jika perulangan TIDAK terhenti oleh <span class="ic">break</span>.<br/><br/>
+          <strong>Trik Penggunaan <span class="ic">range()</span></strong>
           <ul>
-            <li><span class="ic">range(n)</span> → 0 to n-1</li>
-            <li><span class="ic">range(a, b)</span> → a to b-1</li>
-            <li><span class="ic">range(n-1, -1, -1)</span> → n-1 down to 0 (reverse iteration)</li>
-            <li><span class="ic">range(0, n, 2)</span> → every other index</li>
+            <li><span class="ic">range(n)</span> → dari 0 hingga n-1</li>
+            <li><span class="ic">range(a, b)</span> → dari a hingga b-1</li>
+            <li><span class="ic">range(n-1, -1, -1)</span> → dari n-1 mundur ke 0 (iterasi terbalik)</li>
+            <li><span class="ic">range(0, n, 2)</span> → langkah lompat 2 indeks</li>
           </ul>
-          <strong>Ternary</strong>: <span class="ic">x if condition else y</span> — same line, cleaner than a full if/else block.
+          <strong>Ternary Operator</strong>: <span class="ic">x if kondisi else y</span> — penulisan if/else singkat dalam 1 baris yang lebih bersih.
         </div>
 
         <div class="snippet-grid">
@@ -267,90 +267,90 @@ for x in arr:
     <div class="sec-hdr">
       <span class="sec-icon">📝</span>
       <div>
-        <h2>Strings</h2>
-        <p>Immutable sequences — slicing, methods, f-strings, and the join pattern.</p>
+        <h2>Strings (Manipulasi String)</h2>
+        <p>Tipe data immutable — teknik slicing, metode bawaan, f-string, dan pola join.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="string strip lower upper replace split join find startswith isdigit slice reverse palindrome f-string">
+    <div class="card" data-kw="string strip lower upper replace split join find startswith isdigit slice reverse palindrome f-string teks pemotongan">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">str methods</span><span class="chip">slicing</span><span class="chip">f-strings</span><span class="chip">"".join()</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">String Methods, Slicing &amp; Building</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">String Methods, Slicing &amp; Building (Metode &amp; Manipulasi Teks)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Strings in Python are <em>immutable</em> — you cannot change a character in place. Any "modification" creates a new string. This has performance implications: building a string with <span class="ic">+=</span> in a loop is O(n²). Use a list and <span class="ic">"".join()</span> instead.<br/><br/>
-          <strong>Common interview use cases</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          String di Python bersifat <em>immutable</em> — karakter di dalamnya tidak bisa diubah langsung. Setiap "perubahan" membuat string baru. Hal ini memicu masalah performa: menggabungkan string dengan <span class="ic">+=</span> di dalam loop memakan waktu O(n²). Gunakan list dan <span class="ic">"".join()</span> untuk O(n).<br/><br/>
+          <strong>Pola Penggunaan Populer di Interview</strong>
           <ul>
-            <li>Palindrome check: <span class="ic">s == s[::-1]</span></li>
-            <li>Anagram check: <span class="ic">sorted(s) == sorted(t)</span> or use <span class="ic">Counter</span></li>
-            <li>Split by whitespace: <span class="ic">s.split()</span> (handles multiple spaces)</li>
-            <li>Letter frequency: <span class="ic">Counter(s)</span></li>
-            <li>Index of a char: <span class="ic">ord(c) - ord('a')</span> → 0-based index</li>
+            <li>Cek Palindrom: <span class="ic">s == s[::-1]</span></li>
+            <li>Cek Anagram: <span class="ic">sorted(s) == sorted(t)</span> atau gunakan <span class="ic">Counter</span></li>
+            <li>Pisah berdasarkan spasi: <span class="ic">s.split()</span> (menangani spasi ganda secara otomatis)</li>
+            <li>Frekuensi karakter: <span class="ic">Counter(s)</span></li>
+            <li>Indeks huruf 0-25: <span class="ic">ord(c) - ord('a')</span></li>
           </ul>
-          <strong>Slicing</strong>: <span class="ic">s[start:stop:step]</span>. Negative step reverses. Out-of-bound indices don't crash.
+          <strong>Teknik Slicing</strong>: <span class="ic">s[start:stop:step]</span>. Nilai step negatif membalikkan string. Indeks di luar batas tidak menyebabkan error crash.
         </div>
-        <div class="warn">⚠️ Strings are <strong>immutable</strong>. Building a string with <span class="ic">+=</span> in a loop is O(n²). Use a list and <span class="ic">"".join(buf)</span> instead — O(n).</div>
+        <div class="warn">⚠️ String bersifat <strong>immutable</strong>. Menggabungkan string dengan <span class="ic">+=</span> di dalam loop adalah O(n²). Gunakan list dan <span class="ic">"".join(buf)</span> yang jauh lebih cepat — O(n).</div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">common methods</div>
+            <div class="snip-label">metode umum</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">s = "  Hello World  "
-s.strip()               # "Hello World"
-s.lower() / s.upper()
-s.replace("l", "L")
-s.split()               # ["Hello","World"]
-s.split(",")            # split on comma
-",".join(["a","b","c"]) # "a,b,c"
-s.find("lo")            # index or -1
-s.startswith("He")
-s.isdigit() / s.isalpha()</code></pre>
+s.strip()               # "Hello World" (hapus spasi ujung)
+s.lower() / s.upper()   # ubah ke huruf kecil / besar
+s.replace("l", "L")     # ganti karakter
+s.split()               # ["Hello","World"] (pisah kata)
+s.split(",")            # pisah berdasarkan koma
+",".join(["a","b","c"]) # "a,b,c" (gabungkan list)
+s.find("lo")            # indeks posisi atau -1
+s.startswith("He")      # cek awalan
+s.isdigit() / s.isalpha() # cek digit / huruf</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">slicing &amp; reversing</div>
+            <div class="snip-label">slicing &amp; pembalikan string</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">s = "abcdef"
-s[1:4]      # "bcd"
-s[:3]       # "abc"
-s[3:]       # "def"
-s[::-1]     # "fedcba"  ← reverse
-s[::2]      # "ace"     ← every 2nd
+s[1:4]      # "bcd" (potong indeks 1 s/d 3)
+s[:3]       # "abc" (3 karakter pertama)
+s[3:]       # "def" (karakter indeks 3 ke atas)
+s[::-1]     # "fedcba"  ← balikkan string (reverse)
+s[::2]      # "ace"     ← langkah lompat 2
 
-# check palindrome
+# cek palindrom
 s == s[::-1]
 
-# iterate chars
+# iterasi setiap karakter
 for c in s: ...</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">f-strings</div>
+            <div class="snip-label">formatting f-strings</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">name, score = "Alice", 98.5
-print(f"{name} scored {score:.1f}")
-print(f"{score:>10.2f}")  # right-align
-print(f"{2**10 = }")      # debug: 2**10=1024</code></pre>
+print(f"{name} mendapat nilai {score:.1f}")
+print(f"{score:>10.2f}")  # rata kanan
+print(f"{2**10 = }")      # debugging: 2**10=1024</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">build string from list (O(n))</div>
+            <div class="snip-label">buat string dari list (O(n))</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># DON'T: s += char  (O(n²))
-# DO:
+              <pre><code class="language-python"># JANGAN: s += char  (O(n²))
+# GUNAKAN:
 buf = []
 buf.append('x')
-result = "".join(buf)  # O(n)</code></pre>
+result = "".join(buf)  # O(n) efisien!</code></pre>
             </div>
           </div>
         </div>
@@ -363,52 +363,52 @@ result = "".join(buf)  # O(n)</code></pre>
     <div class="sec-hdr">
       <span class="sec-icon">📋</span>
       <div>
-        <h2>Lists</h2>
-        <p>Dynamic arrays — the Swiss Army knife. Append/pop O(1), comprehensions, sorting.</p>
+        <h2>Lists &amp; Arrays</h2>
+        <p>Array dinamis — struktur data paling fleksibel. Append/pop O(1), list comprehension, dan sorting.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="list append pop insert remove sort sorted reverse enumerate zip comprehension stack queue deque 2d grid">
+    <div class="card" data-kw="list append pop insert remove sort sorted reverse enumerate zip comprehension stack queue deque 2d grid larik perulangan">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">list ops</span><span class="chip">comprehension</span><span class="chip">sort / key</span><span class="chip">deque</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">List Operations, Comprehensions &amp; Sorting</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">List Operations, Comprehensions &amp; Sorting (Operasi &amp; Pengurutan List)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Python lists are dynamic arrays. Append/pop from the end are O(1). Insert/pop from the front (<span class="ic">pop(0)</span>) are O(n) — use <span class="ic">deque</span> for that. Sorting is Timsort: O(n log n).<br/><br/>
-          <strong>Common interview patterns</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          List di Python adalah array dinamis. Menambah/menghapus dari ujung (<span class="ic">append</span>/<span class="ic">pop</span>) beroperasi dalam O(1). Namun, <span class="ic">pop(0)</span> atau insert di depan beroperasi dalam O(n) — gunakan <span class="ic">deque</span> untuk antrean (queue). Pengurutan (<span class="ic">sort</span>) menggunakan Timsort berkecepatan O(n log n).<br/><br/>
+          <strong>Pola Penting di Coding Interview</strong>
           <ul>
-            <li>2D grid initialization: <span class="ic">[[0]*cols for _ in range(rows)]</span> — never use <span class="ic">[[0]*cols]*rows</span> (shares references)</li>
-            <li>Get last element: <span class="ic">arr[-1]</span></li>
-            <li>Reverse in place: <span class="ic">arr.reverse()</span> or <span class="ic">arr[::-1]</span> (copy)</li>
-            <li>Sort by custom key: <span class="ic">arr.sort(key=lambda x: x[1])</span></li>
-            <li>Flatten: <span class="ic">[x for row in matrix for x in row]</span></li>
+            <li>Inisialisasi grid 2D: <span class="ic">[[0]*cols for _ in range(rows)]</span> — hindari <span class="ic">[[0]*cols]*rows</span> karena mereferensikan memori yang sama!</li>
+            <li>Ambil elemen terakhir: <span class="ic">arr[-1]</span></li>
+            <li>Balikkan list: <span class="ic">arr.reverse()</span> (in-place) atau <span class="ic">arr[::-1]</span> (salinan baru)</li>
+            <li>Sort dengan kriteria khusus: <span class="ic">arr.sort(key=lambda x: x[1])</span></li>
+            <li>Ratakan list 2D (flatten): <span class="ic">[x for row in matrix for x in row]</span></li>
           </ul>
-          <strong>enumerate vs range(len)</strong>: always prefer <span class="ic">for i, v in enumerate(arr)</span> over <span class="ic">for i in range(len(arr))</span>.
+          <strong>enumerate vs range(len)</strong>: selalu utamakan <span class="ic">for i, v in enumerate(arr)</span> daripada <span class="ic">for i in range(len(arr))</span> agar lebih clean.
         </div>
-        <div class="warn">⚠️ <span class="ic">pop(0)</span> is O(n). For queue (dequeue from front), use <span class="ic">collections.deque</span> with <span class="ic">popleft()</span> which is O(1).</div>
+        <div class="warn">⚠️ Operasi <span class="ic">pop(0)</span> memerlukan O(n). Untuk struktur data antrean (queue), gunakan <span class="ic">collections.deque</span> dengan fungsi <span class="ic">popleft()</span> yang O(1).</div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">common ops</div>
+            <div class="snip-label">operasi dasar list</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">a = [3, 1, 4, 1, 5]
-a.append(9)          # add to end    O(1)
-a.pop()              # remove last   O(1)
-a.pop(0)             # remove first  O(n)!
-a.insert(2, 99)      # insert at idx O(n)
-a.remove(1)          # removes first match
-a.index(4)           # find index
-a.count(1)           # count occurrences
-a.sort()             # in-place
-sorted(a)            # returns new list
-a.sort(reverse=True)</code></pre>
+a.append(9)          # tambah ke akhir   O(1)
+a.pop()              # hapus elemen akhir O(1)
+a.pop(0)             # hapus elemen awal O(n)!
+a.insert(2, 99)      # sisipkan di idx  O(n)
+a.remove(1)          # hapus yang cocok pertama
+a.index(4)           # cari posisi indeks
+a.count(1)           # hitung kemunculan
+a.sort()             # urutkan langsung (in-place)
+sorted(a)            # kembalikan list baru
+a.sort(reverse=True) # urutkan menurun</code></pre>
             </div>
           </div>
           <div>
@@ -419,41 +419,41 @@ a.sort(reverse=True)</code></pre>
 squares = [x**2 for x in range(10)]
 evens   = [x for x in arr if x%2==0]
 
-# 2D grid (safe!)
+# grid 2D aman (bebas bug referensi)
 grid = [[0]*cols for _ in range(rows)]
 
-# enumerate (prefer over range(len))
+# enumerate (lebih bersih dari range(len))
 for i, v in enumerate(arr): ...
 
-# zip two lists together
+# gabungkan 2 list secara paralel
 for a, b in zip(list1, list2): ...
 
-# unpack / star
+# pembongkaran variabel (unpacking)
 first, *rest = [1, 2, 3, 4]</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">sort with key</div>
+            <div class="snip-label">sorting dengan custom key</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">words = ["banana", "fig", "apple"]
-words.sort(key=len)           # by length
-words.sort(key=lambda x: -len(x))
+words.sort(key=len)           # urutkan berdasarkan panjang
+words.sort(key=lambda x: -len(x)) # terpanjang ke terpendek
 
 pairs = [(1,'b'),(3,'a'),(2,'c')]
-pairs.sort(key=lambda x: x[0])</code></pre>
+pairs.sort(key=lambda x: x[0]) # berdasarkan elemen pertama</code></pre>
             </div>
           </div>
           <div>
             <div class="snip-label">stack &amp; queue</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># stack (use list)
+              <pre><code class="language-python"># stack / tumpukan (gunakan list biasa)
 stack = []
 stack.append(x)    # push  O(1)
 stack.pop()        # pop   O(1)
 
-# queue (use deque — NOT list!)
+# queue / antrean (gunakan deque — BUKAN list!)
 from collections import deque
 q = deque()
 q.append(x)        # enqueue  O(1)
@@ -470,49 +470,49 @@ q.popleft()        # dequeue  O(1)</code></pre>
     <div class="sec-hdr">
       <span class="sec-icon">🗂️</span>
       <div>
-        <h2>Dicts &amp; Sets</h2>
-        <p>Hash tables — O(1) average insert/delete/lookup. The key to most frequency problems.</p>
+        <h2>Dicts &amp; Sets (Dictionary &amp; Himpunan)</h2>
+        <p>Hash tables — rata-rata O(1) untuk pencarian, penambahan, dan penghapusan. Kunci utama persoalan frekuensi.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="dict set defaultdict counter frequency map hash keys values items union intersection difference">
+    <div class="card" data-kw="dict set defaultdict counter frequency map hash keys values items union intersection difference himpunan frekuensi kamus">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">dict</span><span class="chip">set</span><span class="chip">defaultdict</span><span class="chip">Counter</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Dict, Set, defaultdict &amp; Counter</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Dict, Set, defaultdict &amp; Counter (Hash Map &amp; Set)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Dicts and sets are hash tables — O(1) average for insert, delete, lookup. Dicts preserve insertion order (Python 3.7+). Sets are unordered and hold only unique elements.<br/><br/>
-          <strong>defaultdict</strong>: Like a regular dict but never raises <span class="ic">KeyError</span> — it creates a default value on missing key. <span class="ic">defaultdict(int)</span> starts at 0, <span class="ic">defaultdict(list)</span> starts at <span class="ic">[]</span>.<br/><br/>
-          <strong>Counter</strong>: Subclass of dict, counts hashable objects. Great for frequency maps and anagram problems.<br/><br/>
-          <strong>Set use cases</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          Dict dan set diimplementasikan menggunakan Hash Table — pencarian, insert, dan delete rata-rata O(1). Dict menjaga urutan penambahan elemen (Python 3.7+). Set bersifat unik dan tidak berurutan.<br/><br/>
+          <strong>defaultdict</strong>: Seperti dict biasa tetapi tidak pernah melempar error <span class="ic">KeyError</span> — otomatis membuat nilai bawaan saat key belum ada. <span class="ic">defaultdict(int)</span> mulai dari 0, <span class="ic">defaultdict(list)</span> mulai dari <span class="ic">[]</span>.<br/><br/>
+          <strong>Counter</strong>: Subclass dari dict untuk menghitung frekuensi objek. Sangat cocok untuk masalah frekuensi dan anagram.<br/><br/>
+          <strong>Kegunaan Set</strong>
           <ul>
-            <li>O(1) "seen" check in graph traversal</li>
-            <li>Deduplicate: <span class="ic">list(set(arr))</span></li>
-            <li>Find intersection/difference of two collections</li>
+            <li>Pengecekan node yang telah dikunjungi (seen/visited) secara O(1) pada pencarian graf</li>
+            <li>Menghapus duplikat: <span class="ic">list(set(arr))</span></li>
+            <li>Mencari irisan (intersection) dan selisih (difference) dua himpunan</li>
           </ul>
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">dict basics</div>
+            <div class="snip-label">dasar dictionary</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">d = {"a": 1, "b": 2}
 d["c"] = 3
-d.get("z", 0)           # safe get, default 0
+d.get("z", 0)           # ambil aman, default 0 jika tak ada
 d.keys() / d.values() / d.items()
 
 for k, v in d.items():
     print(k, v)
 
-"a" in d                # True  O(1)
-d.pop("b", None)        # remove safely</code></pre>
+"a" in d                # True  O(1) lookup
+d.pop("b", None)        # hapus key secara aman</code></pre>
             </div>
           </div>
           <div>
@@ -523,45 +523,45 @@ d.pop("b", None)        # remove safely</code></pre>
 
 freq = defaultdict(int)
 for c in s:
-    freq[c] += 1       # no KeyError
+    freq[c] += 1       # tanpa KeyError!
 
 graph = defaultdict(list)
 graph[u].append(v)
 
-# Counter
+# Counter (pembaca frekuensi)
 cnt = Counter("aabbbc")
-cnt.most_common(2)     # [('b',3),('a',2)]
+cnt.most_common(2)     # [('b',3),('a',2)] (2 paling sering)
 cnt['a']               # 2</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">sets</div>
+            <div class="snip-label">sets (himpunan unik)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">s = {1, 2, 3}
 s.add(4)
-s.remove(2)         # KeyError if missing
-s.discard(99)       # safe remove
-2 in s              # O(1) lookup
+s.remove(2)         # KeyError jika tidak ada
+s.discard(99)       # hapus aman tanpa error
+2 in s              # O(1) pencarian
 
-a | b   # union
-a & b   # intersection
-a - b   # difference
-a ^ b   # symmetric difference</code></pre>
+a | b   # gabungan (union)
+a & b   # irisan (intersection)
+a - b   # selisih (difference)
+a ^ b   # simetris selisih</code></pre>
             </div>
           </div>
           <div>
             <div class="snip-label">dict comprehension</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># invert a dict
+              <pre><code class="language-python"># membalikkan key dan value dict
 inv = {v: k for k, v in d.items()}
 
-# filter by value
+# filter berdasarkan nilai
 big = {k: v for k, v in d.items()
        if v > 10}
 
-# frequency map
+# buat peta frekuensi
 freq = {c: s.count(c) for c in set(s)}</code></pre>
             </div>
           </div>
@@ -575,69 +575,69 @@ freq = {c: s.count(c) for c in set(s)}</code></pre>
     <div class="sec-hdr">
       <span class="sec-icon">⚙️</span>
       <div>
-        <h2>Functions</h2>
-        <p>First-class objects, *args/**kwargs, lambda, and the mutable default trap.</p>
+        <h2>Functions (Fungsi &amp; Lambda)</h2>
+        <p>First-class objects, *args/**kwargs, fungsi anonim lambda, dan jebakan mutable default.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="function def lambda args kwargs default mutable closure return first class">
+    <div class="card" data-kw="function def lambda args kwargs default mutable closure return first class fungsi argumen">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">def</span><span class="chip">*args / **kwargs</span><span class="chip">lambda</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Function Signatures &amp; Gotchas</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Function Signatures &amp; Gotchas (Sintaks &amp; Jebakan Fungsi)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Functions are first-class objects in Python — you can pass them around, assign them to variables, return them. This enables functional patterns like <span class="ic">sorted(arr, key=fn)</span>.<br/><br/>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          Fungsi di Python adalah first-class objects — bisa dikirim sebagai argumen, disimpan dalam variabel, atau dikembalikan dari fungsi lain. Hal ini mendukung pemrograman fungsional seperti <span class="ic">sorted(arr, key=fn)</span>.<br/><br/>
           <strong>*args vs **kwargs</strong>
           <ul>
-            <li><span class="ic">*args</span> — collects extra positional args as a tuple</li>
-            <li><span class="ic">**kwargs</span> — collects extra keyword args as a dict</li>
-            <li>Call with: <span class="ic">fn(*my_list)</span> to unpack a list as args</li>
+            <li><span class="ic">*args</span> — menampung argumen posisi tambahan menjadi tuple</li>
+            <li><span class="ic">**kwargs</span> — menampung argumen kata kunci (keyword) tambahan menjadi dict</li>
+            <li>Panggilan: <span class="ic">fn(*my_list)</span> membongkar isi list sebagai argumen terpisah</li>
           </ul>
-          <strong>The mutable default trap</strong>: default argument values are evaluated once at function definition, not on each call. A mutable default like <span class="ic">def f(x=[])</span> will accumulate state across calls. Always use <span class="ic">None</span> as default for mutable types.
+          <strong>Jebakan Mutable Default Value</strong>: Nilai bawaan argumen dievaluasi <em>hanya sekali</em> saat fungsi didefinisikan, bukan setiap kali dipanggil. Argumen bawaan mutable seperti <span class="ic">def f(x=[])</span> akan menyimpan status dari pemanggilan sebelumnya. Selalu gunakan <span class="ic">None</span> sebagai default tipe data mutable.
         </div>
-        <div class="warn">⚠️ <strong>Mutable default trap:</strong> default argument values are evaluated <em>once at definition</em>, not per call. <span class="ic">def f(x=[])</span> accumulates state across calls. Always use <span class="ic">None</span> as default for mutable types.</div>
+        <div class="warn">⚠️ <strong>Jebakan Mutable Default:</strong> Nilai bawaan argumen dievaluasi <em>sekali saat definisi</em>. Fungsi <span class="ic">def f(x=[])</span> menumpuk data antar pemanggilan. Selalu gunakan <span class="ic">None</span> sebagai nilai awal tipe data mutable!</div>
 
         <div class="snippet-grid">
           <div>
             <div class="snip-label">args / kwargs / lambda</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python">def greet(name, greeting="Hello"):
+              <pre><code class="language-python">def greet(name, greeting="Halo"):
     return f"{greeting}, {name}"
 
-def total(*args):          # tuple
+def total(*args):          # menampung tuple
     return sum(args)
 
-def info(**kwargs):        # dict
+def info(**kwargs):        # menampung dict
     for k, v in kwargs.items(): ...
 
-double = lambda x: x * 2
+double = lambda x: x * 2   # fungsi anonim singkat
 add    = lambda x, y: x + y</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">mutable default gotcha</div>
+            <div class="snip-label">jebakan mutable default (gotcha)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># WRONG — list shared across all calls!
+              <pre><code class="language-python"># SALAH — list dipakai bersama di semua pemanggilan!
 def bad(lst=[]):
     lst.append(1)
     return lst
 
-# CORRECT
+# BENAR
 def good(lst=None):
     if lst is None:
         lst = []
     lst.append(1)
     return lst
 
-# ⚠ Classic interview trap — know this cold.</code></pre>
+# ⚠ Jebakan klasik interview — harus paham ini!</code></pre>
             </div>
           </div>
         </div>
@@ -650,46 +650,46 @@ def good(lst=None):
     <div class="sec-hdr">
       <span class="sec-icon">🏗️</span>
       <div>
-        <h2>OOP Basics</h2>
-        <p>Classes, dunder methods, inheritance, and @dataclass for quick node/point classes.</p>
+        <h2>OOP Basics (Pemrograman Berorientasi Objek)</h2>
+        <p>Class, dunder methods (__init__, __lt__), pewarisan (inheritance), dan @dataclass untuk node pohon/linked list.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="class oop init repr str eq lt hash dunder dataclass inheritance node tree linked list">
+    <div class="card" data-kw="class oop init repr str eq lt hash dunder dataclass inheritance node tree linked list kelas objek">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">class</span><span class="chip">__init__</span><span class="chip">__lt__</span><span class="chip">@dataclass</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Classes, Dunders &amp; Dataclass</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Classes, Dunders &amp; Dataclass (Dasar Kelas &amp; Dunder Method)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>What &amp; Why</strong><br/>
-          Classes bundle data and behavior. In interviews you'll need this for linked list nodes, tree nodes, or when asked to design a class.<br/><br/>
-          <strong>Key dunder methods</strong>
+          <strong>Apa &amp; Mengapa</strong><br/>
+          Class menggabungkan data dan perilaku menjadi satu objek. Dalam interview coding, kamu memerlukannya untuk membuat Node Linked List, Node Tree, atau saat mendesain arsitektur kelas sederhana.<br/><br/>
+          <strong>Metode Dunder (Double Underscore) Utama</strong>
           <ul>
-            <li><span class="ic">__init__</span>: constructor, called on <span class="ic">MyClass()</span></li>
-            <li><span class="ic">__repr__</span>: unambiguous string representation — used in the REPL and debugging</li>
-            <li><span class="ic">__str__</span>: human-readable, used by <span class="ic">print()</span></li>
-            <li><span class="ic">__eq__</span>: enables <span class="ic">==</span> comparison</li>
-            <li><span class="ic">__lt__</span>: enables <span class="ic">&lt;</span> so objects can be sorted or put in a heap</li>
-            <li><span class="ic">__hash__</span>: enables objects as dict keys or set members</li>
+            <li><span class="ic">__init__</span>: konstruktor yang dipanggil saat <span class="ic">MyClass()</span> dibuat</li>
+            <li><span class="ic">__repr__</span>: representasi string formal untuk debugging</li>
+            <li><span class="ic">__str__</span>: representasi string manusiawi untuk fungsi <span class="ic">print()</span></li>
+            <li><span class="ic">__eq__</span>: mengaktifkan perbandingan kesamaan <span class="ic">==</span></li>
+            <li><span class="ic">__lt__</span>: mengaktifkan perbandingan <span class="ic">&lt;</span> agar objek dapat di-sort atau dimasukkan ke dalam Heap</li>
+            <li><span class="ic">__hash__</span>: memungkinkan objek menjadi key dictionary atau elemen set</li>
           </ul>
-          <strong>@dataclass</strong>: auto-generates <span class="ic">__init__</span>, <span class="ic">__repr__</span>, <span class="ic">__eq__</span> from annotated fields. Great for quick node/point classes.
+          <strong>@dataclass</strong>: otomatis membuat fungsi <span class="ic">__init__</span>, <span class="ic">__repr__</span>, dan <span class="ic">__eq__</span> dari variabel kelas. Sangat praktis untuk membuat kelas Node/Point singkat.
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">class skeleton</div>
+            <div class="snip-label">struktur dasar class</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">class Animal:
-    kind = "mammal"       # class var
+    kind = "mammal"       # variabel kelas
 
     def __init__(self, name):
-        self.name = name  # instance var
+        self.name = name  # variabel instance
 
     def __repr__(self):
         return f"Animal({self.name!r})"
@@ -697,7 +697,7 @@ def good(lst=None):
     def speak(self):
         raise NotImplementedError
 
-class Dog(Animal):
+class Dog(Animal):        # pewarisan (inheritance)
     def speak(self):
         return "Woof"</code></pre>
             </div>
@@ -705,11 +705,11 @@ class Dog(Animal):
           <div>
             <div class="snip-label">dunder methods &amp; dataclass</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</btn></div>
               <pre><code class="language-python">def __len__(self):   return ...
 def __eq__(self, o): return ...
-def __lt__(self, o): return ...  # for sorting / heap
-def __hash__(self):  return ...  # for sets/dicts
+def __lt__(self, o): return ...  # untuk sort / heap min
+def __hash__(self):  return ...  # untuk set/dict key
 
 # Dataclass (Python 3.7+)
 from dataclasses import dataclass
@@ -718,7 +718,7 @@ from dataclasses import dataclass
 class Point:
     x: float
     y: float
-# auto-generates __init__, __repr__, __eq__</code></pre>
+# otomatis membuat __init__, __repr__, __eq__</code></pre>
             </div>
           </div>
         </div>
@@ -726,51 +726,51 @@ class Point:
     </div>
   </section>
 
-  <!-- Algorithm Patterns divider -->
-  <div class="divider-label">⚡ Algorithm Patterns</div>
+  <!-- Pembatas Pola Algoritma -->
+  <div class="divider-label">⚡ Pola Algoritma (Algorithm Patterns)</div>
 
   <!-- ═══════════════════════ S8: Two Pointers -->
   <section id="s8" style="margin-bottom:60px;">
     <div class="sec-hdr">
       <span class="sec-icon">👆</span>
       <div>
-        <h2>Two Pointers</h2>
-        <p>Avoid O(n²) nested loops by moving two indices intelligently through the array.</p>
+        <h2>Two Pointers (Dua Pointer)</h2>
+        <p>Hindari perulangan bersarang O(n²) dengan menggeser dua indeks array secara cerdas.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="two pointers left right fast slow opposite ends same direction sorted palindrome two sum 3sum remove duplicates">
+    <div class="card" data-kw="two pointers left right fast slow opposite ends same direction sorted palindrome two sum 3sum remove duplicates pointer penunjuk">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">l / r</span><span class="chip">slow / fast</span><span class="chip chip-green">O(n) time</span><span class="chip chip-green">O(1) space</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Two Pointer Patterns</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Two Pointer Patterns (Pola Konvergen &amp; Fast/Slow)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Use two index variables that move through the array to avoid the O(n²) nested loop. There are two flavors: <em>opposite ends</em> (l and r converging) and <em>same direction</em> (slow/fast pointer).<br/><br/>
-          <strong>Opposite ends — when to use</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Gunakan dua variabel indeks yang bergerak melewati array untuk menghindari perulangan bersarang (nested loop) berkecepatan O(n²). Ada dua pendekatan utama: <em>arah berlawanan</em> (l dan r saling mendekat) dan <em>searah</em> (slow/fast pointer).<br/><br/>
+          <strong>Arah Berlawanan (Opposite Ends) — Kapan Digunakan:</strong>
           <ul>
-            <li>Two Sum on a sorted array</li>
+            <li>Two Sum pada array terurut</li>
             <li>Container With Most Water</li>
-            <li>Check if palindrome</li>
-            <li>3Sum (fix one, two-pointer the rest)</li>
+            <li>Memeriksa string palindrom</li>
+            <li>3Sum (kunci 1 angka, gunakan two pointer untuk sisanya)</li>
           </ul>
-          <strong>Same direction — when to use</strong>
+          <strong>Searah (Slow &amp; Fast) — Kapan Digunakan:</strong>
           <ul>
-            <li>Remove duplicates / filter in-place</li>
-            <li>Cycle detection in linked list (Floyd's)</li>
-            <li>Partition: Dutch National Flag (3-way sort)</li>
+            <li>Menghapus elemen duplikat secara in-place</li>
+            <li>Deteksi siklus pada Linked List (Algoritma Floyd)</li>
+            <li>Partisi array (Dutch National Flag sort)</li>
           </ul>
-          <strong>Complexity</strong>: O(n) time, O(1) space.
+          <strong>Kompleksitas</strong>: Waktu O(n), Memori Tambahan O(1).
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">opposite ends (sorted array)</div>
+            <div class="snip-label">arah berlawanan (array terurut)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python · Two Sum Sorted</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def two_sum_sorted(arr, target):
@@ -780,24 +780,24 @@ class Point:
         if s == target:
             return l, r
         elif s < target:
-            l += 1
+            l += 1  # butuh jumlah lebih besar
         else:
-            r -= 1
+            r -= 1  # butuh jumlah lebih kecil
     return -1, -1</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">same direction (fast &amp; slow)</div>
+            <div class="snip-label">searah (fast &amp; slow pointer)</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · Remove Duplicates In-Place</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># LC 26 — Remove Duplicates from Sorted Array
+              <div class="code-bar"><span>python · Hapus Duplikat In-Place</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-python"># LC 26 — Hapus Duplikat dari Array Terurut
 def remove_dups(arr):
     slow = 0
     for fast in range(1, len(arr)):
         if arr[fast] != arr[slow]:
             slow += 1
             arr[slow] = arr[fast]
-    return slow + 1  # new length</code></pre>
+    return slow + 1  # panjang array baru</code></pre>
             </div>
           </div>
         </div>
@@ -810,60 +810,60 @@ def remove_dups(arr):
     <div class="sec-hdr">
       <span class="sec-icon">🪟</span>
       <div>
-        <h2>Sliding Window</h2>
-        <p>Maintain a contiguous subarray window — O(n) instead of O(n²).</p>
+        <h2>Sliding Window (Jendela Geser)</h2>
+        <p>Jaga jendela sub-array beruntun tetap aktif — O(n) alih-alih perulangan O(n²).</p>
       </div>
     </div>
 
-    <div class="card" data-kw="sliding window fixed variable longest substring max sum subarray counter expand shrink">
+    <div class="card" data-kw="sliding window fixed variable longest substring max sum subarray counter expand shrink jendela geser teks berurutan sub-array">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">fixed window</span><span class="chip">variable window</span><span class="chip chip-green">O(n) time</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Fixed &amp; Variable Size Windows</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Fixed &amp; Variable Size Windows (Jendela Ukuran Tetap &amp; Dinamis)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Maintain a contiguous subarray/substring "window" with two pointers (l, r). Expand r to include new elements, shrink l when a constraint is violated. Avoids recalculating from scratch each step — O(n) instead of O(n²).<br/><br/>
-          <strong>Fixed window</strong>: window size k is constant. Slide by adding new element and dropping leftmost (<span class="ic">arr[i] - arr[i-k]</span>).<br/><br/>
-          <strong>Variable window</strong>: expand until invalid, then shrink from left. Track the maximum (or minimum) valid window seen.<br/><br/>
-          <strong>Classic problems</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Pertahankan rentang "jendela" sub-array/sub-string berurutan menggunakan dua pointer (l, r). Perluas r ke kanan untuk memasukkan elemen baru, ciutkan l dari kiri jika batas kriteria terlampaui. Menghindari penghitungan ulang dari awal pada setiap langkah — O(n) alih-alih O(n²).<br/><br/>
+          <strong>Jendela Ukuran Tetap (Fixed Window)</strong>: Ukuran jendela k bersifat konstan. Geser dengan menambah elemen baru dan mengurangi elemen paling kiri (<span class="ic">arr[i] - arr[i-k]</span>).<br/><br/>
+          <strong>Jendela Ukuran Dinamis (Variable Window)</strong>: Perluas r sampai kondisi tidak valid, lalu ciutkan l dari kiri. Catat ukuran jendela valid maksimum (atau minimum).<br/><br/>
+          <strong>Soal Klasik Interview:</strong>
           <ul>
-            <li>Longest substring without repeating characters</li>
-            <li>Minimum window substring (use <span class="ic">Counter</span>)</li>
-            <li>Max sum subarray of size k</li>
-            <li>Longest subarray with sum ≤ k</li>
-            <li>At most k distinct characters</li>
+            <li>Substring terpanjang tanpa karakter berulang</li>
+            <li>Minimum window substring (gunakan <span class="ic">Counter</span>)</li>
+            <li>Jumlah maksimum sub-array berukuran k</li>
+            <li>Sub-array terpanjang dengan jumlah elemen ≤ k</li>
+            <li>Paling banyak k karakter unik</li>
           </ul>
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">fixed size window</div>
+            <div class="snip-label">jendela ukuran tetap (fixed window)</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · Max Sum Subarray Size k</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python · Jumlah Maksimum Subarray Ukuran k</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def max_sum_k(arr, k):
-    window = sum(arr[:k])
+    window = sum(arr[:k])  # jumlah awal k elemen
     best   = window
     for i in range(k, len(arr)):
-        window += arr[i] - arr[i-k]  # slide
+        window += arr[i] - arr[i-k]  # geser jendela
         best = max(best, window)
     return best</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">variable size window</div>
+            <div class="snip-label">jendela ukuran dinamis (variable window)</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · Longest Subarray sum ≤ target</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python · Subarray Terpanjang sum ≤ target</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def longest(arr, target):
     l = cur = best = 0
     for r in range(len(arr)):
-        cur += arr[r]          # expand right
+        cur += arr[r]          # perluas ke kanan
         while cur > target:
-            cur -= arr[l]      # shrink left
+            cur -= arr[l]      # ciutkan dari kiri
             l += 1
         best = max(best, r - l + 1)
     return best</code></pre>
@@ -879,39 +879,39 @@ def remove_dups(arr):
     <div class="sec-hdr">
       <span class="sec-icon">🔍</span>
       <div>
-        <h2>Binary Search</h2>
-        <p>Halve the search space each step — O(log n). Works on arrays AND answer spaces.</p>
+        <h2>Binary Search (Pencarian Biner)</h2>
+        <p>Bagi dua ruang pencarian pada setiap langkah — O(log n). Berlaku untuk array terurut DAN ruang jawaban monoton.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="binary search bisect sorted array mid half log n leftmost rightmost feasible monotonic">
+    <div class="card" data-kw="binary search bisect sorted array mid half log n leftmost rightmost feasible monotonic pencarian biner bagi dua">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">l &lt;= r</span><span class="chip">mid = (l+r)//2</span><span class="chip">bisect</span><span class="chip chip-green">O(log n)</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Classic &amp; Answer-Space Binary Search</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Classic &amp; Answer-Space Binary Search (Pencarian Biner Array &amp; Ruang Jawaban)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Halve the search space each step. Requires the array to be sorted <em>or</em> the answer space to be monotonic (a predicate that flips from false to true at exactly one point).<br/><br/>
-          <strong>Classic template pitfalls</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Pangkas separuh ruang pencarian pada setiap iterasi. Syaratnya: array harus dalam keadaan terurut <em>atau</em> ruang jawaban bersifat monotonik (predikat yang berubah dari false ke true tepat pada satu titik).<br/><br/>
+          <strong>Poin Penting Template Klasik</strong>
           <ul>
-            <li>Use <span class="ic">(l + r) // 2</span> not <span class="ic">(l + r) / 2</span></li>
-            <li>Loop condition: <span class="ic">while l &lt;= r</span> for exact match; <span class="ic">while l &lt; r</span> for leftmost/rightmost position</li>
-            <li>After the loop, check <span class="ic">arr[l]</span> — it's the answer boundary</li>
+            <li>Gunakan <span class="ic">(l + r) // 2</span> (pembagian bulat) BUKAN <span class="ic">(l + r) / 2</span></li>
+            <li>Kondisi perulangan: <span class="ic">while l &lt;= r</span> untuk pencarian cocok persis; <span class="ic">while l &lt; r</span> untuk mencari batas kiri/kanan</li>
+            <li>Setelah perulangan selesai, periksa nilai pada indeks <span class="ic">l</span></li>
           </ul>
-          <strong>Search on answer space</strong>: if the question is "minimum X such that condition(X) is true" — binary search on X directly (not on an array). Works when <span class="ic">condition</span> is monotonic.<br/><br/>
-          <strong>Classic problems</strong>: find peak element, search rotated array, koko eating bananas, capacity to ship packages.
+          <strong>Pencarian Biner pada Ruang Jawaban (Search on Answer Space)</strong>: Jika pertanyaan berupa "cari X terkecil sehingga kondisi(X) bernilai true" — lakukan binary search langsung pada nilai X. Sangat cocok jika fungsi kondisi bersifat monoton.<br/><br/>
+          <strong>Soal Klasik:</strong> Koko Eating Bananas, Kapasitas Pengiriman Paket, Cari Elemen Puncak (Peak), Search rotated array.
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">classic template</div>
+            <div class="snip-label">template klasik (cocok persis)</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · exact match</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python · Exact Match</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def binary_search(arr, target):
     l, r = 0, len(arr) - 1
     while l <= r:
@@ -926,23 +926,23 @@ def remove_dups(arr):
             </div>
           </div>
           <div>
-            <div class="snip-label">bisect (stdlib) &amp; answer-space</div>
+            <div class="snip-label">modul bisect &amp; search pada ruang jawaban</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">import bisect
 
 a = [1, 3, 5, 7, 9]
-bisect.bisect_left(a, 5)   # 2  (first ≥5)
-bisect.bisect_right(a, 5)  # 3  (first >5)
-bisect.insort(a, 6)        # insert sorted
+bisect.bisect_left(a, 5)   # 2  (posisi pertama ≥ 5)
+bisect.bisect_right(a, 5)  # 3  (posisi pertama > 5)
+bisect.insort(a, 6)        # sisipkan agar tetap terurut
 
-# "find leftmost feasible" template
+# Template "Cari Nilai Minimum yang Memenuhi Syarat"
 l, r = 0, n
 while l < r:
     mid = (l + r) // 2
     if feasible(mid): r = mid
     else:             l = mid + 1
-# l is the answer</code></pre>
+# l adalah jawaban terkecil</code></pre>
             </div>
           </div>
         </div>
@@ -955,118 +955,89 @@ while l < r:
     <div class="sec-hdr">
       <span class="sec-icon">🌊</span>
       <div>
-        <h2>BFS — Breadth-First Search</h2>
-        <p>Level-by-level exploration. Guarantees shortest path in unweighted graphs.</p>
+        <h2>BFS — Breadth-First Search (Pencarian Melebar)</h2>
+        <p>Eksplorasi tingkat demi tingkat (level order). Menjamin jalur terpendek pada graf tanpa bobot.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="bfs breadth first search queue deque shortest path level order grid maze island flood fill multi source">
+    <div class="card" data-kw="bfs breadth first search queue deque shortest path level order grid maze island flood fill multi source antrean jalur terpendek">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">deque</span><span class="chip">visited set</span><span class="chip">4-directional</span><span class="chip chip-green">Shortest Path</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Graph BFS &amp; Grid BFS</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Graph BFS &amp; Grid BFS (BFS pada Graf &amp; Matriks Grid)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Explore nodes level by level using a queue (FIFO). BFS guarantees the <em>shortest path</em> in an unweighted graph. Use <span class="ic">deque</span> for O(1) popleft — a regular list's <span class="ic">pop(0)</span> is O(n).<br/><br/>
-          <strong>Template skeleton</strong>: (1) push start into queue + mark visited, (2) while queue: pop → process → push unvisited neighbors.<br/><br/>
-          <strong>Classic problems</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Jelajahi node tingkat demi tingkat menggunakan Antrean / Queue (FIFO). BFS <em>menjamin jarak/jalur terpendek</em> pada graf tanpa bobot. Wajib gunakan <span class="ic">deque</span> untuk operasi <span class="ic">popleft()</span> O(1) — menggunakan <span class="ic">pop(0)</span> pada list biasa berkecepatan lambat O(n).<br/><br/>
+          <strong>Alur Template BFS</strong>: (1) Masukkan node awal ke queue + tandai visited, (2) Selama queue tidak kosong: pop -> proses node -> masukkan semua tetangga yang belum dikunjungi.<br/><br/>
+          <strong>Soal Klasik Interview:</strong>
           <ul>
-            <li>Shortest path in a maze / grid</li>
-            <li>Level-order traversal of a tree</li>
-            <li>Word Ladder (graph on word edits)</li>
-            <li>Rotting Oranges (multi-source BFS)</li>
-            <li>Number of islands (flood fill)</li>
+            <li>Jalur terpendek pada Labirin / Matriks Grid</li>
+            <li>Level-order traversal pada Tree (Pohon)</li>
+            <li>Word Ladder (Graf perubahan kata)</li>
+            <li>Rotting Oranges (Multi-source BFS)</li>
+            <li>Menghitung jumlah pulau (Flood Fill)</li>
           </ul>
-          <strong>Multi-source BFS</strong>: push all starting nodes at once before the loop. Useful when you have multiple "origins" (e.g. all rotten oranges).
+          <strong>Multi-source BFS</strong>: Masukkan semua node sumber awal sekaligus ke dalam queue sebelum perulangan utama dimulai (contoh: semua jeruk busuk awal).
         </div>
-        <div class="warn">⚠️ Always use <span class="ic">deque</span> for BFS, never <span class="ic">list</span>. <span class="ic">list.pop(0)</span> is O(n); <span class="ic">deque.popleft()</span> is O(1).</div>
+        <div class="warn">⚠️ Wajib gunakan <span class="ic">collections.deque</span> untuk BFS, BUKAN list biasa. Fungsi <span class="ic">list.pop(0)</span> memakan O(n); sedangkan <span class="ic">deque.popleft()</span> beroperasi O(1).</div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">graph BFS (shortest path)</div>
+            <div class="snip-label">BFS graf (jalur terpendek)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">from collections import deque
 
 def bfs(graph, start):
     visited = {start}
-    q = deque([(start, 0)])   # (node, dist)
+    q = deque([(start, 0)])   # (node, jarak)
     while q:
         node, dist = q.popleft()
         for nei in graph[node]:
             if nei not in visited:
                 visited.add(nei)
-                q.append((nei, dist + 1))
-    return dist</code></pre>
-            </div>
-          </div>
-          <div>
-            <div class="snip-label">grid BFS (4-directional)</div>
-            <div class="code-wrap">
-              <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python">DIRS = [(0,1),(0,-1),(1,0),(-1,0)]
-
-def bfs_grid(grid, sr, sc):
-    rows, cols = len(grid), len(grid[0])
-    q = deque([(sr, sc, 0)])
-    seen = {(sr, sc)}
-    while q:
-        r, c, d = q.popleft()
-        for dr, dc in DIRS:
-            nr, nc = r+dr, c+dc
-            if (0 <= nr < rows and 0 <= nc < cols
-                    and (nr, nc) not in seen):
-                seen.add((nr, nc))
-                q.append((nr, nc, d+1))</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════ S12: DFS -->
+          <!-- ═══════════════════════ S12: DFS -->
   <section id="s12" style="margin-bottom:60px;">
     <div class="sec-hdr">
       <span class="sec-icon">🌲</span>
       <div>
-        <h2>DFS &amp; Backtracking</h2>
-        <p>Go deep before backtracking. Powers tree traversal, graph exploration, and combinatorics.</p>
+        <h2>DFS &amp; Backtracking (Pencarian Mendalam &amp; Melacak Balik)</h2>
+        <p>Jelajahi ke cabang terdalam sebelum melacak balik (backtrack). Digunakan untuk penelusuran pohon, eksplorasi graf, dan kombinatorika.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="dfs depth first search backtracking recursive iterative stack inorder preorder postorder tree path subset permutation">
+    <div class="card" data-kw="dfs depth first search backtracking recursive iterative stack inorder preorder postorder tree path subset permutation lacak balik pohon rekursif">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">recursive</span><span class="chip">iterative stack</span><span class="chip">backtracking</span><span class="chip">inorder</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">DFS Templates &amp; Backtracking</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">DFS Templates &amp; Backtracking (Pola Rekursif, Stack &amp; Backtrack)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Go as deep as possible before backtracking. Uses the call stack (recursive) or an explicit stack (iterative). DFS does NOT guarantee shortest path — use BFS for that.<br/><br/>
-          <strong>Backtracking</strong> is DFS + undo. The key pattern: <em>choose → explore → unchoose</em>. You must undo the choice before trying the next one — this is the <span class="ic">path.pop()</span> step that people forget.<br/><br/>
-          <strong>Tree traversal orders</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Masuk ke cabang paling dalam sebelum kembali (backtrack). Menggunakan Call Stack (rekursif) atau Stack manual (iteratif). DFS TIDAK menjamin jalur terpendek — gunakan BFS jika mencari jalur terpendek.<br/><br/>
+          <strong>Backtracking</strong> adalah DFS + pembatalan langkah (undo). Alur utamanya: <em>pilih → eksplorasi → batalkan pilihan</em>. Kamu wajib membatalkan pilihan sebelum mencoba cabang berikutnya — langkah ini adalah <span class="ic">path.pop()</span> yang sering terlupakan.<br/><br/>
+          <strong>Urutan Penelusuran Pohon (Tree Traversal)</strong>
           <ul>
-            <li><strong>Inorder</strong> (left → node → right): gives sorted order for BST</li>
-            <li><strong>Preorder</strong> (node → left → right): serialize a tree</li>
-            <li><strong>Postorder</strong> (left → right → node): delete a tree, evaluate expression tree</li>
+            <li><strong>Inorder</strong> (kiri → node → kanan): menghasilkan urutan terurut pada BST</li>
+            <li><strong>Preorder</strong> (node → kiri → kanan): serialisasi struktur pohon</li>
+            <li><strong>Postorder</strong> (kiri → kanan → node): penghapusan pohon atau evaluasi ekspresi pohon</li>
           </ul>
-          <strong>Classic problems</strong>: subsets, permutations, combination sum, N-Queens, Sudoku solver, path sum in tree, connected components.
+          <strong>Soal Klasik Interview:</strong> Subset, Permutasi, Combination Sum, N-Queens, Sudoku Solver, Path Sum pada Tree.
         </div>
-        <div class="warn">⚠️ Don't forget <span class="ic">path.pop()</span> — the "undo" step in backtracking. Without it, choices bleed into sibling branches.</div>
+        <div class="warn">⚠️ Jangan lupa langkah <span class="ic">path.pop()</span> — langkah "batalkan pilihan" pada backtracking. Tanpa langkah ini, pilihan cabang sebelumnya akan merembet ke cabang tetangga.</div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">recursive DFS (graph)</div>
+            <div class="snip-label">DFS rekursif (graf)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def dfs(graph, node, visited=None):
@@ -1080,37 +1051,37 @@ def bfs_grid(grid, sr, sc):
             </div>
           </div>
           <div>
-            <div class="snip-label">backtracking template</div>
+            <div class="snip-label">template backtracking</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · choose → explore → unchoose</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python · pilih → eksplorasi → batalkan</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def solve(path, choices):
     if is_done(path):
-        results.append(path[:])  # snapshot!
+        results.append(path[:])  # simpan salinan (snapshot)!
         return
     for c in choices:
         if is_valid(c):
-            path.append(c)       # choose
-            solve(path, choices) # explore
-            path.pop()           # unchoose ←</code></pre>
+            path.append(c)       # pilih
+            solve(path, choices) # eksplorasi
+            path.pop()           # batalkan pilihan ←</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">tree DFS — inorder</div>
+            <div class="snip-label">DFS pohon — inorder</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def inorder(root, res=[]):
     if root:
         inorder(root.left, res)
-        res.append(root.val)   # ← inorder
+        res.append(root.val)   # ← urutan inorder
         inorder(root.right, res)
     return res
 
-# preorder:  visit BEFORE recurse
-# postorder: visit AFTER  recurse</code></pre>
+# preorder:  kunjungi SEBELUM rekursi
+# postorder: kunjungi SETELAH rekursi</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">iterative DFS (explicit stack)</div>
+            <div class="snip-label">DFS iteratif (stack manual)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def dfs_iter(graph, start):
@@ -1134,40 +1105,39 @@ def bfs_grid(grid, sr, sc):
     <div class="sec-hdr">
       <span class="sec-icon">⛰️</span>
       <div>
-        <h2>Heap / Priority Queue</h2>
-        <p>Always-sorted extraction in O(log n). Min-heap by default in Python via heapq.</p>
+        <h2>Heap / Priority Queue (Antrean Prioritas)</h2>
+        <p>Ekstraksi nilai minimum/maksimum secara terurut dalam O(log n). Python menyediakan Min-Heap secara default lewat modul heapq.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="heap priority queue heapq min max heappush heappop nlargest nsmallest kth largest dijkstra tuple negate">
+    <div class="card" data-kw="heap priority queue heapq min max heappush heappop nlargest nsmallest kth largest dijkstra tuple negate antrean prioritas tumpukan">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">heapq</span><span class="chip">min-heap</span><span class="chip">-val trick</span><span class="chip chip-green">O(log n) push/pop</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">heapq — Min-Heap &amp; Max-Heap Trick</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">heapq — Min-Heap &amp; Trik Max-Heap</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          A heap is a complete binary tree that satisfies the heap property: the parent is always smaller than its children (min-heap). Python's <span class="ic">heapq</span> is a min-heap. The minimum is always at index 0.<br/><br/>
-          <strong>Complexities</strong>: push/pop = O(log n), peek = O(1), heapify = O(n).<br/><br/>
-          <strong>Max-heap trick</strong>: Python has no max-heap. Negate values to simulate one: push <span class="ic">-val</span>, pop and negate back.<br/><br/>
-          <strong>Classic problems</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Heap adalah Binary Tree lengkap yang selalu mempertahankan elemen terkecil di posisi paling atas / indeks 0 (Min-Heap pada Python <span class="ic">heapq</span>).<br/><br/>
+          <strong>Kompleksitas</strong>: push/pop = O(log n), intip nilai terkecil (<span class="ic">h[0]</span>) = O(1), ubah list ke heap (<span class="ic">heapify</span>) = O(n).<br/><br/>
+          <strong>Trik Max-Heap</strong>: Python tidak memiliki pustaka resmi Max-Heap. Balikkan tanda minus (<span class="ic">-val</span>) saat push, lalu balikkan kembali tanda minusnya saat pop.<br/><br/>
+          <strong>Soal Klasik Interview:</strong>
           <ul>
-            <li>Kth largest / smallest element</li>
-            <li>Top K frequent elements</li>
-            <li>Merge K sorted lists</li>
-            <li>Running median (two heaps: max-heap for lower half, min-heap for upper half)</li>
-            <li>Dijkstra's shortest path</li>
-            <li>Task scheduler</li>
+            <li>Mencari elemen terbesar / terkecil ke-K (Kth Largest)</li>
+            <li>Top K elemen paling sering muncul</li>
+            <li>Penggabungan K list terurut (Merge K sorted lists)</li>
+            <li>Algoritma jalur terpendek Dijkstra</li>
+            <li>Penjadwalan tugas (Task Scheduler)</li>
           </ul>
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">heapq (min-heap)</div>
+            <div class="snip-label">heapq (min-heap bawaan)</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">import heapq
@@ -1177,31 +1147,31 @@ heapq.heappush(h, 5)
 heapq.heappush(h, 1)
 heapq.heappush(h, 3)
 
-heapq.heappop(h)        # → 1 (min)
-h[0]                    # peek min  O(1)
+heapq.heappop(h)        # → 1 (mengambil elemen terkecil)
+h[0]                    # intip nilai terkecil O(1)
 
-# heapify an existing list
+# ubah list biasa menjadi heap secara efisien
 arr = [3, 1, 4, 1, 5]
 heapq.heapify(arr)      # O(n)
 
-# k largest / smallest
+# k terbesar / terkecil
 heapq.nlargest(k, arr)
 heapq.nsmallest(k, arr)</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">max-heap trick &amp; Dijkstra</div>
+            <div class="snip-label">trik max-heap &amp; Dijkstra</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
-              <pre><code class="language-python"># Max-heap: negate to simulate
+              <pre><code class="language-python"># Max-heap: gunakan nilai negatif (-) untuk mensimulasikan
 heapq.heappush(h, -val)
 max_val = -heapq.heappop(h)
 
-# Push tuples (sorted by first element)
+# Push tuple (diurutkan berdasarkan elemen pertama)
 heapq.heappush(h, (priority, item))
 pri, item = heapq.heappop(h)
 
-# Dijkstra sketch
+# Skeleton Algoritma Dijkstra
 dist = {start: 0}
 pq = [(0, start)]
 while pq:
@@ -1223,38 +1193,38 @@ while pq:
     <div class="sec-hdr">
       <span class="sec-icon">➕</span>
       <div>
-        <h2>Prefix Sum</h2>
-        <p>Precompute running sums for O(1) subarray queries. Combine with a hash map for subarray-sum-equals-k.</p>
+        <h2>Prefix Sum (Jumlah Awalan)</h2>
+        <p>Pra-hitung jumlah kumulatif array untuk query rentang sub-array berkecepatan O(1). Gabungkan dengan Hash Map untuk pencarian sub-array ber-jumlah k.</p>
       </div>
     </div>
 
-    <div class="card" data-kw="prefix sum subarray range query 2d matrix hash map count equals k running sum cumulative">
+    <div class="card" data-kw="prefix sum subarray range query 2d matrix hash map count equals k running sum cumulative jumlah kumulatif rentang sub-array">
       <div class="card-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <span class="chip">prefix[r+1] - prefix[l]</span><span class="chip">hash map trick</span><span class="chip chip-green">O(1) query</span>
-          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Prefix Sum &amp; Subarray Sum = k</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--text-primary);">Prefix Sum &amp; Subarray Sum = k (Trik Kumulatif &amp; Hash Map)</span>
         </div>
         <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body">
-        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> how it works</button>
+        <button class="how-toggle" onclick="toggleHow(this)"><span class="hw-arrow">▶</span> Cara Kerja &amp; Penjelasan</button>
         <div class="how-panel">
-          <strong>Core idea</strong><br/>
-          Precompute a running sum array so any subarray sum <span class="ic">arr[l..r]</span> can be answered in O(1): <span class="ic">prefix[r+1] - prefix[l]</span>. Build is O(n), each query is O(1).<br/><br/>
-          <strong>Hash map trick</strong>: to count subarrays with sum exactly k, track how many times each prefix sum has occurred. If <span class="ic">prefix[j] - prefix[i] == k</span>, the subarray <span class="ic">i+1..j</span> sums to k. Walking right, you just need to look up <span class="ic">seen[current_prefix - k]</span>.<br/><br/>
-          <strong>Classic problems</strong>
+          <strong>Gagasan Utama</strong><br/>
+          Pra-hitung array jumlah kumulatif sehingga total nilai sub-array <span class="ic">arr[l..r]</span> dapat dijawab instan O(1): <span class="ic">prefix[r+1] - prefix[l]</span>. Pembuatan awal O(n), query O(1).<br/><br/>
+          <strong>Trik Hash Map (Subarray Sum Equals K)</strong>: Untuk menghitung berapa banyak sub-array yang tepat berjumlah k, catat frekuensi kemunculan setiap prefix sum pada hash map. Jika <span class="ic">prefix[j] - prefix[i] == k</span>, maka sub-array <span class="ic">i+1..j</span> berjumlah k.<br/><br/>
+          <strong>Soal Klasik Interview:</strong>
           <ul>
-            <li>Range sum queries (2D prefix sum for matrices)</li>
-            <li>Subarray sum equals k</li>
-            <li>Contiguous array (equal 0s and 1s — map 0→-1)</li>
-            <li>Product of array except self (prefix + suffix products)</li>
+            <li>Query jumlah rentang (Range sum query 1D &amp; 2D)</li>
+            <li>Subarray sum equals k (LC 560)</li>
+            <li>Array dengan jumlah angka 0 dan 1 seimbang (ubah 0 jadi -1)</li>
+            <li>Product of array except self (prefix &amp; suffix product)</li>
           </ul>
-          <strong>2D prefix sum</strong>: <span class="ic">p[i][j] = grid[i][j] + p[i-1][j] + p[i][j-1] - p[i-1][j-1]</span>
+          <strong>Prefix Sum Matriks 2D</strong>: <span class="ic">p[i][j] = grid[i][j] + p[i-1][j] + p[i][j-1] - p[i-1][j-1]</span>
         </div>
 
         <div class="snippet-grid">
           <div>
-            <div class="snip-label">build &amp; query</div>
+            <div class="snip-label">pembuatan &amp; query rentang</div>
             <div class="code-wrap">
               <div class="code-bar"><span>python</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">def build_prefix(arr):
@@ -1263,14 +1233,47 @@ while pq:
         prefix[i+1] = prefix[i] + v
     return prefix
 
-# sum of arr[l..r] inclusive:
+# total jumlah arr[l..r] inklusif:
 # prefix[r+1] - prefix[l]</code></pre>
             </div>
           </div>
           <div>
-            <div class="snip-label">subarray sum = k (hash map)</div>
+            <div class="snip-label">subarray sum = k (pola hash map)</div>
             <div class="code-wrap">
-              <div class="code-bar"><span>python · LC 560 — classic O(n) trick</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <div class="code-bar"><span>python · LC 560 — trik klasik O(n)</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
+              <pre><code class="language-python">from collections import defaultdict
+
+def subarray_sum_k(arr, k):
+    count = prefix = 0
+    seen = defaultdict(int)
+    seen[0] = 1            # awalan kosong
+    for x in arr:
+        prefix += x
+        count += seen[prefix - k]  # ← cari kecocokan prefix awal
+        seen[prefix] += 1
+    return count
+
+# prefix[j] - prefix[i] = k
+# → seen[prefix - k] menghitung berapa banyak i yang cocok</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding:28px 0;text-align:center;">
+    <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px;">
+      semoga berhasil — bernapas tenang, jelaskan pemikiranmu, dan uji kasus batas (edge cases) &nbsp;·&nbsp; Python 3.10+ 🐍
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span class="chip">14 Bagian Utama</span>
+      <span class="chip">7 Pola Algoritma</span>
+      <span class="chip">Python 3.10+</span>
+      <span class="chip">Persiapan Interview</span>
+    </div>
+  </footer>ck</span><button class="copy-btn" onclick="doCopy(this)">Copy</button></div>
               <pre><code class="language-python">from collections import defaultdict
 
 def subarray_sum_k(arr, k):
