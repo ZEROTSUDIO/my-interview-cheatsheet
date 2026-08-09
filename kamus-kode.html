@@ -1,492 +1,1111 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kamus Kode — Glosarium Istilah Coding Interview</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#161B26;
-    --surface:#1E2532;
-    --surface-2:#242C3B;
-    --border:#313A4D;
-    --text:#E7E9F0;
-    --text-dim:#98A0B3;
-    --amber:#E3A857;
-    --mint:#6FC9B0;
-    --violet:#93A6E8;
-    --rose:#D98CA0;
-    --mono:'IBM Plex Mono', monospace;
-    --sans:'Plus Jakarta Sans', sans-serif;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kamus Kode — Glosarium Istilah Coding Interview</title>
+  <meta name="description" content="Glosarium lengkap istilah coding interview EN-ID — penjelasan detail, konteks LeetCode, dan frasa klarifikasi untuk live coding interview." />
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation:none !important; transition:none !important;}
-  }
+  <!-- Custom JS & Tailwind Config -->
+  <script src="script.js"></script>
 
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  a{color:inherit;}
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  ::selection{background:var(--amber); color:#161B26;}
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  /* ---------- Topbar ---------- */
-  .topbar{
-    position:sticky;
-    top:0;
-    z-index:20;
-    background:rgba(22,27,38,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-    padding:16px 24px;
-  }
-  .topbar-inner{
-    max-width:1040px;
-    margin:0 auto;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .brand{
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-    margin-right:auto;
-  }
-  .brand-mark{
-    font-family:var(--mono);
-    font-weight:700;
-    font-size:1.05rem;
-    letter-spacing:0.02em;
-  }
-  .brand-mark span{color:var(--amber);}
-  .brand-sub{
-    font-size:0.78rem;
-    color:var(--text-dim);
-  }
-  .search-wrap{
-    position:relative;
-    width:260px;
-    max-width:100%;
-  }
-  .search-wrap input{
-    width:100%;
-    background:var(--surface);
-    border:1px solid var(--border);
-    color:var(--text);
-    font-family:var(--sans);
-    font-size:0.9rem;
-    padding:9px 12px 9px 34px;
-    border-radius:8px;
-    outline:none;
-  }
-  .search-wrap input:focus{
-    border-color:var(--amber);
-    box-shadow:0 0 0 3px rgba(227,168,87,0.15);
-  }
-  .search-wrap svg{
-    position:absolute;
-    left:11px;
-    top:50%;
-    transform:translateY(-50%);
-    width:15px;
-    height:15px;
-    color:var(--text-dim);
-    pointer-events:none;
-  }
-  .search-count{
-    font-family:var(--mono);
-    font-size:0.75rem;
-    color:var(--text-dim);
-    white-space:nowrap;
-  }
-
-  /* ---------- Category nav ---------- */
-  .catnav{
-    position:sticky;
-    top:65px;
-    z-index:19;
-    background:var(--bg);
-    border-bottom:1px solid var(--border);
-    padding:10px 24px;
-    overflow-x:auto;
-  }
-  .catnav-inner{
-    max-width:1040px;
-    margin:0 auto;
-    display:flex;
-    gap:8px;
-  }
-  .pill{
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--text-dim);
-    text-decoration:none;
-    padding:6px 12px;
-    border:1px solid var(--border);
-    border-radius:999px;
-    white-space:nowrap;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    transition:border-color 0.15s, color 0.15s;
-  }
-  .pill:hover{color:var(--text); border-color:var(--text-dim);}
-  .pill:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
-  .pill-dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    max-width:1040px;
-    margin:0 auto;
-    padding:40px 24px 8px;
-  }
-  .hero h1{
-    font-family:var(--mono);
-    font-size:1.5rem;
-    margin:0 0 10px;
-    font-weight:600;
-  }
-  .hero p{
-    color:var(--text-dim);
-    max-width:640px;
-    margin:0;
-    font-size:0.95rem;
-  }
-
-  /* ---------- Sections ---------- */
-  main{max-width:1040px; margin:0 auto; padding:8px 24px 80px;}
-  section.category{margin-top:48px; scroll-margin-top:120px;}
-  .cat-heading{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    margin-bottom:18px;
-    padding-bottom:10px;
-    border-bottom:1px solid var(--border);
-  }
-  .cat-heading h2{
-    font-family:var(--mono);
-    font-size:1.05rem;
-    margin:0;
-    font-weight:600;
-  }
-  .cat-heading .count{
-    font-family:var(--mono);
-    font-size:0.75rem;
-    color:var(--text-dim);
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
-    gap:14px;
-  }
-
-  /* ---------- Term card ---------- */
-  .term-card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-left:3px solid var(--accent, var(--amber));
-    border-radius:10px;
-    padding:16px 18px;
-  }
-  .term-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:6px;
-  }
-  .term-en{
-    font-family:var(--mono);
-    font-weight:600;
-    font-size:1.02rem;
-  }
-  .term-tag{
-    font-family:var(--mono);
-    font-size:0.68rem;
-    color:var(--accent, var(--amber));
-    border:1px solid var(--accent, var(--amber));
-    border-radius:5px;
-    padding:2px 6px;
-    white-space:nowrap;
-    opacity:0.9;
-  }
-  .term-id{
-    font-weight:600;
-    color:var(--mint);
-    font-size:0.92rem;
-    margin-bottom:8px;
-  }
-  .term-card[data-cat="frasa"] .term-id{color:var(--rose);}
-  .term-card[data-cat="struktur"] .term-id{color:var(--mint);}
-  .term-card[data-cat="algoritma"] .term-id{color:var(--violet);}
-  .term-card[data-cat="umum"] .term-id{color:var(--amber);}
-
-  .term-desc{
-    font-size:0.87rem;
-    color:var(--text);
-    opacity:0.9;
-    margin-bottom:12px;
-  }
-
-  .example{
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:7px;
-    padding:10px 12px;
-  }
-  .example-label{
-    font-family:var(--mono);
-    font-size:0.65rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--text-dim);
-    margin-bottom:6px;
-  }
-  .example-context{
-    font-family:var(--mono);
-    font-size:0.8rem;
-    color:var(--text);
-    margin-bottom:5px;
-    word-break:break-word;
-  }
-  .example-explain{
-    font-family:var(--mono);
-    font-size:0.8rem;
-    color:var(--mint);
-    font-style:italic;
-    word-break:break-word;
-  }
-  .term-card[data-cat="frasa"] .example-explain{color:var(--rose);}
-
-  .empty-state{
-    display:none;
-    text-align:center;
-    padding:60px 20px;
-    color:var(--text-dim);
-    font-family:var(--mono);
-    font-size:0.9rem;
-  }
-
-  footer{
-    max-width:1040px;
-    margin:0 auto;
-    padding:0 24px 60px;
-    color:var(--text-dim);
-    font-size:0.82rem;
-  }
-
-  @media (max-width:600px){
-    .topbar-inner{gap:12px;}
-    .search-wrap{width:100%;}
-    .search-count{display:none;}
-    .hero h1{font-size:1.25rem;}
-  }
-</style>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a href="index.html" style="font-family:var(--mono); font-size:0.8rem; color:var(--violet); text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-weight:600; padding:4px 8px; border-radius:6px; background:rgba(147,166,232,0.1); border:1px solid rgba(147,166,232,0.25);">&larr; Portal Hub</a>
-    <div class="brand">
-      <div class="brand-mark">kamus<span>_</span>kode</div>
-      <div class="brand-sub">glosarium EN–ID buat live coding interview</div>
+<!-- Reading Progress Bar -->
+<div id="reading-bar"></div>
+
+<!-- ══════════════════════════════════════════════════ SIDEBAR -->
+<aside id="sidebar">
+
+  <!-- Logo + Search -->
+  <div style="padding:14px 14px 12px; border-bottom:1px solid var(--border); flex-shrink:0;">
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--blue); text-decoration:none; margin-bottom:12px; font-weight:600; transition:opacity 0.15s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">&larr; Kembali ke Portal Hub</a>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <div style="background:linear-gradient(135deg,#bc8cff,#58a6ff); width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;">📖</div>
+      <div>
+        <div style="font-weight:700; font-size:13.5px; color:var(--text-primary);">Kamus Kode</div>
+        <div style="font-size:10px; color:var(--text-muted);">Glosarium EN–ID · Live Coding</div>
+      </div>
     </div>
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInput" placeholder="cari istilah... misal: greedy" autocomplete="off">
+    <!-- Search -->
+    <div style="position:relative;">
+      <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-dim);" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search-box" type="text" placeholder="Cari istilah (misal: greedy, DFS)..." oninput="doSearch(this.value)" />
     </div>
-    <div class="search-count" id="searchCount"></div>
   </div>
-  <nav class="catnav" aria-label="Kategori">
-    <div class="catnav-inner" id="catNav"></div>
-  </nav>
-</header>
 
-<div class="hero">
-  <h1>Kamus buat kepala yang gampang blank pas baca soal bahasa Inggris</h1>
-  <p>Tiap istilah dikasih penjelasan detail plus contoh konkret — biar pas ketemu kata ini lagi di soal, kamu udah nggak perlu translate dulu di kepala, tinggal jalan.</p>
-</div>
+  <!-- Nav links -->
+  <div class="sidebar-nav-scroll" id="sidebar-nav">
+    <div class="nav-section-label">Kategori Glosarium</div>
+    <a href="#s1" class="nav-link" id="nl-s1">📋&nbsp; Instruksi Umum</a>
+    <a href="#s2" class="nav-link" id="nl-s2">🌲&nbsp; Struktur Data</a>
+    <a href="#s3" class="nav-link" id="nl-s3">⚡&nbsp; Algoritma &amp; Kompleksitas</a>
+    <a href="#s4" class="nav-link" id="nl-s4">💬&nbsp; Frasa Interview</a>
+  </div>
 
-<main id="mainContent"></main>
+  <!-- Legend -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px;border-top:1px solid var(--border);background:var(--bg-secondary);flex-shrink:0;">
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <span class="chip">Pembuka</span>
+      <span class="chip chip-green">Struktur</span>
+      <span class="chip chip-purple">Algoritma</span>
+      <span class="chip chip-orange">Frasa</span>
+    </div>
+  </div>
+</aside>
 
-<div class="empty-state" id="emptyState">tidak ada istilah yang cocok dengan pencarian itu.</div>
+<!-- ══════════════════════════════════════════════════ MAIN -->
+<main id="main" style="padding:0 44px 80px; max-width:980px;">
 
-<footer>dibuat buat latihan — cetak, bookmark, atau buka pas ngerjain soal LeetCode.</footer>
+  <!-- Page Header -->
+  <header style="padding:36px 0 28px; border-bottom:1px solid var(--border); margin-bottom:44px;">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <span class="chip">Glosarium EN-ID</span>
+          <span class="chip chip-purple">Live Coding</span>
+          <span class="chip chip-green">49+ Istilah</span>
+        </div>
+        <h1 style="font-size:34px;font-weight:800;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#e6edf3 30%,#bc8cff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Kamus Kode<br/>Interview Cheat Sheet</h1>
+        <p style="font-size:14px;color:var(--text-muted);max-width:540px;line-height:1.65;">
+          Glosarium istilah coding &amp; live interview Bahasa Inggris — lengkap dengan arti Bahasa Indonesia, contoh konkret soal LeetCode, dan frasa klarifikasi penting.
+        </p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:30px;font-weight:800;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1;">4</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px;">kategori</div>
+        <div style="font-size:30px;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace;line-height:1;">49</div>
+        <div style="font-size:10px;color:var(--text-muted);">istilah penting</div>
+      </div>
+    </div>
+  </header>
 
-<script>
-const DATA = [
-  {
-    id:'umum', title:'Instruksi Umum di Soal', accent:'var(--amber)',
-    terms:[
-      {en:'Given', tag:'pembuka soal', id:'Diberikan', desc:'Kata pembuka paling sering muncul di soal. Semua yang disebut setelah kata ini adalah fakta atau input yang sudah pasti benar dan wajib kamu pakai apa adanya, bukan sesuatu yang perlu dipertanyakan atau dibuktikan.', ex_context:'Given an array of integers nums, return the two indices...', ex_explain:'Diberikan array bilangan bulat nums, kembalikan dua indeksnya...'},
-      {en:'Return', tag:'kata kerja', id:'Mengembalikan (nilai)', desc:'Nilai yang harus keluar dari fungsimu lewat statement return, bukan lewat print atau console.log. Ini nilai yang dicek sistem untuk menentukan jawabanmu benar atau salah.', ex_context:'return the sum of the two numbers', ex_explain:'kembalikan (sebagai output fungsi) hasil penjumlahan dua angka itu'},
-      {en:'Input / Output', tag:'istilah', id:'Masukan / Keluaran', desc:'Input adalah data yang diterima fungsi lewat parameter. Output adalah data yang dihasilkan atau dikembalikan. Selalu cek tipe data dan bentuk keduanya sebelum mulai menulis kode.', ex_context:'Input: nums = [2,7,11,15], target = 9. Output: [0,1]', ex_explain:'array nums dan angka target itu masukan; array [0,1] itu keluaran yang diharapkan'},
-      {en:'Implement / Write a function', tag:'instruksi', id:'Buat / tulis sebuah fungsi', desc:'Perintah langsung untuk mulai coding. Biasanya kamu sudah dikasih nama fungsi dan parameternya (disebut signature) — jangan diubah namanya, karena sistem penilaian mengecek nama itu persis.', ex_context:'Implement a function twoSum(nums, target)', ex_explain:'buat fungsi bernama twoSum yang menerima nums dan target, jangan diganti jadi nama lain'},
-      {en:'Determine whether / Check if', tag:'instruksi', id:'Tentukan apakah / Cek apakah', desc:'Tandanya jawaban akhir yang diminta berupa boolean, yaitu true atau false, bukan angka atau array. Sering bikin orang salah fokus mencari "nilai"-nya padahal yang diminta cuma jawaban ya atau tidak.', ex_context:'Determine whether the string is a palindrome', ex_explain:'tentukan apakah string itu palindrom — jawabannya cuma true atau false'},
-      {en:'You may assume / Assume that', tag:'batasan', id:'Kamu boleh anggap', desc:'Kalimat yang membebaskan kamu dari mengecek kondisi tertentu. Kalau soal menyebut ini, jangan buang waktu menulis validasi untuk kondisi yang sudah dijamin itu.', ex_context:'You may assume that each input has exactly one solution', ex_explain:'kamu boleh anggap selalu ada satu jawaban — tidak perlu menangani kasus "tidak ada solusi"'},
-      {en:'Constraints', tag:'batasan', id:'Batasan', desc:'Bagian paling penting yang sering terlewat karena grogi. Isinya ukuran maksimum input dan rentang nilai — ini yang memberitahu kamu seberapa efisien solusi yang dibutuhkan.', ex_context:'1 <= nums.length <= 10^5', ex_explain:'array bisa sampai 100.000 elemen, jadi solusi dengan dua loop bersarang kemungkinan besar akan terlalu lambat'},
-      {en:'Edge case', tag:'istilah', id:'Kasus khusus/ekstrem', desc:'Input yang tampak "aneh" tapi tetap valid: array kosong, satu elemen saja, semua elemen sama, angka negatif, atau nol. Interviewer sering sengaja menunggu kamu menyebut ini sendiri sebelum mulai coding.', ex_context:'what if the array is empty?', ex_explain:'bagaimana kalau array-nya kosong? — ini pertanyaan edge case yang wajib kamu pikirkan sendiri'},
-      {en:'In-place', tag:'teknik', id:'Diubah langsung di tempat', desc:'Memodifikasi data asli tanpa membuat struktur data baru yang memakan memori tambahan. Biasanya diminta secara eksplisit di soal array atau sorting.', ex_context:'reverse the array in-place', ex_explain:'balik urutan array itu langsung di array yang sama, jangan bikin array baru untuk menampung hasilnya'},
-      {en:'Mutate', tag:'kata kerja', id:'Mengubah isi (data asli)', desc:'Mirip dengan in-place — mengubah isi variabel atau objek aslinya secara langsung, bukan membuat salinan baru. Penting dibedakan dari "kembalikan array baru".', ex_context:'the function should mutate the input array', ex_explain:'fungsi ini harus langsung mengubah isi array input-nya, bukan membuat array baru lalu di-return'},
-      {en:'Traverse / Iterate', tag:'kata kerja', id:'Menjelajah / Mengulang', desc:'Melewati setiap elemen satu per satu, biasanya menggunakan loop (for/while) atau rekursi. "Traverse the tree" berarti kunjungi tiap node yang ada di pohon itu.', ex_context:'traverse the linked list until you reach the end', ex_explain:'jelajahi setiap node di linked list satu per satu sampai ketemu node terakhir'},
-      {en:'Recursive / Base case', tag:'konsep', id:'Rekursif / Kondisi dasar', desc:'Recursive berarti fungsi memanggil dirinya sendiri untuk menyelesaikan versi lebih kecil dari masalah yang sama. Base case adalah kondisi berhenti — tanpa ini, rekursi akan berjalan tanpa henti dan program crash.', ex_context:'if (n === 0) return 1; // base case', ex_explain:'kalau n sudah 0, langsung berhenti dan kembalikan 1 — ini yang mencegah fungsi memanggil dirinya sendiri selamanya'},
-      {en:'Optimal / Optimize', tag:'kata sifat', id:'Paling efisien / Mengoptimalkan', desc:'Solusi tercepat atau paling hemat memori yang memungkinkan untuk masalah itu. Kalau diminta "can you optimize this", artinya solusi kamu sekarang masih bisa dibuat lebih cepat.', ex_context:'can you find a more optimal solution?', ex_explain:'bisa tidak mencari solusi yang lebih efisien dari yang tadi?'},
-      {en:'Brute force', tag:'teknik', id:'Cara paling sederhana', desc:'Solusi paling mudah dipikirkan tapi biasanya paling lambat, karena mengecek semua kemungkinan satu per satu. Wajar dijadikan langkah pertama saat interview sebagai jawaban aman sebelum dioptimasi.', ex_context:'start with a brute force solution first', ex_explain:'mulai dulu pakai cara paling sederhana, nanti dioptimasi belakangan'},
-      {en:'Time Limit Exceeded (TLE)', tag:'istilah', id:'Waktu eksekusi melebihi batas', desc:'Muncul kalau solusi kamu sebenarnya benar tapi terlalu lambat untuk input yang besar. Ini sinyal untuk memikirkan ulang kompleksitas waktu, bukan logikanya.', ex_context:'your solution got TLE on large inputs', ex_explain:'solusinya benar tapi kelamaan jalannya kalau input-nya besar — algoritmanya perlu dioptimasi'},
-      {en:'Duplicate / Distinct / Unique', tag:'kata sifat', id:'Kembar / Berbeda semua', desc:'Duplicate berarti ada nilai yang sama muncul lebih dari sekali. Distinct atau unique adalah kebalikannya — semua nilai berbeda, tidak ada yang kembar.', ex_context:'return only the distinct values', ex_explain:'kembalikan hanya nilai-nilai yang unik, buang yang kembar atau duplikat'},
-      {en:'Sorted (Ascending/Descending)', tag:'kata sifat', id:'Terurut (Menaik/Menurun)', desc:'Kalau soal bilang input sudah sorted, itu petunjuk besar untuk memakai teknik tertentu, misalnya binary search atau two pointers, yang hanya bisa jalan kalau datanya sudah terurut.', ex_context:'given a sorted array in ascending order', ex_explain:'array-nya sudah terurut dari kecil ke besar — ini isyarat untuk memakai binary search'},
-      {en:'Contiguous vs Subsequence', tag:'konsep', id:'Berurutan tanpa jeda vs Boleh loncat', desc:'Contiguous (substring/subarray) berarti bagian yang harus menempel berurutan, tidak boleh ada yang dilompati. Subsequence berarti urutannya tetap sama tapi boleh ada elemen yang dilewati.', ex_context:'[1,3,5] is a subsequence of [1,2,3,4,5] but not a substring', ex_explain:'[1,3,5] itu subsequence karena urutannya sama walau loncat-loncat, tapi bukan substring karena tidak menempel berurutan'},
-      {en:'Out of bounds', tag:'istilah', id:'Melewati batas indeks', desc:'Error klasik saat mengakses indeks array yang tidak ada, misalnya arr[10] padahal array-nya cuma punya 5 elemen. Selalu cek batas indeks sebelum atau sesudah loop, terutama saat menggeser i+1 atau i-1.', ex_context:'accessing arr[i+1] when i is the last index', ex_explain:'mengakses arr[i+1] saat i sudah di elemen terakhir — ini bisa memicu error out of bounds'},
-    ]
-  },
-  {
-    id:'struktur', title:'Struktur Data', accent:'var(--mint)',
-    terms:[
-      {en:'Array', tag:'struktur data', id:'Larik / Array', desc:'Kumpulan data sejenis yang disimpan berurutan di memori, diakses lewat indeks yang selalu mulai dari 0. Struktur paling dasar dan paling sering dipakai di soal interview.', ex_context:'const arr = [10, 20, 30]; arr[0]', ex_explain:'arr[0] mengambil elemen pertama, yaitu 10 — indeks array selalu mulai dari 0, bukan 1'},
-      {en:'Linked list', tag:'struktur data', id:'List berantai', desc:'Kumpulan node yang masing-masing menyimpan data dan pointer ke node berikutnya. Berbeda dari array, elemennya tidak menempel di memori sehingga tidak bisa langsung diakses lewat indeks — harus ditelusuri satu per satu dari awal.', ex_context:'node.next.next.value', ex_explain:'untuk sampai ke elemen ketiga harus lewat .next dua kali — tidak ada cara lompat langsung seperti array[2]'},
-      {en:'Stack', tag:'struktur data', id:'Tumpukan', desc:'Data masuk dan keluar dari ujung yang sama, disebut LIFO (Last In, First Out). Bayangkan tumpukan piring — yang terakhir ditaruh adalah yang pertama diambil.', ex_context:'stack.push(1); stack.push(2); stack.pop()', ex_explain:'pop() mengambil 2 duluan karena itu yang terakhir masuk, bukan 1'},
-      {en:'Queue', tag:'struktur data', id:'Antrean', desc:'Kebalikan dari stack — data masuk dari satu ujung dan keluar dari ujung lain, disebut FIFO (First In, First Out), seperti antre di kasir. Sering dipakai untuk BFS.', ex_context:'queue.enqueue(1); queue.enqueue(2); queue.dequeue()', ex_explain:'dequeue() mengambil 1 duluan karena itu yang pertama masuk, sesuai urutan antre'},
-      {en:'Hash map / Dictionary', tag:'struktur data', id:'Peta hash / Kamus', desc:'Menyimpan data sebagai pasangan key-value, dan pencarian berdasarkan key itu sangat cepat, rata-rata O(1). Struktur ini yang paling sering mengubah solusi brute force menjadi optimal.', ex_context:'const map = {}; map[nums[i]] = i;', ex_explain:'menyimpan tiap angka sebagai key dan indeksnya sebagai value, supaya nanti bisa dicari lagi dengan cepat tanpa loop ulang'},
-      {en:'Tree / Binary tree', tag:'struktur data', id:'Pohon / Pohon biner', desc:'Struktur data berbentuk hierarki dari node-node, dengan satu node "akar" di atas yang bercabang ke bawah. Binary tree berarti tiap node maksimal punya dua anak, yaitu kiri dan kanan.', ex_context:'node.left, node.right', ex_explain:'setiap node di binary tree punya paling banyak dua anak, diakses lewat .left dan .right'},
-      {en:'Graph', tag:'struktur data', id:'Graf', desc:'Kumpulan node (disebut vertex) yang saling terhubung lewat garis (disebut edge). Berbeda dari tree, graph boleh punya siklus dan satu node bisa terhubung ke banyak node lain tanpa aturan hierarki.', ex_context:"graph = {A: ['B','C'], B: ['A','D']}", ex_explain:'node A terhubung ke B dan C, sedangkan node B terhubung balik ke A dan juga ke D'},
-      {en:'Node', tag:'istilah', id:'Simpul', desc:'Satu unit data dalam struktur seperti linked list, tree, atau graph. Biasanya berisi sebuah value ditambah referensi ke node lain, misalnya next, left/right, atau neighbors.', ex_context:'{ value: 5, next: null }', ex_explain:'ini satu node dengan nilai 5, dan next: null artinya dia node terakhir di list'},
-      {en:'Root / Leaf', tag:'istilah', id:'Akar / Daun', desc:'Root adalah node paling atas di sebuah tree, titik awal semua penjelajahan biasanya dimulai. Leaf adalah node paling bawah yang tidak punya anak sama sekali.', ex_context:'if (!node.left && !node.right) // leaf', ex_explain:'kalau node tidak punya anak kiri maupun kanan, berarti dia leaf, ujung dari pohon itu'},
-      {en:'Parent / Child', tag:'istilah', id:'Induk / Anak', desc:'Hubungan antar-node yang bertetangga langsung di dalam tree. Node yang di atas disebut parent, node di bawahnya disebut child.', ex_context:'childNode.parent', ex_explain:'lewat childNode.parent kamu bisa naik kembali ke node induknya'},
-      {en:'Pointer / Reference', tag:'konsep', id:'Penunjuk / Referensi', desc:'Variabel yang menyimpan alamat menuju data lain, bukan menyimpan datanya secara langsung. Ini konsep di balik bagaimana linked list dan tree saling terhubung satu sama lain.', ex_context:'let a = node; let b = a;', ex_explain:'b bukan salinan baru — b dan a menunjuk ke object node yang persis sama di memori'},
-      {en:'Set', tag:'struktur data', id:'Himpunan', desc:'Mirip array tapi tidak boleh ada nilai kembar karena duplikat otomatis dibuang, dan mengecek "apakah nilai ini ada" berjalan cepat. Sering dipakai untuk soal yang meminta cek duplicate atau unique.', ex_context:'new Set([1,2,2,3]) menghasilkan {1,2,3}', ex_explain:'angka 2 yang kembar otomatis dibuang, sisa satu saja di dalam Set'},
-    ]
-  },
-  {
-    id:'algoritma', title:'Algoritma & Kompleksitas', accent:'var(--violet)',
-    terms:[
-      {en:'Time complexity', tag:'konsep', id:'Kompleksitas waktu', desc:'Ukuran seberapa lambat algoritma kamu ketika inputnya makin besar, ditulis dengan notasi Big O. Ini yang bikin interviewer bertanya "berapa Big O-nya" setelah kamu selesai coding.', ex_context:'for i in nums: for j in nums: ...', ex_explain:'dua loop bersarang seperti ini biasanya O(n²) — makin besar n, makin lambat secara kuadratik'},
-      {en:'Space complexity', tag:'konsep', id:'Kompleksitas ruang (memori)', desc:'Ukuran seberapa banyak memori tambahan yang dipakai algoritma kamu, di luar memori untuk input aslinya. Membuat array atau hash map baru berarti menambah space complexity.', ex_context:'const seen = new Set();', ex_explain:'membuat Set baru ini menambah space complexity menjadi O(n), karena bisa menyimpan sampai n elemen'},
-      {en:'Big O notation', tag:'konsep', id:'Notasi Big O', desc:'Cara menulis seberapa efisien algoritma secara matematis, fokus ke pola pertumbuhan saat input membesar, bukan kecepatan pasti dalam detik. Urutan dari cepat ke lambat: O(1), O(log n), O(n), O(n log n), lalu O(n²).', ex_context:'O(n) — one loop through the array', ex_explain:'satu loop yang melewati tiap elemen sekali itu O(n) — waktunya naik linear sesuai jumlah data'},
-      {en:'Two pointers', tag:'teknik', id:'Dua penunjuk', desc:'Teknik memakai dua variabel indeks yang bergerak di array atau string, biasanya dari kiri dan kanan, untuk menghindari loop bersarang. Sering muncul di soal array yang datanya sudah terurut.', ex_context:'let left = 0, right = arr.length - 1;', ex_explain:'left mulai dari depan, right dari belakang — keduanya bergerak saling mendekat sampai bertemu di tengah'},
-      {en:'Sliding window', tag:'teknik', id:'Jendela geser', desc:'Teknik untuk soal subarray atau substring — membuat "jendela" rentang indeks yang bergeser sepanjang data, diperbesar atau diperkecil sesuai kondisi, supaya tidak perlu mengecek ulang dari nol setiap kali.', ex_context:'window [i...j], geser j lalu geser i kalau kondisi terpenuhi', ex_explain:'jendelanya melebar dengan menggerakkan j, lalu menyempit dengan menggerakkan i — tidak perlu looping ulang dari awal tiap kali cek'},
-      {en:'Binary search', tag:'teknik', id:'Pencarian biner', desc:'Cara mencari elemen di data yang sudah terurut dengan cara terus-menerus membagi dua area pencarian. Jauh lebih cepat, yaitu O(log n), dibanding mencari satu per satu yang O(n).', ex_context:'mid = Math.floor((left + right) / 2)', ex_explain:'tiap langkah, area yang dicek dibagi setengah — makanya jauh lebih cepat daripada mencari satu-satu dari depan'},
-      {en:'DFS (Depth-first search)', tag:'algoritma', id:'Penelusuran mendalam duluan', desc:'Menelusuri graph atau tree dengan cara masuk sedalam mungkin di satu cabang dulu, sebelum kembali dan mencoba cabang lain. Biasanya diimplementasikan dengan rekursi atau stack.', ex_context:'dfs(node.left); dfs(node.right);', ex_explain:'masuk terus ke cabang kiri sampai mentok, baru kembali dan mencoba cabang lain — itu cara kerja DFS'},
-      {en:'BFS (Breadth-first search)', tag:'algoritma', id:'Penelusuran melebar duluan', desc:'Menelusuri graph atau tree level demi level — semua node di kedalaman yang sama dicek dulu sebelum lanjut ke level berikutnya. Biasanya memakai queue, dan cocok untuk mencari jarak atau langkah terpendek.', ex_context:'queue = [root]; while (queue.length) { ... }', ex_explain:'memakai queue supaya node yang lebih dekat ke root selalu diproses duluan, level demi level'},
-      {en:'Dynamic Programming (DP)', tag:'teknik', id:'Pemrograman dinamis', desc:'Teknik menyelesaikan masalah besar dengan memecahnya menjadi submasalah lebih kecil, sambil menyimpan hasil submasalah itu supaya tidak dihitung ulang. Biasanya muncul di soal bertema "maximum/minimum ways" atau mirip pola Fibonacci.', ex_context:'dp[i] = dp[i-1] + dp[i-2]', ex_explain:'hasil dp[i] dibangun dari hasil yang sudah dihitung sebelumnya, tidak dihitung dari nol setiap kali'},
-      {en:'Greedy algorithm', tag:'teknik', id:'Algoritma rakus/serakah', desc:'Strategi mengambil pilihan yang paling menguntungkan saat itu juga di setiap langkah, tanpa mikir jauh ke depan, dengan harapan hasil akhirnya tetap optimal. Tidak selalu benar untuk semua soal, jadi penting menjelaskan kenapa greedy aman dipakai.', ex_context:'always pick the largest coin first', ex_explain:'tiap langkah selalu ambil koin bernilai terbesar dulu — pilihan paling menguntungkan saat itu, tanpa mikir kombinasi lain'},
-      {en:'Backtracking', tag:'teknik', id:'Runut-balik', desc:'Mencoba satu pilihan, lanjut sampai mentok atau ketahuan salah, lalu mundur (undo) dan mencoba pilihan lain. Sering dipakai untuk soal yang meminta semua kemungkinan kombinasi atau permutasi.', ex_context:'path.push(x); backtrack(); path.pop();', ex_explain:'path.pop() di akhir itu langkah mundurnya — mengembalikan state sebelum mencoba pilihan lain'},
-      {en:'Divide and conquer', tag:'teknik', id:'Bagi dan taklukkan', desc:'Memecah masalah menjadi beberapa submasalah yang lebih kecil, biasanya dibagi dua, menyelesaikan tiap submasalah secara terpisah biasanya secara rekursif, lalu menggabungkan hasilnya. Merge sort dan binary search adalah contoh klasiknya.', ex_context:'mergeSort(kiri) + mergeSort(kanan) lalu digabung', ex_explain:'array dibagi dua, masing-masing diurutkan sendiri secara rekursif, baru digabung menjadi satu hasil akhir'},
-      {en:'Memoization', tag:'teknik', id:'Menyimpan hasil perhitungan', desc:'Menyimpan hasil dari perhitungan yang sudah pernah dilakukan, biasanya di object atau map, supaya kalau dibutuhkan lagi tinggal diambil, tidak dihitung ulang. Ini "mesin" di balik banyak solusi dynamic programming.', ex_context:'if (memo[n]) return memo[n]; memo[n] = result;', ex_explain:'sebelum menghitung ulang, dicek dulu di memo — kalau sudah pernah dihitung, tinggal pakai hasil yang lama'},
-    ]
-  },
-  {
-    id:'frasa', title:'Frasa Klarifikasi Saat Interview', accent:'var(--rose)',
-    terms:[
-      {en:'Can you clarify what the expected output is for this example?', tag:'frasa', id:'Bisa dijelaskan lagi output yang diharapkan untuk contoh ini?', desc:'Pakai ini begitu ada contoh di soal yang formatnya belum kamu mengerti. Interviewer justru senang ditanya begini, karena itu tandanya kamu teliti membaca soal, bukan tanda kamu tidak paham.'},
-      {en:'Are there any constraints on the input size or value range?', tag:'frasa', id:'Apakah ada batasan ukuran atau rentang nilai input?', desc:'Kalau constraints tidak disebutkan di soal, wajib tanya ini duluan sebelum memilih pendekatan — jawabannya menentukan solusi kamu boleh yang sederhana atau harus yang lebih efisien.'},
-      {en:'Can the input be empty, or contain negative numbers or duplicates?', tag:'frasa', id:'Apakah input-nya bisa kosong, atau ada angka negatif/duplikat?', desc:'Ini cara sopan untuk menanyakan edge case tanpa terlihat menebak-nebak. Jawabannya langsung menentukan kondisi apa saja yang perlu ditangani di kode kamu.'},
-      {en:'Should I optimize for time or space?', tag:'frasa', id:'Saya perlu optimalkan dari sisi waktu atau memori?', desc:'Tanyakan ini kalau kamu punya dua opsi solusi dengan trade-off berbeda, misalnya lebih cepat tapi memakai lebih banyak memori. Pertanyaan ini menunjukkan kamu paham ada trade-off, bukan cuma mencari satu jawaban.'},
-      {en:'Let me restate the problem to make sure I understand it correctly.', tag:'frasa', id:'Saya coba ulangi soalnya biar yakin paham dengan benar.', desc:'Kalimat penyelamat kalau kepala tiba-tiba blank. Mengucapkan ini memberi kamu waktu untuk berpikir tanpa hening yang canggung, sekaligus mengecek pemahaman kamu benar atau tidak.'},
-    ]
-  },
-];
+  <!-- ═══════════════════════ S1: Instruksi Umum di Soal -->
+  <section id="s1" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">📋</span>
+      <div>
+        <h2>Instruksi Umum di Soal</h2>
+        <p>Kata-kata kunci yang sering muncul pada deskripsi masalah LeetCode &amp; pertanyaan interview.</p>
+      </div>
+    </div>
 
-const mainEl = document.getElementById('mainContent');
-const catNavEl = document.getElementById('catNav');
-const emptyStateEl = document.getElementById('emptyState');
-const searchCountEl = document.getElementById('searchCount');
-const totalTerms = DATA.reduce((sum, cat) => sum + cat.terms.length, 0);
+    <!-- 1. Given -->
+    <div class="card" data-kw="given diberikan pembuka soal fakta input">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Given</span>
+          <span class="badge badge-easy">pembuka soal</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Diberikan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kata pembuka paling sering muncul di soal. Semua yang disebut setelah kata ini adalah fakta atau input yang sudah pasti benar dan wajib kamu pakai apa adanya, bukan sesuatu yang perlu dipertanyakan atau dibuktikan.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">Given an array of integers nums, return the two indices...</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">Diberikan array bilangan bulat nums, kembalikan dua indeksnya...</div>
+        </div>
+      </div>
+    </div>
 
-function escapeHTML(str){
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
+    <!-- 2. Return -->
+    <div class="card" data-kw="return mengembalikan nilai output fungsi">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Return</span>
+          <span class="badge badge-easy">kata kerja</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Mengembalikan (nilai)</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Nilai yang harus keluar dari fungsimu lewat statement return, bukan lewat print atau console.log. Ini nilai yang dicek sistem untuk menentukan jawabanmu benar atau salah.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">return the sum of the two numbers</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">kembalikan (sebagai output fungsi) hasil penjumlahan dua angka itu</div>
+        </div>
+      </div>
+    </div>
 
-function renderNav(){
-  catNavEl.innerHTML = DATA.map(cat => (
-    '<a class="pill" href="#' + cat.id + '">' +
-      '<span class="pill-dot" style="background:' + cat.accent + '"></span>' + escapeHTML(cat.title) +
-    '</a>'
-  )).join('');
-}
+    <!-- 3. Input / Output -->
+    <div class="card" data-kw="input output masukan keluaran parameter">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Input / Output</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Masukan / Keluaran</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Input adalah data yang diterima fungsi lewat parameter. Output adalah data yang dihasilkan atau dikembalikan. Selalu cek tipe data dan bentuk keduanya sebelum mulai menulis kode.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">Input: nums = [2,7,11,15], target = 9. Output: [0,1]</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">array nums dan angka target itu masukan; array [0,1] itu keluaran yang diharapkan</div>
+        </div>
+      </div>
+    </div>
 
-function renderCard(term, catId, accent){
-  const exampleBlock = term.ex_context ? (
-    '<div class="example">' +
-      '<div class="example-label">Contoh</div>' +
-      '<div class="example-context">' + escapeHTML(term.ex_context) + '</div>' +
-      '<div class="example-explain">' + escapeHTML(term.ex_explain) + '</div>' +
-    '</div>'
-  ) : '';
+    <!-- 4. Implement / Write a function -->
+    <div class="card" data-kw="implement write a function buat tulis fungsi signature">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Implement / Write a function</span>
+          <span class="badge badge-easy">instruksi</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Buat / tulis sebuah fungsi</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Perintah langsung untuk mulai coding. Biasanya kamu sudah dikasih nama fungsi dan parameternya (disebut signature) — jangan diubah namanya, karena sistem penilaian mengecek nama itu persis.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">Implement a function twoSum(nums, target)</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">buat fungsi bernama twoSum yang menerima nums dan target, jangan diganti jadi nama lain</div>
+        </div>
+      </div>
+    </div>
 
-  return (
-    '<article class="term-card" data-cat="' + catId + '" style="--accent:' + accent + '" ' +
-      'data-search="' + escapeHTML((term.en + ' ' + term.id).toLowerCase()) + '">' +
-      '<div class="term-head">' +
-        '<div class="term-en">' + escapeHTML(term.en) + '</div>' +
-        '<div class="term-tag">' + escapeHTML(term.tag) + '</div>' +
-      '</div>' +
-      '<div class="term-id">' + escapeHTML(term.id) + '</div>' +
-      '<div class="term-desc">' + escapeHTML(term.desc) + '</div>' +
-      exampleBlock +
-    '</article>'
-  );
-}
+    <!-- 5. Determine whether / Check if -->
+    <div class="card" data-kw="determine whether check if tentukan apakah boolean true false">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Determine whether / Check if</span>
+          <span class="badge badge-easy">instruksi</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Tentukan apakah / Cek apakah</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Tandanya jawaban akhir yang diminta berupa boolean, yaitu true atau false, bukan angka atau array. Sering bikin orang salah fokus mencari "nilai"-nya padahal yang diminta cuma jawaban ya atau tidak.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">Determine whether the string is a palindrome</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">tentukan apakah string itu palindrom — jawabannya cuma true atau false</div>
+        </div>
+      </div>
+    </div>
 
-function renderMain(){
-  mainEl.innerHTML = DATA.map(cat => (
-    '<section class="category" id="' + cat.id + '">' +
-      '<div class="cat-heading">' +
-        '<h2 style="color:' + cat.accent + '">' + escapeHTML(cat.title) + '</h2>' +
-        '<span class="count">' + cat.terms.length + ' istilah</span>' +
-      '</div>' +
-      '<div class="grid">' +
-        cat.terms.map(t => renderCard(t, cat.id, cat.accent)).join('') +
-      '</div>' +
-    '</section>'
-  )).join('');
-}
+    <!-- 6. You may assume / Assume that -->
+    <div class="card" data-kw="you may assume assume that kamu boleh anggap validasi jaminan">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">You may assume / Assume that</span>
+          <span class="badge badge-easy">batasan</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Kamu boleh anggap</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kalimat yang membebaskan kamu dari mengecek kondisi tertentu. Kalau soal menyebut ini, jangan buang waktu menulis validasi untuk kondisi yang sudah dijamin itu.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">You may assume that each input has exactly one solution</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">kamu boleh anggap selalu ada satu jawaban — tidak perlu menangani kasus "tidak ada solusi"</div>
+        </div>
+      </div>
+    </div>
 
-function applySearch(query){
-  const q = query.trim().toLowerCase();
-  const cards = mainEl.querySelectorAll('.term-card');
-  let visibleCount = 0;
+    <!-- 7. Constraints -->
+    <div class="card" data-kw="constraints batasan rentang ukuran efisiensi">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Constraints</span>
+          <span class="badge badge-easy">batasan</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Batasan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Bagian paling penting yang sering terlewat karena grogi. Isinya ukuran maksimum input dan rentang nilai — ini yang memberitahu kamu seberapa efisien solusi yang dibutuhkan.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">1 &lt;= nums.length &lt;= 10^5</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">array bisa sampai 100.000 elemen, jadi solusi dengan dua loop bersarang kemungkinan besar akan terlalu lambat</div>
+        </div>
+      </div>
+    </div>
 
-  cards.forEach(card => {
-    const match = !q || card.getAttribute('data-search').includes(q);
-    card.style.display = match ? '' : 'none';
-    if(match) visibleCount++;
-  });
+    <!-- 8. Edge case -->
+    <div class="card" data-kw="edge case kasus khusus ekstrem kosong null batas">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Edge case</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Kasus khusus/ekstrem</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Input yang tampak "aneh" tapi tetap valid: array kosong, satu elemen saja, semua elemen sama, angka negatif, atau nol. Interviewer sering sengaja menunggu kamu menyebut ini sendiri sebelum mulai coding.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">what if the array is empty?</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">bagaimana kalau array-nya kosong? — ini pertanyaan edge case yang wajib kamu pikirkan sendiri</div>
+        </div>
+      </div>
+    </div>
 
-  mainEl.querySelectorAll('section.category').forEach(section => {
-    const visibleInSection = section.querySelectorAll('.term-card:not([style*="display: none"])').length;
-    section.style.display = visibleInSection ? '' : 'none';
-  });
+    <!-- 9. In-place -->
+    <div class="card" data-kw="in-place diubah langsung di tempat memori">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">In-place</span>
+          <span class="badge badge-easy">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Diubah langsung di tempat</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Memodifikasi data asli tanpa membuat struktur data baru yang memakan memori tambahan. Biasanya diminta secara eksplisit di soal array atau sorting.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">reverse the array in-place</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">balik urutan array itu langsung di array yang sama, jangan bikin array baru untuk menampung hasilnya</div>
+        </div>
+      </div>
+    </div>
 
-  emptyStateEl.style.display = visibleCount === 0 ? 'block' : 'none';
-  searchCountEl.textContent = q ? (visibleCount + ' / ' + totalTerms + ' istilah') : (totalTerms + ' istilah');
-}
+    <!-- 10. Mutate -->
+    <div class="card" data-kw="mutate mengubah isi data asli">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Mutate</span>
+          <span class="badge badge-easy">kata kerja</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Mengubah isi (data asli)</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Mirip dengan in-place — mengubah isi variabel atau objek aslinya secara langsung, bukan membuat salinan baru. Penting dibedakan dari "kembalikan array baru".</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">the function should mutate the input array</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">fungsi ini harus langsung mengubah isi array input-nya, bukan membuat array baru lalu di-return</div>
+        </div>
+      </div>
+    </div>
 
-renderNav();
-renderMain();
-applySearch('');
+    <!-- 11. Traverse / Iterate -->
+    <div class="card" data-kw="traverse iterate menjelajah mengulang loop">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Traverse / Iterate</span>
+          <span class="badge badge-easy">kata kerja</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Menjelajah / Mengulang</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Melewati setiap elemen satu per satu, biasanya menggunakan loop (for/while) atau rekursi. "Traverse the tree" berarti kunjungi tiap node yang ada di pohon itu.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">traverse the linked list until you reach the end</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">jelajahi setiap node di linked list satu per satu sampai ketemu node terakhir</div>
+        </div>
+      </div>
+    </div>
 
-document.getElementById('searchInput').addEventListener('input', (e) => applySearch(e.target.value));
-</script>
+    <!-- 12. Recursive / Base case -->
+    <div class="card" data-kw="recursive base case rekursif kondisi dasar">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Recursive / Base case</span>
+          <span class="badge badge-easy">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Rekursif / Kondisi dasar</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Recursive berarti fungsi memanggil dirinya sendiri untuk menyelesaikan versi lebih kecil dari masalah yang sama. Base case adalah kondisi berhenti — tanpa ini, rekursi akan berjalan tanpa henti dan program crash.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">if (n === 0) return 1; // base case</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">kalau n sudah 0, langsung berhenti dan kembalikan 1 — ini yang mencegah fungsi memanggil dirinya sendiri selamanya</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Optimal / Optimize -->
+    <div class="card" data-kw="optimal optimize paling efisien mengoptimalkan">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Optimal / Optimize</span>
+          <span class="badge badge-easy">kata sifat</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Paling efisien / Mengoptimalkan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Solusi tercepat atau paling hemat memori yang memungkinkan untuk masalah itu. Kalau diminta "can you optimize this", artinya solusi kamu sekarang masih bisa dibuat lebih cepat.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">can you find a more optimal solution?</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">bisa tidak mencari solusi yang lebih efisien dari yang tadi?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Brute force -->
+    <div class="card" data-kw="brute force cara paling sederhana polos awal">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Brute force</span>
+          <span class="badge badge-easy">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Cara paling sederhana</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Solusi paling mudah dipikirkan tapi biasanya paling lambat, karena mengecek semua kemungkinan satu per satu. Wajar dijadikan langkah pertama saat interview sebagai jawaban aman sebelum dioptimasi.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">start with a brute force solution first</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">mulai dulu pakai cara paling sederhana, nanti dioptimasi belakangan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Time Limit Exceeded (TLE) -->
+    <div class="card" data-kw="time limit exceeded tle waktu eksekusi melebihi batas kelamaan">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Time Limit Exceeded (TLE)</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Waktu eksekusi melebihi batas</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Muncul kalau solusi kamu sebenarnya benar tapi terlalu lambat untuk input yang besar. Ini sinyal untuk memikirkan ulang kompleksitas waktu, bukan logikanya.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">your solution got TLE on large inputs</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">solusinya benar tapi kelamaan jalannya kalau input-nya besar — algoritmanya perlu dioptimasi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. Duplicate / Distinct / Unique -->
+    <div class="card" data-kw="duplicate distinct unique kembar berbeda semua unik">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Duplicate / Distinct / Unique</span>
+          <span class="badge badge-easy">kata sifat</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Kembar / Berbeda semua</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Duplicate berarti ada nilai yang sama muncul lebih dari sekali. Distinct atau unique adalah kebalikannya — semua nilai berbeda, tidak ada yang kembar.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">return only the distinct values</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">kembalikan hanya nilai-nilai yang unik, buang yang kembar atau duplikat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17. Sorted (Ascending/Descending) -->
+    <div class="card" data-kw="sorted ascending descending terurut menaik menurun">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Sorted (Ascending/Descending)</span>
+          <span class="badge badge-easy">kata sifat</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Terurut (Menaik/Menurun)</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kalau soal bilang input sudah sorted, itu petunjuk besar untuk memakai teknik tertentu, misalnya binary search atau two pointers, yang hanya bisa jalan kalau datanya sudah terurut.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">given a sorted array in ascending order</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">array-nya sudah terurut dari kecil ke besar — ini isyarat untuk memakai binary search</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 18. Contiguous vs Subsequence -->
+    <div class="card" data-kw="contiguous subsequence substring subarray berurutan tanpa jeda loncat">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Contiguous vs Subsequence</span>
+          <span class="badge badge-easy">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Berurutan tanpa jeda vs Boleh loncat</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Contiguous (substring/subarray) berarti bagian yang harus menempel berurutan, tidak boleh ada yang dilompati. Subsequence berarti urutannya tetap sama tapi boleh ada elemen yang dilewati.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">[1,3,5] is a subsequence of [1,2,3,4,5] but not a substring</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">[1,3,5] itu subsequence karena urutannya sama walau loncat-loncat, tapi bukan substring karena tidak menempel berurutan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19. Out of bounds -->
+    <div class="card" data-kw="out of bounds melewati batas indeks error arr">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip">Out of bounds</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Melewati batas indeks</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Error klasik saat mengakses indeks array yang tidak ada, misalnya arr[10] padahal array-nya cuma punya 5 elemen. Selalu cek batas indeks sebelum atau sesudah loop, terutama saat menggeser i+1 atau i-1.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">accessing arr[i+1] when i is the last index</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">mengakses arr[i+1] saat i sudah di elemen terakhir — ini bisa memicu error out of bounds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S2: Struktur Data -->
+  <section id="s2" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">🌲</span>
+      <div>
+        <h2>Struktur Data</h2>
+        <p>Istilah komponen penyimpan data yang paling sering digunakan dalam interview.</p>
+      </div>
+    </div>
+
+    <!-- 1. Array -->
+    <div class="card" data-kw="array larik indeks memori">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Array</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Larik / Array</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kumpulan data sejenis yang disimpan berurutan di memori, diakses lewat indeks yang selalu mulai dari 0. Struktur paling dasar dan paling sering dipakai di soal interview.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">const arr = [10, 20, 30]; arr[0]</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">arr[0] mengambil elemen pertama, yaitu 10 — indeks array selalu mulai dari 0, bukan 1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Linked list -->
+    <div class="card" data-kw="linked list list berantai node pointer next">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Linked list</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">List berantai</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kumpulan node yang masing-masing menyimpan data dan pointer ke node berikutnya. Berbeda dari array, elemennya tidak menempel di memori sehingga tidak bisa langsung diakses lewat indeks — harus ditelusuri satu per satu dari awal.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">node.next.next.value</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">untuk sampai ke elemen ketiga harus lewat .next dua kali — tidak ada cara lompat langsung seperti array[2]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Stack -->
+    <div class="card" data-kw="stack tumpukan lifo push pop">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Stack</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Tumpukan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Data masuk dan keluar dari ujung yang sama, disebut LIFO (Last In, First Out). Bayangkan tumpukan piring — yang terakhir ditaruh adalah yang pertama diambil.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">stack.push(1); stack.push(2); stack.pop()</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">pop() mengambil 2 duluan karena itu yang terakhir masuk, bukan 1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Queue -->
+    <div class="card" data-kw="queue antrean fifo enqueue dequeue bfs">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Queue</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Antrean</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kebalikan dari stack — data masuk dari satu ujung dan keluar dari ujung lain, disebut FIFO (First In, First Out), seperti antre di kasir. Sering dipakai untuk BFS.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">queue.enqueue(1); queue.enqueue(2); queue.dequeue()</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">dequeue() mengambil 1 duluan karena itu yang pertama masuk, sesuai urutan antre</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Hash map / Dictionary -->
+    <div class="card" data-kw="hash map dictionary peta hash kamus key value fast o(1)">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Hash map / Dictionary</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Peta hash / Kamus</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Menyimpan data sebagai pasangan key-value, dan pencarian berdasarkan key itu sangat cepat, rata-rata O(1). Struktur ini yang paling sering mengubah solusi brute force menjadi optimal.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">const map = {}; map[nums[i]] = i;</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">menyimpan tiap angka sebagai key dan indeksnya sebagai value, supaya nanti bisa dicari lagi dengan cepat tanpa loop ulang</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Tree / Binary tree -->
+    <div class="card" data-kw="tree binary tree pohon biner root left right">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Tree / Binary tree</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Pohon / Pohon biner</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Struktur data berbentuk hierarki dari node-node, dengan satu node "akar" di atas yang bercabang ke bawah. Binary tree berarti tiap node maksimal punya dua anak, yaitu kiri dan kanan.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">node.left, node.right</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">setiap node di binary tree punya paling banyak dua anak, diakses lewat .left dan .right</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Graph -->
+    <div class="card" data-kw="graph graf vertex edge node">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Graph</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Graf</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Kumpulan node (disebut vertex) yang saling terhubung lewat garis (disebut edge). Berbeda dari tree, graph boleh punya siklus dan satu node bisa terhubung ke banyak node lain tanpa aturan hierarki.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">graph = {A: ['B','C'], B: ['A','D']}</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">node A terhubung ke B dan C, sedangkan node B terhubung balik ke A dan juga ke D</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Node -->
+    <div class="card" data-kw="node simpul unit value next pointer">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Node</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Simpul</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Satu unit data dalam struktur seperti linked list, tree, atau graph. Biasanya berisi sebuah value ditambah referensi ke node lain, misalnya next, left/right, atau neighbors.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">{ value: 5, next: null }</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">ini satu node dengan nilai 5, dan next: null artinya dia node terakhir di list</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Root / Leaf -->
+    <div class="card" data-kw="root leaf akar daun pohon tree">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Root / Leaf</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Akar / Daun</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Root adalah node paling atas di sebuah tree, titik awal semua penjelajahan biasanya dimulai. Leaf adalah node paling bawah yang tidak punya anak sama sekali.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">if (!node.left &amp;&amp; !node.right) // leaf</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">kalau node tidak punya anak kiri maupun kanan, berarti dia leaf, ujung dari pohon itu</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Parent / Child -->
+    <div class="card" data-kw="parent child induk anak tree node">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Parent / Child</span>
+          <span class="badge badge-easy">istilah</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Induk / Anak</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Hubungan antar-node yang bertetangga langsung di dalam tree. Node yang di atas disebut parent, node di bawahnya disebut child.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">childNode.parent</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">lewat childNode.parent kamu bisa naik kembali ke node induknya</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Pointer / Reference -->
+    <div class="card" data-kw="pointer reference penunjuk referensi alamat memori">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Pointer / Reference</span>
+          <span class="badge badge-easy">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Penunjuk / Referensi</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Variabel yang menyimpan alamat menuju data lain, bukan menyimpan datanya secara langsung. Ini konsep di balik bagaimana linked list dan tree saling terhubung satu sama lain.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">let a = node; let b = a;</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">b bukan salinan baru — b dan a menunjuk ke object node yang persis sama di memori</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Set -->
+    <div class="card" data-kw="set himpunan unique duplikat buang cepat">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-green">Set</span>
+          <span class="badge badge-easy">struktur data</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--green);">Himpunan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Mirip array tapi tidak boleh ada nilai kembar karena duplikat otomatis dibuang, dan mengecek "apakah nilai ini ada" berjalan cepat. Sering dipakai untuk soal yang meminta cek duplicate atau unique.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">new Set([1,2,2,3]) menghasilkan {1,2,3}</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">angka 2 yang kembar otomatis dibuang, sisa satu saja di dalam Set</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S3: Algoritma & Kompleksitas -->
+  <section id="s3" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">⚡</span>
+      <div>
+        <h2>Algoritma &amp; Kompleksitas</h2>
+        <p>Pola pikir, istilah teknik penyelesaian masalah, dan analisis notasi Big O.</p>
+      </div>
+    </div>
+
+    <!-- 1. Time complexity -->
+    <div class="card" data-kw="time complexity kompleksitas waktu big o lambat input">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Time complexity</span>
+          <span class="badge badge-medium">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Kompleksitas waktu</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Ukuran seberapa lambat algoritma kamu ketika inputnya makin besar, ditulis dengan notasi Big O. Ini yang bikin interviewer bertanya "berapa Big O-nya" setelah kamu selesai coding.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">for i in nums: for j in nums: ...</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">dua loop bersarang seperti ini biasanya O(n²) — makin besar n, makin lambat secara kuadratik</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Space complexity -->
+    <div class="card" data-kw="space complexity kompleksitas ruang memori tambahan">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Space complexity</span>
+          <span class="badge badge-medium">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Kompleksitas ruang (memori)</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Ukuran seberapa banyak memori tambahan yang dipakai algoritma kamu, di luar memori untuk input aslinya. Membuat array atau hash map baru berarti menambah space complexity.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">const seen = new Set();</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">membuat Set baru ini menambah space complexity menjadi O(n), karena bisa menyimpan sampai n elemen</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Big O notation -->
+    <div class="card" data-kw="big o notation notasi efisiensi matematis">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Big O notation</span>
+          <span class="badge badge-medium">konsep</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Notasi Big O</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Cara menulis seberapa efisien algoritma secara matematis, fokus ke pola pertumbuhan saat input membesar, bukan kecepatan pasti dalam detik. Urutan dari cepat ke lambat: O(1), O(log n), O(n), O(n log n), lalu O(n²).</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">O(n) — one loop through the array</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">satu loop yang melewati tiap elemen sekali itu O(n) — waktunya naik linear sesuai jumlah data</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Two pointers -->
+    <div class="card" data-kw="two pointers dua penunjuk indeks array string">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Two pointers</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Dua penunjuk</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Teknik memakai dua variabel indeks yang bergerak di array atau string, biasanya dari kiri dan kanan, untuk menghindari loop bersarang. Sering muncul di soal array yang datanya sudah terurut.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">let left = 0, right = arr.length - 1;</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">left mulai dari depan, right dari belakang — keduanya bergerak saling mendekat sampai bertemu di tengah</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Sliding window -->
+    <div class="card" data-kw="sliding window jendela geser subarray substring">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Sliding window</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Jendela geser</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Teknik untuk soal subarray atau substring — membuat "jendela" rentang indeks yang bergeser sepanjang data, diperbesar atau diperkecil sesuai kondisi, supaya tidak perlu mengecek ulang dari nol setiap kali.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">window [i...j], geser j lalu geser i kalau kondisi terpenuhi</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">jendelanya melebar dengan menggerakkan j, lalu menyempit dengan menggerakkan i — tidak perlu looping ulang dari awal tiap kali cek</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Binary search -->
+    <div class="card" data-kw="binary search pencarian biner o(log n) sorted">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Binary search</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Pencarian biner</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Cara mencari elemen di data yang sudah terurut dengan cara terus-menerus membagi dua area pencarian. Jauh lebih cepat, yaitu O(log n), dibanding mencari satu per satu yang O(n).</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">mid = Math.floor((left + right) / 2)</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">tiap langkah, area yang dicek dibagi setengah — makanya jauh lebih cepat daripada mencari satu-satu dari depan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. DFS (Depth-first search) -->
+    <div class="card" data-kw="dfs depth-first search penelusuran mendalam duluan rekursi stack tree graph">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">DFS (Depth-first search)</span>
+          <span class="badge badge-medium">algoritma</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Penelusuran mendalam duluan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Menelusuri graph atau tree dengan cara masuk sedalam mungkin di satu cabang dulu, sebelum kembali dan mencoba cabang lain. Biasanya diimplementasikan dengan rekursi atau stack.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">dfs(node.left); dfs(node.right);</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">masuk terus ke cabang kiri sampai mentok, baru kembali dan mencoba cabang lain — itu cara kerja DFS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. BFS (Breadth-first search) -->
+    <div class="card" data-kw="bfs breadth-first search penelusuran melebar duluan queue level terpendek">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">BFS (Breadth-first search)</span>
+          <span class="badge badge-medium">algoritma</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Penelusuran melebar duluan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Menelusuri graph atau tree level demi level — semua node di kedalaman yang sama dicek dulu sebelum lanjut ke level berikutnya. Biasanya memakai queue, dan cocok untuk mencari jarak atau langkah terpendek.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">queue = [root]; while (queue.length) { ... }</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">memakai queue supaya node yang lebih dekat ke root selalu diproses duluan, level demi level</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Dynamic Programming (DP) -->
+    <div class="card" data-kw="dynamic programming dp pemrograman dinamis submasalah fibonacci">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Dynamic Programming (DP)</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Pemrograman dinamis</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Teknik menyelesaikan masalah besar dengan memecahnya menjadi submasalah lebih kecil, sambil menyimpan hasil submasalah itu supaya tidak dihitung ulang. Biasanya muncul di soal bertema "maximum/minimum ways" atau mirip pola Fibonacci.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">dp[i] = dp[i-1] + dp[i-2]</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">hasil dp[i] dibangun dari hasil yang sudah dihitung sebelumnya, tidak dihitung dari nol setiap kali</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Greedy algorithm -->
+    <div class="card" data-kw="greedy algorithm algoritma rakus serakah optimal saat itu">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Greedy algorithm</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Algoritma rakus/serakah</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Strategi mengambil pilihan yang paling menguntungkan saat itu juga di setiap langkah, tanpa mikir jauh ke depan, dengan harapan hasil akhirnya tetap optimal. Tidak selalu benar untuk semua soal, jadi penting menjelaskan kenapa greedy aman dipakai.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">always pick the largest coin first</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">tiap langkah selalu ambil koin bernilai terbesar dulu — pilihan paling menguntungkan saat itu, tanpa mikir kombinasi lain</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Backtracking -->
+    <div class="card" data-kw="backtracking runut balik undo mundur kombinasi permutasi">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Backtracking</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Runut-balik</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Mencoba satu pilihan, lanjut sampai mentok atau ketahuan salah, lalu mundur (undo) dan mencoba pilihan lain. Sering dipakai untuk soal yang meminta semua kemungkinan kombinasi atau permutasi.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">path.push(x); backtrack(); path.pop();</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">path.pop() di akhir itu langkah mundurnya — mengembalikan state sebelum mencoba pilihan lain</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Divide and conquer -->
+    <div class="card" data-kw="divide and conquer bagi dan taklukkan merge sort binary search">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Divide and conquer</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Bagi dan taklukkan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Memecah masalah menjadi beberapa submasalah yang lebih kecil, biasanya dibagi dua, menyelesaikan tiap submasalah secara terpisah biasanya secara rekursif, lalu menggabungkan hasilnya. Merge sort dan binary search adalah contoh klasiknya.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">mergeSort(kiri) + mergeSort(kanan) lalu digabung</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">array dibagi dua, masing-masing diurutkan sendiri secara rekursif, baru digabung menjadi satu hasil akhir</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Memoization -->
+    <div class="card" data-kw="memoization menyimpan hasil perhitungan dp cache">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-purple">Memoization</span>
+          <span class="badge badge-medium">teknik</span>
+          <span style="font-weight:600;font-size:13.5px;color:var(--purple);">Menyimpan hasil perhitungan</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-primary);margin-bottom:12px;line-height:1.6;">Menyimpan hasil dari perhitungan yang sudah pernah dilakukan, biasanya di object atau map, supaya kalau dibutuhkan lagi tinggal diambil, tidak dihitung ulang. Ini "mesin" di balik banyak solusi dynamic programming.</p>
+        <div class="info">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Contoh Penggunaan</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-primary);margin-bottom:4px;">if (memo[n]) return memo[n]; memo[n] = result;</div>
+          <div style="font-size:12px;color:var(--green);font-style:italic;">sebelum menghitung ulang, dicek dulu di memo — kalau sudah pernah dihitung, tinggal pakai hasil yang lama</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ S4: Frasa Klarifikasi Saat Interview -->
+  <section id="s4" style="margin-bottom:60px;">
+    <div class="sec-hdr">
+      <span class="sec-icon">💬</span>
+      <div>
+        <h2>Frasa Klarifikasi Saat Interview</h2>
+        <p>Kalimat penyelamat Bahasa Inggris untuk berkomunikasi dengan profesional bersama interviewer.</p>
+      </div>
+    </div>
+
+    <!-- 1. Expected output -->
+    <div class="card" data-kw="can you clarify expected output frasa tanya contoh">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-orange">Can you clarify what the expected output is for this example?</span>
+          <span class="badge badge-hard">frasa</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:6px;">"Bisa dijelaskan lagi output yang diharapkan untuk contoh ini?"</div>
+        <p style="font-size:13px;color:var(--text-primary);line-height:1.6;">Pakai ini begitu ada contoh di soal yang formatnya belum kamu mengerti. Interviewer justru senang ditanya begini, karena itu tandanya kamu teliti membaca soal, bukan tanda kamu tidak paham.</p>
+      </div>
+    </div>
+
+    <!-- 2. Constraints -->
+    <div class="card" data-kw="are there any constraints on input size value range frasa">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-orange">Are there any constraints on the input size or value range?</span>
+          <span class="badge badge-hard">frasa</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:6px;">"Apakah ada batasan ukuran atau rentang nilai input?"</div>
+        <p style="font-size:13px;color:var(--text-primary);line-height:1.6;">Kalau constraints tidak disebutkan di soal, wajib tanya ini duluan sebelum memilih pendekatan — jawabannya menentukan solusi kamu boleh yang sederhana atau harus yang lebih efisien.</p>
+      </div>
+    </div>
+
+    <!-- 3. Empty or negative -->
+    <div class="card" data-kw="can the input be empty contain negative numbers duplicates frasa edge case">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-orange">Can the input be empty, or contain negative numbers or duplicates?</span>
+          <span class="badge badge-hard">frasa</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:6px;">"Apakah input-nya bisa kosong, atau ada angka negatif/duplikat?"</div>
+        <p style="font-size:13px;color:var(--text-primary);line-height:1.6;">Ini cara sopan untuk menanyakan edge case tanpa terlihat menebak-nebak. Jawabannya langsung menentukan kondisi apa saja yang perlu ditangani di kode kamu.</p>
+      </div>
+    </div>
+
+    <!-- 4. Time or space -->
+    <div class="card" data-kw="should i optimize for time or space frasa trade-off">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-orange">Should I optimize for time or space?</span>
+          <span class="badge badge-hard">frasa</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:6px;">"Saya perlu optimalkan dari sisi waktu atau memori?"</div>
+        <p style="font-size:13px;color:var(--text-primary);line-height:1.6;">Tanyakan ini kalau kamu punya dua opsi solusi dengan trade-off berbeda, misalnya lebih cepat tapi memakai lebih banyak memori. Pertanyaan ini menunjukkan kamu paham ada trade-off, bukan cuma mencari satu jawaban.</p>
+      </div>
+    </div>
+
+    <!-- 5. Restate problem -->
+    <div class="card" data-kw="let me restate the problem make sure understand correctly frasa penyelamat">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chip chip-orange">Let me restate the problem to make sure I understand it correctly.</span>
+          <span class="badge badge-hard">frasa</span>
+        </div>
+        <svg class="chevron open" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">
+        <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:6px;">"Saya coba ulangi soalnya biar yakin paham dengan benar."</div>
+        <p style="font-size:13px;color:var(--text-primary);line-height:1.6;">Kalimat penyelamat kalau kepala tiba-tiba blank. Mengucapkan ini memberi kamu waktu untuk berpikir tanpa hening yang canggung, sekaligus mengecek pemahaman kamu benar atau tidak.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding:28px 0;text-align:center;">
+    <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px;">
+      Kamus Kode Interview &nbsp;·&nbsp; Dibuat untuk latihan &amp; LeetCode prep 🚀
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span class="chip">49+ Istilah</span>
+      <span class="chip">4 Kategori</span>
+      <span class="chip">EN-ID Translation</span>
+      <span class="chip">Live Coding Prep</span>
+    </div>
+  </footer>
+
+</main>
 
 </body>
 </html>
